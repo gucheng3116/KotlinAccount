@@ -1,0 +1,34 @@
+package com.example.kotlinaccount.database
+
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
+
+class RecordViewModel(
+    private val recordRepository: ItemRecordRepository,
+    private val typeRepository: ItemTypeRepository
+) : ViewModel() {
+    val allRecords: LiveData<List<ItemRecord>> = recordRepository.allRecords.asLiveData()
+    val allTypes: LiveData<List<ItemType>> = typeRepository.allTypes.asLiveData()
+
+    fun insertRecord(itemRecord: ItemRecord) = viewModelScope.launch {
+        recordRepository.insert(itemRecord)
+    }
+
+    fun insertType(itemType: ItemType) = viewModelScope.launch {
+        typeRepository.insert(itemType)
+    }
+}
+
+class RecordViewModelFactory(
+    private val recordRepository: ItemRecordRepository,
+    private val typeRepository: ItemTypeRepository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(RecordViewModel::class.java)) {
+            return RecordViewModel(recordRepository, typeRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+
+}
