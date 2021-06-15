@@ -53,7 +53,7 @@ abstract class AccountDatabase : RoomDatabase() {
             itemRecordDao.insertItemRecord(itemRecord)
             itemRecord = ItemRecord(
                 null,
-                1,
+                2,
                 20.0,
                 "交通"
             )

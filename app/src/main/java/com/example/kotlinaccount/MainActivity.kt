@@ -13,6 +13,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinaccount.database.ItemRecord
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,6 +22,7 @@ import java.util.concurrent.Executor
 class MainActivity : AppCompatActivity() {
     val TAG = "MainActivity";
     val handler = Handler();
+    private val REQUEST_CODE_NEW_ITEM = 1
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_CODE_NEW_ITEM)
         }
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
@@ -104,5 +106,15 @@ class MainActivity : AppCompatActivity() {
 
         // 显示认证对话框
         biometricPrompt.authenticate(promptInfo)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (REQUEST_CODE_NEW_ITEM == requestCode && RESULT_OK == resultCode) {
+         var itemRecord = data?.getParcelableExtra<ItemRecord>(NewItemActivity.EXTRA_NEW_ITEM)
+            if (itemRecord != null) {
+                viewModel.insertRecord(itemRecord)
+            }
+        }
     }
 }
