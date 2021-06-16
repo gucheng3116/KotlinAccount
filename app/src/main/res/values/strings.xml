@@ -3,4 +3,5 @@
     <string name="button_save">save</string>
     <string name="amount">金额</string>
     <string name="type">类型</string>
+    <string name="please_input">请选择</string>
 </resources>

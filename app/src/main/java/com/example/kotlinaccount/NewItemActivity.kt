@@ -5,10 +5,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.activity.viewModels
 import com.example.kotlinaccount.database.ItemRecord
+import com.example.kotlinaccount.database.ItemType
+import com.example.kotlinaccount.database.RecordViewModel
+import com.example.kotlinaccount.database.RecordViewModelFactory
 
-class NewItemActivity : AppCompatActivity() {
+class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
 
+    private val viewModel: RecordViewModel by viewModels {
+        RecordViewModelFactory(
+            (application as AccountApplication).itemRepository,
+            (application as AccountApplication).typeRepository
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +33,10 @@ class NewItemActivity : AppCompatActivity() {
             setResult(RESULT_OK,intent)
             finish()
         }
+        typeEdt.setOnClickListener {
+            var fragment = ItemFragment(viewModel)
+            fragment.show(supportFragmentManager, "test")
+        }
     }
 
 
@@ -34,5 +48,9 @@ class NewItemActivity : AppCompatActivity() {
         var type: Int = 0
         lateinit var typeName: String
 
+    }
+
+    override fun typeSelect(itemType: ItemType) {
+        typeEdt.setText(itemType.typeName)
     }
 }
