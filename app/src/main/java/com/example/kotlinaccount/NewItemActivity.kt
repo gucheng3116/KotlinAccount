@@ -12,13 +12,14 @@ import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 
 class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
-
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
             (application as AccountApplication).itemRepository,
             (application as AccountApplication).typeRepository
         )
     }
+
+    private lateinit var fragment: ItemFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,8 @@ class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
             setResult(RESULT_OK,intent)
             finish()
         }
+        fragment = ItemFragment(viewModel)
         typeEdt.setOnClickListener {
-            var fragment = ItemFragment(viewModel)
             fragment.show(supportFragmentManager, "test")
         }
     }
@@ -52,5 +53,6 @@ class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
 
     override fun typeSelect(itemType: ItemType) {
         typeEdt.setText(itemType.typeName)
+        fragment.dismiss()
     }
 }

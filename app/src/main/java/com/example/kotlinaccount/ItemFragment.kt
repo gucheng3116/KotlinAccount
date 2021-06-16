@@ -13,8 +13,16 @@ import com.example.kotlinaccount.database.ItemType
 import com.example.kotlinaccount.database.RecordViewModel
 
 class ItemFragment(viewModel: RecordViewModel) : DialogFragment() {
-    private lateinit var viewModel: RecordViewModel
+    private var viewModel: RecordViewModel
     private lateinit var listener: TypeSelectListener
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+    }
 
     init {
         this.viewModel = viewModel

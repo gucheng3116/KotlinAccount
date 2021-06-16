@@ -28,7 +28,8 @@
             android:id ="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/please_input"/>
+            android:hint="@string/please_input"
+            android:focusable="false"/>
     </LinearLayout>
 
     <Button
