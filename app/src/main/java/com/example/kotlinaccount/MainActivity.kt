@@ -5,6 +5,8 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     val TAG = "MainActivity";
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
+    private lateinit var amountTotal : TextView
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -46,8 +49,20 @@ class MainActivity : AppCompatActivity() {
         val adapter = RecordAdapter()
         recyclerView.adapter = adapter
 
+        amountTotal = findViewById(R.id.total_amount)
+
         viewModel.allRecords.observe(owner = this) { records ->
             records.let { adapter.submitList(it) }
+            var sum:Double = 0.0
+            amountTotal.setText(records.let {
+                var item:ItemRecord? = null
+                for (item in it) {
+                    if (item.amount != null) {
+                        sum += item.amount!!
+                    }
+                }
+                sum.toString()
+            })
         }
     }
 

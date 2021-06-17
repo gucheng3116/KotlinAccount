@@ -11,24 +11,28 @@ data class ItemRecord(
     @PrimaryKey(autoGenerate = true) var id: Int?,
     var type: Int?,
     var amount: Double?,
-    var typeName: String?
+    var typeName: String?,
+    var createTime: Long
 ) : Parcelable {
-    constructor():this(null,null,null,null)
+
 
     constructor(parcel: Parcel) : this(
-
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Double::class.java.classLoader) as? Double,
-        parcel.readString()
+        parcel.readString(),
+        parcel.readLong()
     ) {
     }
+
+    constructor() : this(null, null, null, null,System.currentTimeMillis())
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
         parcel.writeValue(type)
         parcel.writeValue(amount)
         parcel.writeString(typeName)
+        parcel.writeLong(createTime)
     }
 
     override fun describeContents(): Int {

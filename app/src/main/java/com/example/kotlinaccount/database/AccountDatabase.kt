@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.util.*
 
 @Database(entities = [ItemRecord::class, ItemType::class], version = 2, exportSchema = false)
 abstract class AccountDatabase : RoomDatabase() {
@@ -51,14 +53,16 @@ abstract class AccountDatabase : RoomDatabase() {
                 null,
                 1,
                 16.0,
-                "餐饮"
+                "餐饮",
+                System.currentTimeMillis()
             )
             itemRecordDao.insertItemRecord(itemRecord)
             itemRecord = ItemRecord(
                 null,
                 2,
                 20.0,
-                "交通"
+                "交通",
+                System.currentTimeMillis()
             )
             itemRecordDao.insertItemRecord(itemRecord)
 

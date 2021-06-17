@@ -7,6 +7,7 @@ class ItemRecordRepository(private val itemRecordDao:ItemRecordDao) {
     val allRecords: Flow<List<ItemRecord>> = itemRecordDao.getAllRecord()
 
 
+    @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(itemRecord: ItemRecord) {
         itemRecordDao.insertItemRecord(itemRecord)

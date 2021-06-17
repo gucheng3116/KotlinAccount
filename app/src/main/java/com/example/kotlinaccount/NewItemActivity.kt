@@ -18,6 +18,7 @@ class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
             (application as AccountApplication).typeRepository
         )
     }
+    private lateinit var selectType:ItemType
 
     private lateinit var fragment: ItemFragment
 
@@ -29,6 +30,10 @@ class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
         val saveBtn = findViewById<Button>(R.id.button_save)
         saveBtn.setOnClickListener {
             val itemRecord = ItemRecord()
+            itemRecord.amount = amountEdt.text.toString().toDouble()
+            itemRecord.type = selectType.type
+            itemRecord.typeName = selectType.typeName
+
             val intent = Intent()
             intent.putExtra(EXTRA_NEW_ITEM,itemRecord)
             setResult(RESULT_OK,intent)
@@ -53,6 +58,7 @@ class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
 
     override fun typeSelect(itemType: ItemType) {
         typeEdt.setText(itemType.typeName)
+        selectType = itemType
         fragment.dismiss()
     }
 }

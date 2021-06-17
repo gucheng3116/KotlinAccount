@@ -9,8 +9,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ItemRecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertItemRecord(record: ItemRecord)
+    suspend fun insertItemRecord(record: ItemRecord)
 
-    @Query("select * from item_record")
-    fun getAllRecord() : Flow<List<ItemRecord>>
+    @Query("select * from item_record where id in (select max(id) from item_record group by type)")
+    fun getAllRecord(): Flow<List<ItemRecord>>
+
 }
