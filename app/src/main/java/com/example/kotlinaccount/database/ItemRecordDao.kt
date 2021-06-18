@@ -11,7 +11,7 @@ interface ItemRecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItemRecord(record: ItemRecord)
 
-    @Query("select * from item_record where id in (select max(id) from item_record group by type)")
+    @Query("select * from item_record where id in (select max(id) from item_record group by typeId)")
     fun getAllRecord(): Flow<List<ItemRecord>>
 
 }

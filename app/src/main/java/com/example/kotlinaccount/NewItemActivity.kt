@@ -11,14 +11,14 @@ import com.example.kotlinaccount.database.ItemType
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 
-class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
+class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
             (application as AccountApplication).itemRepository,
             (application as AccountApplication).typeRepository
         )
     }
-    private lateinit var selectType:ItemType
+    private lateinit var selectType: ItemType
 
     private lateinit var fragment: ItemFragment
 
@@ -31,17 +31,22 @@ class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
         saveBtn.setOnClickListener {
             val itemRecord = ItemRecord()
             itemRecord.amount = amountEdt.text.toString().toDouble()
-            itemRecord.type = selectType.type
             itemRecord.typeName = selectType.typeName
-
+            itemRecord.typeId = selectType.id
             val intent = Intent()
-            intent.putExtra(EXTRA_NEW_ITEM,itemRecord)
-            setResult(RESULT_OK,intent)
+            intent.putExtra(EXTRA_NEW_ITEM, itemRecord)
+            setResult(RESULT_OK, intent)
             finish()
         }
         fragment = ItemFragment(viewModel)
         typeEdt.setOnClickListener {
             fragment.show(supportFragmentManager, "test")
+        }
+
+        val newBtn = findViewById<Button>(R.id.new_type)
+        newBtn.setOnClickListener {
+            var intent: Intent = Intent(this, NewTypeActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -50,9 +55,7 @@ class NewItemActivity : AppCompatActivity(),ItemFragment.TypeSelectListener {
         val EXTRA_NEW_ITEM = "new_item"
         lateinit var amountEdt: EditText
         lateinit var typeEdt: EditText
-        lateinit var amount: String
         var type: Int = 0
-        lateinit var typeName: String
 
     }
 

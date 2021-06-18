@@ -49,26 +49,10 @@ abstract class AccountDatabase : RoomDatabase() {
         }
 
         suspend fun populateDatabase(itemRecordDao: ItemRecordDao, itemTypeDao: ItemTypeDao) {
-            var itemRecord = ItemRecord(
-                null,
-                1,
-                16.0,
-                "餐饮",
-                System.currentTimeMillis()
-            )
-            itemRecordDao.insertItemRecord(itemRecord)
-            itemRecord = ItemRecord(
-                null,
-                2,
-                20.0,
-                "交通",
-                System.currentTimeMillis()
-            )
-            itemRecordDao.insertItemRecord(itemRecord)
 
-            var itemType = ItemType(typeName = "支付宝",type = 1)
+            var itemType = ItemType(typeName = "支付宝")
             itemTypeDao.insertItemType(itemType)
-            itemType = ItemType(typeName = "微信",type = 2)
+            itemType = ItemType(typeName = "微信")
             itemTypeDao.insertItemType(itemType)
 
         }

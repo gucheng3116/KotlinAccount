@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "item_record")
 data class ItemRecord(
     @PrimaryKey(autoGenerate = true) var id: Int?,
-    var type: Int?,
+    var typeId: Int?,
     var amount: Double?,
     var typeName: String?,
     var createTime: Long
@@ -29,7 +29,7 @@ data class ItemRecord(
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
-        parcel.writeValue(type)
+        parcel.writeValue(typeId)
         parcel.writeValue(amount)
         parcel.writeString(typeName)
         parcel.writeLong(createTime)

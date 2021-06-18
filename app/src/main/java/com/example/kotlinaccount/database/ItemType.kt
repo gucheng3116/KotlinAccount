@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "item_type")
 data class ItemType(
     @PrimaryKey(autoGenerate = true) val id: Int? = null,
-    val type: Int,
-    val typeName: String?
+    val typeName: String?,
+    val createTime: Long? = System.currentTimeMillis()
 )

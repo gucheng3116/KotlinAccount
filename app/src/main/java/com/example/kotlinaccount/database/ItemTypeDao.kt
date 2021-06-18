@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface ItemTypeDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertItemType(itemType: ItemType)
+    suspend fun insertItemType(itemType: ItemType)
 
     @Query("select * from item_type")
     fun getAllItem(): Flow<List<ItemType>>
