@@ -12,4 +12,10 @@ class ItemRecordRepository(private val itemRecordDao:ItemRecordDao) {
     suspend fun insert(itemRecord: ItemRecord) {
         itemRecordDao.insertItemRecord(itemRecord)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteTypeRecord(itemRecord: ItemRecord) {
+        itemRecordDao.deleteTypeRecord(itemRecord.typeId!!)
+    }
 }

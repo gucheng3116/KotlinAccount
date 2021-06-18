@@ -12,7 +12,8 @@ data class ItemRecord(
     var typeId: Int?,
     var amount: Double?,
     var typeName: String?,
-    var createTime: Long
+    var createTime: Long,
+    var isDel:Int? = 0
 ) : Parcelable {
 
 

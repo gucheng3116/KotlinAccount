@@ -15,6 +15,10 @@ class RecordViewModel(
         recordRepository.insert(itemRecord)
     }
 
+    fun deleteTypeRecord(itemRecord: ItemRecord) = viewModelScope.launch {
+        recordRepository.deleteTypeRecord(itemRecord)
+    }
+
     fun insertType(itemType: ItemType) = viewModelScope.launch {
         typeRepository.insert(itemType)
     }

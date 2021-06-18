@@ -21,7 +21,7 @@ import com.example.kotlinaccount.database.RecordViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.concurrent.Executor
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),RecordAdapter.ItemListener {
     val TAG = "MainActivity";
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = RecordAdapter()
+        val adapter = RecordAdapter(this)
         recyclerView.adapter = adapter
 
         amountTotal = findViewById(R.id.total_amount)
@@ -131,5 +131,9 @@ class MainActivity : AppCompatActivity() {
                 viewModel.insertRecord(itemRecord)
             }
         }
+    }
+
+    override fun delete(record: ItemRecord) {
+        viewModel.deleteTypeRecord(record)
     }
 }
