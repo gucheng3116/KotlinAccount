@@ -13,4 +13,8 @@ class AccountApplication : Application() {
     val itemRepository by lazy { ItemRecordRepository(database.itemRecordDao()) }
     val typeRepository by lazy { ItemTypeRepository(database.itemTypeDao()) }
 
+    override fun onCreate() {
+        super.onCreate()
+
+    }
 }

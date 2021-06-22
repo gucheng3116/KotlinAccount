@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-@Database(entities = [ItemRecord::class, ItemType::class], version = 2, exportSchema = false)
+@Database(entities = [ItemRecord::class, ItemType::class], version = 3, exportSchema = false)
 abstract class AccountDatabase : RoomDatabase() {
 
     abstract fun itemRecordDao(): ItemRecordDao
