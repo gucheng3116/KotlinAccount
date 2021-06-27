@@ -1,9 +1,10 @@
-package com.example.kotlinaccount.database
+package com.example.kotlinaccount.database.entity
 
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.kotlinaccount.Utils
 
 
 @Entity(tableName = "item_record")
@@ -12,7 +13,7 @@ data class ItemRecord(
     var typeId: Int?,
     var amount: Double?,
     var typeName: String?,
-    var createTime: Long,
+    var createTime: String?,
     var isDel:Int? = 0
 ) : Parcelable {
 
@@ -22,18 +23,20 @@ data class ItemRecord(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readString(),
-        parcel.readLong()
+        parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
     }
 
-    constructor() : this(null, null, null, null,System.currentTimeMillis())
+    constructor() : this(null, null, null, null, Utils.timestampToDate(System.currentTimeMillis()))
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeValue(id)
         parcel.writeValue(typeId)
         parcel.writeValue(amount)
         parcel.writeString(typeName)
-        parcel.writeLong(createTime)
+        parcel.writeString(createTime)
+        parcel.writeValue(isDel)
     }
 
     override fun describeContents(): Int {

@@ -1,9 +1,10 @@
-package com.example.kotlinaccount.database
+package com.example.kotlinaccount.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.kotlinaccount.database.entity.ItemType
 import kotlinx.coroutines.flow.Flow
 
 @Dao

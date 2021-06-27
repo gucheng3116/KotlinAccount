@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -15,7 +14,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinaccount.database.ItemRecord
+import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity(),RecordAdapter.ItemListener {
             records.let { adapter.submitList(it) }
             var sum:Double = 0.0
             amountTotal.setText(records.let {
-                var item:ItemRecord? = null
+                var item: ItemRecord? = null
                 for (item in it) {
                     if (item.amount != null) {
                         sum += item.amount!!

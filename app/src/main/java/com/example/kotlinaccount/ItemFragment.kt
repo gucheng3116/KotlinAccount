@@ -9,7 +9,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinaccount.database.ItemType
+import com.example.kotlinaccount.database.entity.ItemType
 import com.example.kotlinaccount.database.RecordViewModel
 
 class ItemFragment(viewModel: RecordViewModel) : DialogFragment() {

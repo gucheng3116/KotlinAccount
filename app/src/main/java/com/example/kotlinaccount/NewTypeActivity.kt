@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
-import com.example.kotlinaccount.database.ItemType
+import com.example.kotlinaccount.database.entity.ItemType
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 

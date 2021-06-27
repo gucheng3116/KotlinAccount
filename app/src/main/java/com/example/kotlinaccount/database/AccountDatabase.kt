@@ -4,17 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.kotlinaccount.database.dao.DailyReportDao
+import com.example.kotlinaccount.database.dao.ItemRecordDao
+import com.example.kotlinaccount.database.dao.ItemTypeDao
+import com.example.kotlinaccount.database.entity.DailyReport
+import com.example.kotlinaccount.database.entity.ItemRecord
+import com.example.kotlinaccount.database.entity.ItemType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.util.*
 
-@Database(entities = [ItemRecord::class, ItemType::class], version = 3, exportSchema = false)
+@Database(entities = [ItemRecord::class, ItemType::class, DailyReport::class], version = 3, exportSchema = false)
 abstract class AccountDatabase : RoomDatabase() {
 
     abstract fun itemRecordDao(): ItemRecordDao
     abstract fun itemTypeDao(): ItemTypeDao
+    abstract fun dailyReportDao() : DailyReportDao
 
     companion object {
         @Volatile

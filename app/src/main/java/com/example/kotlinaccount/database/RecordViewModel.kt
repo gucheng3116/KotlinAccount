@@ -1,6 +1,8 @@
 package com.example.kotlinaccount.database
 
 import androidx.lifecycle.*
+import com.example.kotlinaccount.database.entity.ItemRecord
+import com.example.kotlinaccount.database.entity.ItemType
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 

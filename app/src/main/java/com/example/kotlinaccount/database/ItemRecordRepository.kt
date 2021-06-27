@@ -1,9 +1,11 @@
 package com.example.kotlinaccount.database
 
 import androidx.annotation.WorkerThread
+import com.example.kotlinaccount.database.dao.ItemRecordDao
+import com.example.kotlinaccount.database.entity.ItemRecord
 import kotlinx.coroutines.flow.Flow
 
-class ItemRecordRepository(private val itemRecordDao:ItemRecordDao) {
+class ItemRecordRepository(private val itemRecordDao: ItemRecordDao) {
     val allRecords: Flow<List<ItemRecord>> = itemRecordDao.getAllRecord()
 
 

@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinaccount.database.ItemType
+import com.example.kotlinaccount.database.entity.ItemType
 
 class TypeAdapter(selectListener: ItemFragment.TypeSelectListener) :
     ListAdapter<ItemType, TypeAdapter.TypeViewHolder>(ITEM_COMPARATOR) {
