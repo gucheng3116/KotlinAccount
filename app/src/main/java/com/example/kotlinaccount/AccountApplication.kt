@@ -1,6 +1,7 @@
 package com.example.kotlinaccount
 
 import android.app.Application
+import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
@@ -27,7 +28,9 @@ class AccountApplication : Application() {
 
     private fun init() {
         val dailyRequest = PeriodicWorkRequestBuilder<DailyWork>(1,TimeUnit.DAYS).build()
-        WorkManager.getInstance(this).enqueue(dailyRequest)
+//        WorkManager.getInstance(this).enqueue(dailyRequest)
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork("dailywork",
+            ExistingPeriodicWorkPolicy.KEEP,dailyRequest)
 
     }
 }
