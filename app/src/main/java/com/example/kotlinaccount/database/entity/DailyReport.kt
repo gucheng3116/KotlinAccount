@@ -11,5 +11,6 @@ data class DailyReport(
     @PrimaryKey(autoGenerate = true) var id: Int? = null,
     var items: String? = "",
     var total: Double? = 0.0,
-    var date:String? = Utils.timestampToDate(System.currentTimeMillis())
+    var date: String? = Utils.timestampToDate(System.currentTimeMillis()),
+    var createTime: String? = Utils.timestampToDate(System.currentTimeMillis())
 )

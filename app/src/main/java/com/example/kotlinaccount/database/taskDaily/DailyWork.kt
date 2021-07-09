@@ -73,7 +73,7 @@ class DailyWork(appContext: Context, workerParameters: WorkerParameters) :Corout
             var report = DailyReport()
             report.items = jsonObject.toString()
 //            report.date = Utils.timestampToDate(getEndOfLastDay())
-            report.date = Utils.timestampToDate(System.currentTimeMillis())
+            report.date = getEndOfLastDay()
             report.total = sum
             dailyReportDao.insert(report)
         }

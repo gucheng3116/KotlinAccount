@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.kotlinaccount.database.dao.DailyReportDao
 import com.example.kotlinaccount.database.dao.ItemRecordDao
@@ -14,7 +15,7 @@ import com.example.kotlinaccount.database.entity.ItemType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [ItemRecord::class, ItemType::class, DailyReport::class], version = 3, exportSchema = false)
+@Database(entities = [ItemRecord::class, ItemType::class, DailyReport::class], version = 4, exportSchema = false)
 abstract class AccountDatabase : RoomDatabase() {
 
     abstract fun itemRecordDao(): ItemRecordDao
@@ -25,6 +26,13 @@ abstract class AccountDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: AccountDatabase? = null
 
+        val MIGARATION_3_4 = object :Migration(3,4) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE daily_report ADD COLUMN createTime TEXT")
+            }
+
+        }
+
         fun getDatabase(
             context: Context,
             scope: CoroutineScope
@@ -34,8 +42,8 @@ abstract class AccountDatabase : RoomDatabase() {
                     context.applicationContext,
                     AccountDatabase::class.java,
                     "account_database"
-                ).addCallback(AccountDatabaseCallback(scope)).fallbackToDestructiveMigration()
-                    .build()
+                ).addCallback(AccountDatabaseCallback(scope))
+                    .addMigrations(MIGARATION_3_4).build()
                 INSTANCE = instance
                 instance
             }
