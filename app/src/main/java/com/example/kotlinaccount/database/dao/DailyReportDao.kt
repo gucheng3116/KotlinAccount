@@ -1,9 +1,6 @@
 package com.example.kotlinaccount.database.dao
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.room.*
 import com.example.kotlinaccount.database.entity.DailyReport
 
 
@@ -18,4 +15,10 @@ interface DailyReportDao {
 
     @Delete
     suspend fun delete(dailyReport: DailyReport)
+
+    @Query("select * from daily_report")
+    suspend fun queryAll(): List<DailyReport>
+
+    @Query("select * from daily_report where date=:date")
+    suspend fun queryDateReport(date: String): List<DailyReport>
 }
