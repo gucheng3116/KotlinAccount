@@ -1,4 +1,4 @@
-package com.example.kotlinaccount
+package com.example.kotlinaccount.activity
 
 import android.content.Intent
 import android.os.Build
@@ -14,13 +14,16 @@ import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlinaccount.AccountApplication
+import com.example.kotlinaccount.R
+import com.example.kotlinaccount.RecordAdapter
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.concurrent.Executor
 
-class MainActivity : AppCompatActivity(),RecordAdapter.ItemListener {
+class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val TAG = "MainActivity";
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1

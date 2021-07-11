@@ -3,16 +3,17 @@
     package="com.example.kotlinaccount">
 
     <application
+        android:name=".AccountApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.KotlinAccount"
-        android:name=".AccountApplication">
-        <activity android:name=".NewTypeActivity"></activity>
-        <activity android:name=".NewItemActivity" />
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.KotlinAccount">
+        <activity android:name=".activity.EditTypeActivity"></activity>
+        <activity android:name=".activity.NewTypeActivity" />
+        <activity android:name=".activity.NewItemActivity" />
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,10 +1,12 @@
-package com.example.kotlinaccount
+package com.example.kotlinaccount.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
+import com.example.kotlinaccount.AccountApplication
+import com.example.kotlinaccount.R
 import com.example.kotlinaccount.database.entity.ItemType
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory

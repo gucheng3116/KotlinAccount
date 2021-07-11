@@ -7,4 +7,6 @@
     <string name="please_select">请选择</string>
     <string name="new_type">新增类型</string>
     <string name="delete">删除</string>
+    <string name="edit">编辑</string>
+    <string name="edit_type">编辑类型</string>
 </resources>
