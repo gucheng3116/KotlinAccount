@@ -18,12 +18,17 @@ class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, Re
         private val itemName: TextView = itemView.findViewById(R.id.item_name)
         private val itemType: TextView = itemView.findViewById(R.id.item_amount)
         private val deleteBtn: Button = itemView.findViewById(R.id.delete)
+        private val itemLayout:View = itemView.findViewById(R.id.item_layout)
 
         fun bind(itemRecord: ItemRecord) {
             itemName.text = itemRecord.typeName
             itemType.text = itemRecord.amount.toString()
             deleteBtn.setOnClickListener {
                 listener.delete(itemRecord)
+            }
+            itemLayout.setOnLongClickListener{
+                listener.edit(itemRecord)
+                true
             }
         }
 
@@ -48,6 +53,8 @@ class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, Re
 
     interface ItemListener {
         fun delete(record: ItemRecord)
+
+        fun edit(record:ItemRecord)
     }
 
     companion object {

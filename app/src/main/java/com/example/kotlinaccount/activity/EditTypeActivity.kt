@@ -25,6 +25,7 @@ class EditTypeActivity : AppCompatActivity() {
             mAdapter = EditTypeAdapter(types)
             recyclerView.adapter = mAdapter
         }
+
     }
 
 }

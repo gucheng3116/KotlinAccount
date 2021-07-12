@@ -1,14 +1,18 @@
 package com.example.kotlinaccount.activity
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.LayoutInflater
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.observe
@@ -17,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinaccount.AccountApplication
 import com.example.kotlinaccount.R
 import com.example.kotlinaccount.RecordAdapter
+import com.example.kotlinaccount.Utils
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
@@ -27,7 +32,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val TAG = "MainActivity";
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
-    private lateinit var amountTotal : TextView
+    private lateinit var amountTotal: TextView
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -54,8 +59,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         amountTotal = findViewById(R.id.total_amount)
 
         viewModel.allRecords.observe(owner = this) { records ->
-            records.let { adapter.submitList(it) }
-            var sum:Double = 0.0
+            records.let {
+                adapter.submitList(it)
+                adapter.notifyDataSetChanged()
+            }
+            var sum: Double = 0.0
             amountTotal.setText(records.let {
                 var item: ItemRecord? = null
                 for (item in it) {
@@ -128,7 +136,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (REQUEST_CODE_NEW_ITEM == requestCode && RESULT_OK == resultCode) {
-         var itemRecord = data?.getParcelableExtra<ItemRecord>(NewItemActivity.EXTRA_NEW_ITEM)
+            var itemRecord = data?.getParcelableExtra<ItemRecord>(NewItemActivity.EXTRA_NEW_ITEM)
             if (itemRecord != null) {
                 viewModel.insertRecord(itemRecord)
             }
@@ -137,5 +145,28 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
     override fun delete(record: ItemRecord) {
         viewModel.deleteTypeRecord(record)
+    }
+
+    override fun edit(record: ItemRecord) {
+        val view = LayoutInflater.from(this).inflate(R.layout.record_edit_item, null)
+        var amountEdt = view.findViewById<EditText>(R.id.amount)
+        amountEdt.setText(record.amount.toString())
+        var builder = AlertDialog.Builder(this)
+        builder.setView(view).setTitle(R.string.edit_record)
+            .setNegativeButton(R.string.cancel, null)
+            .setPositiveButton(R.string.confirm, { id, dialog ->
+                record.amount = amountEdt.text.toString().toDouble()
+                record.createTime = Utils.timestampToDate(System.currentTimeMillis())
+                viewModel.insertRecord(record)
+                Log.d(
+                    "gucheng",
+                    "edit thread id is " + Thread.currentThread().id
+                            + ",name is " + Thread.currentThread().name
+                )
+            })
+        var dialog = builder.create()
+        dialog.show()
+
+
     }
 }

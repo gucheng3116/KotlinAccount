@@ -1,5 +1,6 @@
 package com.example.kotlinaccount.database
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import com.example.kotlinaccount.database.dao.ItemRecordDao
 import com.example.kotlinaccount.database.entity.ItemRecord
@@ -12,6 +13,11 @@ class ItemRecordRepository(private val itemRecordDao: ItemRecordDao) {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(itemRecord: ItemRecord) {
+        Log.d(
+            "gucheng",
+            "insertRecord thread id is " + Thread.currentThread().id
+                    + ",name is " + Thread.currentThread().name
+        )
         itemRecordDao.insertItemRecord(itemRecord)
     }
 

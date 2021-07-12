@@ -1,5 +1,6 @@
 package com.example.kotlinaccount.database
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.entity.ItemType
@@ -14,6 +15,7 @@ class RecordViewModel(
     val allTypes: LiveData<List<ItemType>> = typeRepository.allTypes.asLiveData()
 
     fun insertRecord(itemRecord: ItemRecord) = viewModelScope.launch {
+
         recordRepository.insert(itemRecord)
     }
 
