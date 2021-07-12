@@ -144,7 +144,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     }
 
     override fun delete(record: ItemRecord) {
-        viewModel.deleteTypeRecord(record)
+
+        var builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.confirm_delete)
+            .setPositiveButton(R.string.confirm, { dialog, id ->
+                viewModel.deleteTypeRecord(record)
+            }).setNegativeButton(R.string.cancel, null)
+        var dialog = builder.create()
+        dialog.show()
     }
 
     override fun edit(record: ItemRecord) {
