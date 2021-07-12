@@ -151,6 +151,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         val view = LayoutInflater.from(this).inflate(R.layout.record_edit_item, null)
         var amountEdt = view.findViewById<EditText>(R.id.amount)
         amountEdt.setText(record.amount.toString())
+        var typeText = view.findViewById<TextView>(R.id.type)
+        typeText.setText(record.typeName)
         var builder = AlertDialog.Builder(this)
         builder.setView(view).setTitle(R.string.edit_record)
             .setNegativeButton(R.string.cancel, null)
