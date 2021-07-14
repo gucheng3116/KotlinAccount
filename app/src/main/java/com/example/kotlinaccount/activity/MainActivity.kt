@@ -25,9 +25,12 @@ import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private val REQUEST_CODE_NEW_ITEM = 1
     private lateinit var amountTotal: TextView
     private lateinit var chart: LineChart
+    private lateinit var legend: Legend
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -193,6 +197,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                     + ",name is " + Thread.currentThread().name
         )
         chart = findViewById(R.id.chart1)
+        legend = chart.legend
+        legend.form = Legend.LegendForm.LINE
+        legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
+        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
+
         var values:ArrayList<Entry> = ArrayList<Entry>()
         val reports = viewModel.getDailyReport()
         if (reports != null && reports.isNotEmpty()) {
@@ -209,6 +218,17 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             }
         }
         var set1: LineDataSet
+        var xAxis : XAxis
+
+            xAxis = chart.xAxis
+            xAxis.enableGridDashedLine(10f,10f,0f)
+
+        object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                return reports.get(value.toInt()).date?:""
+            }
+        }.also { xAxis.valueFormatter = it }
+
         if (chart.data != null &&
             chart.data.dataSetCount > 0
         ) {
@@ -230,5 +250,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         chart.data = data
         chart.notifyDataSetChanged()
     }
+
+
 
 }
