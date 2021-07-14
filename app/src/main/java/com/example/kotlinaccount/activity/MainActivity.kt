@@ -23,6 +23,7 @@ import com.example.kotlinaccount.RecordAdapter
 import com.example.kotlinaccount.Utils
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
+import com.example.kotlinaccount.database.entity.DailyReport
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
@@ -33,6 +34,10 @@ import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -56,6 +61,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val scope = CoroutineScope(Job())
         initCharts()
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
@@ -190,7 +196,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
     }
 
-    private fun initCharts() {
+     fun initCharts() {
         Log.d(
             "gucheng",
             "initCharts thread id is " + Thread.currentThread().id
@@ -203,52 +209,59 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
 
         var values:ArrayList<Entry> = ArrayList<Entry>()
-        val reports = viewModel.getDailyReport()
-        if (reports != null && reports.isNotEmpty()) {
-            var count: Float = 0f;
-            for (item in reports) {
+         val scope = CoroutineScope(Job())
+         var reports:List<DailyReport>
+         scope.launch {
+             reports = viewModel.getAll()
+             Log.d("gucheng","reports size is " + reports.size)
+             if (reports != null && reports.isNotEmpty()) {
+                 var count: Float = 0f;
+                 for (item in reports) {
 
-                values.add(
-                    Entry(
-                        count++,
-                        item.total?.toFloat()?:0f,
-                        getResources().getDrawable(R.drawable.star)
-                    )
-                )
-            }
-        }
-        var set1: LineDataSet
-        var xAxis : XAxis
+                     values.add(
+                         Entry(
+                             count++,
+                             item.total?.toFloat()?:0f,
+                             getResources().getDrawable(R.drawable.star)
+                         )
+                     )
+                 }
+             }
+             var set1: LineDataSet
+             var xAxis : XAxis
 
-            xAxis = chart.xAxis
-            xAxis.enableGridDashedLine(10f,10f,0f)
+             xAxis = chart.xAxis
+             xAxis.enableGridDashedLine(10f,10f,0f)
 
-        object : ValueFormatter() {
-            override fun getFormattedValue(value: Float): String {
-                return reports.get(value.toInt()).date?:""
-            }
-        }.also { xAxis.valueFormatter = it }
+             object : ValueFormatter() {
+                 override fun getFormattedValue(value: Float): String {
+                     return reports.get(value.toInt()).date?:""
+                 }
+             }.also { xAxis.valueFormatter = it }
 
-        if (chart.data != null &&
-            chart.data.dataSetCount > 0
-        ) {
-            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-            set1.values = values
-            set1.notifyDataSetChanged()
-            chart.data.notifyDataChanged()
-            chart.notifyDataSetChanged()
-        } else {
-            set1 = LineDataSet(values, "DataSet 1")
-            set1.setDrawIcons(false)
-        }
+             if (chart.data != null &&
+                 chart.data.dataSetCount > 0
+             ) {
+                 set1 = chart.data.getDataSetByIndex(0) as LineDataSet
+                 set1.values = values
+                 set1.notifyDataSetChanged()
+                 chart.data.notifyDataChanged()
+                 chart.notifyDataSetChanged()
+             } else {
+                 set1 = LineDataSet(values, "DataSet 1")
+                 set1.setDrawIcons(false)
+             }
 
-        val dataSets = ArrayList<ILineDataSet>()
-        dataSets.add(set1) // add the data sets
+             val dataSets = ArrayList<ILineDataSet>()
+             dataSets.add(set1) // add the data sets
 
-        val data = LineData(dataSets)
+             val data = LineData(dataSets)
 
-        chart.data = data
-        chart.notifyDataSetChanged()
+             chart.data = data
+             chart.notifyDataSetChanged()
+         }
+
+
     }
 
 

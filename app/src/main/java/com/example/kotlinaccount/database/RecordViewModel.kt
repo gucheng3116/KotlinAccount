@@ -5,9 +5,10 @@ import androidx.lifecycle.*
 import com.example.kotlinaccount.database.entity.DailyReport
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.entity.ItemType
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.lang.IllegalArgumentException
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class RecordViewModel(
     private val recordRepository: ItemRecordRepository,
@@ -30,13 +31,15 @@ class RecordViewModel(
         typeRepository.insert(itemType)
     }
 
-
-    fun getDailyReport() : List<DailyReport> {
-        var result:List<DailyReport> = ArrayList<DailyReport>()
-        viewModelScope.launch(Dispatchers.IO) {
-            result = dailyReportRepository.queryAll()
+    suspend fun getAll():List<DailyReport> {
+        return suspendCoroutine { continuation ->
+            var result:List<DailyReport> = ArrayList<DailyReport>()
+            viewModelScope.launch(Dispatchers.IO) {
+                result = async { dailyReportRepository.queryAll() }.await()
+                Log.d("gucheng","result is " + result.size)
+                continuation.resumeWith(Result.success(result))
+            }
         }
-        return result
     }
 
 }
