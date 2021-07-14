@@ -232,10 +232,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
              xAxis = chart.xAxis
              xAxis.enableGridDashedLine(10f,10f,0f)
+             xAxis.setLabelCount(4,false);
 
              object : ValueFormatter() {
                  override fun getFormattedValue(value: Float): String {
-                     return reports.get(value.toInt()).date?:""
+                     return reports.get(value.toInt()).date?.substring(5,10)?:""
                  }
              }.also { xAxis.valueFormatter = it }
 

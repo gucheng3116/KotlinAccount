@@ -19,6 +19,9 @@ interface DailyReportDao {
     @Query("select * from daily_report")
     fun queryAll(): List<DailyReport>
 
+    @Query("select * from (select * from daily_report order by id desc limit 10) order by id")
+    fun queryLast10(): List<DailyReport>
+
     @Query("select * from daily_report where date=:date")
     suspend fun queryDateReport(date: String): List<DailyReport>
 }

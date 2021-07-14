@@ -35,7 +35,7 @@ class RecordViewModel(
         return suspendCoroutine { continuation ->
             var result:List<DailyReport> = ArrayList<DailyReport>()
             viewModelScope.launch(Dispatchers.IO) {
-                result = async { dailyReportRepository.queryAll() }.await()
+                result = async { dailyReportRepository.queryLast10() }.await()
                 Log.d("gucheng","result is " + result.size)
                 continuation.resumeWith(Result.success(result))
             }

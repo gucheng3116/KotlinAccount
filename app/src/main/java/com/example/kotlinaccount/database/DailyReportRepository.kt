@@ -24,4 +24,8 @@ class DailyReportRepository(private val dailyReportDao: DailyReportDao) {
         return dailyReportDao.queryAll()
     }
 
+    suspend fun queryLast10():List<DailyReport> {
+        return dailyReportDao.queryLast10()
+    }
+
 }
