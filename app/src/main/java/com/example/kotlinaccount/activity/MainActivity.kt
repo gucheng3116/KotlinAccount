@@ -194,7 +194,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         )
         chart = findViewById(R.id.chart1)
         var values:ArrayList<Entry> = ArrayList<Entry>()
-        val reports = viewModel.allDailyReport
+        val reports = viewModel.getDailyReport()
         if (reports != null && reports.isNotEmpty()) {
             var count: Float = 0f;
             for (item in reports) {
@@ -228,6 +228,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         val data = LineData(dataSets)
 
         chart.data = data
+        chart.notifyDataSetChanged()
     }
 
 }

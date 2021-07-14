@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.example.kotlinaccount.database.entity.DailyReport
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.entity.ItemType
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -15,7 +16,6 @@ class RecordViewModel(
 ) : ViewModel() {
     val allRecords: LiveData<List<ItemRecord>> = recordRepository.allRecords.asLiveData()
     val allTypes: LiveData<List<ItemType>> = typeRepository.allTypes.asLiveData()
-    val allDailyReport : List<DailyReport> = dailyReportRepository.allDailyReport
 
     fun insertRecord(itemRecord: ItemRecord) = viewModelScope.launch {
 
@@ -28,6 +28,15 @@ class RecordViewModel(
 
     fun insertType(itemType: ItemType) = viewModelScope.launch {
         typeRepository.insert(itemType)
+    }
+
+
+    fun getDailyReport() : List<DailyReport> {
+        var result:List<DailyReport> = ArrayList<DailyReport>()
+        viewModelScope.launch(Dispatchers.IO) {
+            result = dailyReportRepository.queryAll()
+        }
+        return result
     }
 
 }
