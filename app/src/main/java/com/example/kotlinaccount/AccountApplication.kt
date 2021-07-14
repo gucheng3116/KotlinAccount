@@ -6,6 +6,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.kotlinaccount.database.AccountDatabase
+import com.example.kotlinaccount.database.DailyReportRepository
 import com.example.kotlinaccount.database.ItemRecordRepository
 import com.example.kotlinaccount.database.ItemTypeRepository
 import com.example.kotlinaccount.database.taskDaily.DailyWork
@@ -20,6 +21,7 @@ class AccountApplication : Application() {
     val database by lazy { AccountDatabase.getDatabase(this, applicationScope) }
     val itemRepository by lazy { ItemRecordRepository(database.itemRecordDao()) }
     val typeRepository by lazy { ItemTypeRepository(database.itemTypeDao()) }
+    val dailyReportRepository by lazy { DailyReportRepository(database.dailyReportDao()) }
 
     override fun onCreate() {
         super.onCreate()

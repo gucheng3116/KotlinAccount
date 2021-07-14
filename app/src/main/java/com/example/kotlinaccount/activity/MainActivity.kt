@@ -1,6 +1,5 @@
 package com.example.kotlinaccount.activity
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -22,10 +21,16 @@ import com.example.kotlinaccount.AccountApplication
 import com.example.kotlinaccount.R
 import com.example.kotlinaccount.RecordAdapter
 import com.example.kotlinaccount.Utils
-import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
+import com.example.kotlinaccount.database.entity.ItemRecord
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.util.*
 import java.util.concurrent.Executor
 
 class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
@@ -33,11 +38,13 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
     private lateinit var amountTotal: TextView
+    private lateinit var chart: LineChart
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
             (application as AccountApplication).itemRepository,
-            (application as AccountApplication).typeRepository
+            (application as AccountApplication).typeRepository,
+            (application as AccountApplication).dailyReportRepository
         )
     }
 
@@ -45,6 +52,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        initCharts()
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
@@ -176,6 +184,50 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         var dialog = builder.create()
         dialog.show()
 
-
     }
+
+    private fun initCharts() {
+        Log.d(
+            "gucheng",
+            "initCharts thread id is " + Thread.currentThread().id
+                    + ",name is " + Thread.currentThread().name
+        )
+        chart = findViewById(R.id.chart1)
+        var values:ArrayList<Entry> = ArrayList<Entry>()
+        val reports = viewModel.allDailyReport
+        if (reports != null && reports.isNotEmpty()) {
+            var count: Float = 0f;
+            for (item in reports) {
+
+                values.add(
+                    Entry(
+                        count++,
+                        item.total?.toFloat()?:0f,
+                        getResources().getDrawable(R.drawable.star)
+                    )
+                )
+            }
+        }
+        var set1: LineDataSet
+        if (chart.data != null &&
+            chart.data.dataSetCount > 0
+        ) {
+            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
+            set1.values = values
+            set1.notifyDataSetChanged()
+            chart.data.notifyDataChanged()
+            chart.notifyDataSetChanged()
+        } else {
+            set1 = LineDataSet(values, "DataSet 1")
+            set1.setDrawIcons(false)
+        }
+
+        val dataSets = ArrayList<ILineDataSet>()
+        dataSets.add(set1) // add the data sets
+
+        val data = LineData(dataSets)
+
+        chart.data = data
+    }
+
 }

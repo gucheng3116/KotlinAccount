@@ -17,7 +17,7 @@ interface DailyReportDao {
     suspend fun delete(dailyReport: DailyReport)
 
     @Query("select * from daily_report")
-    suspend fun queryAll(): List<DailyReport>
+    fun queryAll(): List<DailyReport>
 
     @Query("select * from daily_report where date=:date")
     suspend fun queryDateReport(date: String): List<DailyReport>

@@ -19,7 +19,8 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
             (application as AccountApplication).itemRepository,
-            (application as AccountApplication).typeRepository
+            (application as AccountApplication).typeRepository,
+            (application as AccountApplication).dailyReportRepository
         )
     }
     private lateinit var selectType: ItemType
