@@ -9,6 +9,7 @@ import com.example.kotlinaccount.database.AccountDatabase
 import com.example.kotlinaccount.database.entity.DailyReport
 import kotlinx.coroutines.*
 import org.json.JSONObject
+import java.text.DecimalFormat
 import java.util.*
 
 class DailyWork(appContext: Context, workerParameters: WorkerParameters) :
@@ -39,13 +40,13 @@ class DailyWork(appContext: Context, workerParameters: WorkerParameters) :
             var size = getDaySize()
 
             for (i in 1..size) {
-                var offset:Int = (i * -1).toInt()
+                var offset: Int = (i * -1).toInt()
                 var dailyReport = dailyReportDao.queryDateReport(getDate(offset))
                 if (dailyReport?.isNotEmpty()) {
                     break;
                 }
                 var records = itemRecordDao.getAllRecordByTime(getDate(-1))
-                var sum = 0.0;
+                var sum: Double = 0.0;
                 var jsonObject = JSONObject()
                 for (item in records) {
                     jsonObject.put(item.typeName, item.amount)
@@ -54,7 +55,8 @@ class DailyWork(appContext: Context, workerParameters: WorkerParameters) :
                 var report = DailyReport()
                 report.items = jsonObject.toString()
                 report.date = getDate(offset)
-                report.total = sum
+                val format = DecimalFormat("0.##")
+                report.total = format.format(sum).toDouble()
                 dailyReportDao.insert(report)
 
             }

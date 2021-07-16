@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinaccount.database.entity.ItemRecord
+import java.text.DecimalFormat
 
 class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, RecordAdapter.RecordViewHolder>(RECORD_COMPARATOR) {
     init {
@@ -22,7 +23,8 @@ class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, Re
 
         fun bind(itemRecord: ItemRecord) {
             itemName.text = itemRecord.typeName
-            itemType.text = itemRecord.amount.toString()
+            val format = DecimalFormat("0.00")
+            itemType.text = format.format(itemRecord.amount)
             deleteBtn.setOnClickListener {
                 listener.delete(itemRecord)
             }

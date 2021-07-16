@@ -38,6 +38,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.text.DecimalFormat
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -61,7 +62,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val scope = CoroutineScope(Job())
         initCharts()
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
@@ -77,8 +77,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         amountTotal = findViewById(R.id.total_amount)
 
         viewModel.allRecords.observe(owner = this) { records ->
-            records.let {
-                adapter.submitList(it)
+            records.let {records->
+                adapter.submitList(records)
                 adapter.notifyDataSetChanged()
             }
             var sum: Double = 0.0
