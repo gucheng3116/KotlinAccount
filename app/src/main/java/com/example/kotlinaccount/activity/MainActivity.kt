@@ -35,10 +35,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.text.DecimalFormat
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -49,6 +47,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private lateinit var amountTotal: TextView
     private lateinit var chart: LineChart
     private lateinit var legend: Legend
+    private lateinit var changeTrend: TextView
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -62,6 +61,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setTitle(getString(R.string.property_statistc))
         initCharts()
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
@@ -73,6 +73,12 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = RecordAdapter(this)
         recyclerView.adapter = adapter
+
+        changeTrend = findViewById(R.id.change_trend)
+        changeTrend.setOnClickListener({v ->
+            val intent = Intent(this@MainActivity, TrendActivity::class.java)
+            startActivity(intent)
+        })
 
         amountTotal = findViewById(R.id.total_amount)
 

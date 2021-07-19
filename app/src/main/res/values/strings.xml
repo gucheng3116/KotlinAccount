@@ -13,4 +13,5 @@
     <string name="cancel">取消</string>
     <string name="confirm">确认</string>
     <string name="confirm_delete">确认删除这条记录么？</string>
+    <string name="property_statistc">资产统计</string>
 </resources>
