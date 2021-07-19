@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         amountTotal = findViewById(R.id.total_amount)
 
         viewModel.allRecords.observe(owner = this) { records ->
-            records.let {records->
+            records.let { records ->
                 adapter.submitList(records)
                 adapter.notifyDataSetChanged()
             }
@@ -196,75 +196,77 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
     }
 
-     fun initCharts() {
+    fun initCharts() {
         Log.d(
             "gucheng",
             "initCharts thread id is " + Thread.currentThread().id
                     + ",name is " + Thread.currentThread().name
         )
         chart = findViewById(R.id.chart1)
+        chart.description.isEnabled = false
         legend = chart.legend
         legend.form = Legend.LegendForm.LINE
         legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
 
-        var values:ArrayList<Entry> = ArrayList<Entry>()
-         val scope = CoroutineScope(Job())
-         var reports:List<DailyReport>
-         scope.launch {
-             reports = viewModel.getAll()
-             Log.d("gucheng","reports size is " + reports.size)
-             if (reports != null && reports.isNotEmpty()) {
-                 var count: Float = 0f;
-                 for (item in reports) {
+        var values: ArrayList<Entry> = ArrayList<Entry>()
+        val scope = CoroutineScope(Job())
+        var reports: List<DailyReport>
+        scope.launch {
+            reports = viewModel.getAll()
+            Log.d("gucheng", "reports size is " + reports.size)
+            if (reports != null && reports.isNotEmpty()) {
+                var count: Float = 0f;
+                for (item in reports) {
 
-                     values.add(
-                         Entry(
-                             count++,
-                             item.total?.toFloat()?:0f,
-                             getResources().getDrawable(R.drawable.star)
-                         )
-                     )
-                 }
-             }
-             var set1: LineDataSet
-             var xAxis : XAxis
+                    values.add(
+                        Entry(
+                            count++,
+                            item.total?.toFloat() ?: 0f,
+                            getResources().getDrawable(R.drawable.star)
+                        )
+                    )
+                }
+            }
+            var set1: LineDataSet
+            var xAxis: XAxis
 
-             xAxis = chart.xAxis
-             xAxis.enableGridDashedLine(10f,10f,0f)
-             xAxis.setLabelCount(4,false);
+            xAxis = chart.xAxis
+            xAxis.enableGridDashedLine(10f, 10f, 0f)
+            xAxis.setLabelCount(4, false);
 
-             object : ValueFormatter() {
-                 override fun getFormattedValue(value: Float): String {
-                     return reports.get(value.toInt()).date?.substring(5,10)?:""
-                 }
-             }.also { xAxis.valueFormatter = it }
+            object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    return reports.get(value.toInt()).date?.substring(5, 10) ?: ""
+                }
+            }.also { xAxis.valueFormatter = it }
 
-             if (chart.data != null &&
-                 chart.data.dataSetCount > 0
-             ) {
-                 set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-                 set1.values = values
-                 set1.notifyDataSetChanged()
-                 chart.data.notifyDataChanged()
-                 chart.notifyDataSetChanged()
-             } else {
-                 set1 = LineDataSet(values, "DataSet 1")
-                 set1.setDrawIcons(false)
-             }
 
-             val dataSets = ArrayList<ILineDataSet>()
-             dataSets.add(set1) // add the data sets
+            if (chart.data != null &&
+                chart.data.dataSetCount > 0
+            ) {
+                set1 = chart.data.getDataSetByIndex(0) as LineDataSet
+                set1.values = values
+                set1.notifyDataSetChanged()
+                chart.data.notifyDataChanged()
+                chart.notifyDataSetChanged()
+            } else {
+                set1 = LineDataSet(values, "总资产")
+                set1.setDrawIcons(false)
+            }
 
-             val data = LineData(dataSets)
 
-             chart.data = data
-             chart.notifyDataSetChanged()
-         }
+            val dataSets = ArrayList<ILineDataSet>()
+            dataSets.add(set1) // add the data sets
+
+            val data = LineData(dataSets)
+
+            chart.data = data
+            chart.notifyDataSetChanged()
+        }
 
 
     }
-
 
 
 }
