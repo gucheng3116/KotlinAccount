@@ -50,7 +50,7 @@ class DailyWork(appContext: Context, workerParameters: WorkerParameters) :
                 var jsonObject = JSONObject()
                 for (item in records) {
                     jsonObject.put(item.typeName, item.amount)
-                    sum += item.amount ?: 0.0;
+                    sum += item.amount ?: 0.0
                 }
                 var report = DailyReport()
                 report.items = jsonObject.toString()
