@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinAccount">
-        <activity android:name=".activity.TrendActivity"></activity>
+        <activity android:name=".activity.ShareActivity"></activity>
         <activity android:name=".activity.EditTypeActivity" />
         <activity android:name=".activity.NewTypeActivity" />
         <activity android:name=".activity.NewItemActivity" />

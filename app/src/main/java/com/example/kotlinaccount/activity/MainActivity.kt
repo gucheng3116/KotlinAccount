@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
         changeTrend = findViewById(R.id.change_trend)
         changeTrend.setOnClickListener({v ->
-            val intent = Intent(this@MainActivity, TrendActivity::class.java)
+            val intent = Intent(this@MainActivity, ShareActivity::class.java)
             startActivity(intent)
         })
 

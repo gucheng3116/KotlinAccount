@@ -20,7 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 
-class TrendActivity : AppCompatActivity() {
+class ShareActivity : AppCompatActivity() {
     private val colors = ArrayList<Int>()
     private val viewModel: TrendViewModel by viewModels {
         TrendViewModelFactory(
