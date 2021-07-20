@@ -16,7 +16,7 @@ class TrendViewModel(
     private val recordRepository: ItemRecordRepository,
     private val dailyReportRepository: DailyReportRepository
 ) : ViewModel() {
-     suspend fun getPositiveItem():List<ItemRecord> {
+     suspend fun getPositiveItems():List<ItemRecord> {
          return suspendCoroutine { continuation ->
              viewModelScope.launch {
                  var result = recordRepository.getPositiveItems()
@@ -24,6 +24,18 @@ class TrendViewModel(
              }
          }
      }
+
+    suspend fun getNegativeItems():List<ItemRecord> {
+        return suspendCoroutine { continuation ->
+            viewModelScope.launch {
+                var result = recordRepository.getNegativeItems()
+                for (item in result) {
+                    item.amount = (item.amount?:0.0) * (-1)
+                }
+                continuation.resumeWith(Result.success(result))
+            }
+        }
+    }
 }
 
 class TrendViewModelFactory(

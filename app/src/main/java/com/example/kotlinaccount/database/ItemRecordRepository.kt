@@ -40,4 +40,10 @@ class ItemRecordRepository(private val itemRecordDao: ItemRecordDao) {
     suspend fun getPositiveItems():List<ItemRecord> {
         return itemRecordDao.getPositiveItems()
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getNegativeItems():List<ItemRecord> {
+        return itemRecordDao.getNegativeItems()
+    }
 }

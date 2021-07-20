@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.TrendActivity">
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pie_chart"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/seekBar1" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/positive_chart"
+            android:layout_width="400dp"
+            android:layout_height="400dp" />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/negetive_chart"
+            android:layout_width="400dp"
+            android:layout_height="400dp" />
+
+    </LinearLayout>
+
+
+</ScrollView>

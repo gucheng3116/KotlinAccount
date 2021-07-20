@@ -27,4 +27,7 @@ interface ItemRecordDao {
 
     @Query("select * from item_record where id in (select max(id) from item_record where isDel = 0 and amount > 0 group by typeId) order by typeName")
     suspend fun getPositiveItems():List<ItemRecord>
+
+    @Query("select * from item_record where id in (select max(id) from item_record where isDel = 0 and amount < 0 group by typeId) order by typeName")
+    suspend fun getNegativeItems():List<ItemRecord>
 }
