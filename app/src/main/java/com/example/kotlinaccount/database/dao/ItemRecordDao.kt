@@ -13,7 +13,7 @@ interface ItemRecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItemRecord(record: ItemRecord)
 
-    @Query("select * from item_record where id in (select max(id) from item_record group by typeId) and isDel = 0")
+    @Query("select * from item_record where id in (select max(id) from item_record where isDel = 0 group by typeId) order by typeName")
     fun getAllRecord(): Flow<List<ItemRecord>>
 
     @Query("select * from item_record where id in (select max(id) from item_record group by typeId) and isDel = 0 and createTime <= :time")
@@ -24,4 +24,7 @@ interface ItemRecordDao {
 
     @Query("select * from item_record order by id asc limit 1")
     suspend fun getEarlistRecord():ItemRecord
+
+    @Query("select * from item_record where id in (select max(id) from item_record where isDel = 0 and amount > 0 group by typeId) order by typeName")
+    suspend fun getPositiveItems():List<ItemRecord>
 }

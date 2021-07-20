@@ -34,4 +34,10 @@ class ItemRecordRepository(private val itemRecordDao: ItemRecordDao) {
     suspend fun getAllRecordByTime(time: String = Utils.timestampToDate(System.currentTimeMillis())): List<ItemRecord> {
         return itemRecordDao.getAllRecordByTime(time)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getPositiveItems():List<ItemRecord> {
+        return itemRecordDao.getPositiveItems()
+    }
 }

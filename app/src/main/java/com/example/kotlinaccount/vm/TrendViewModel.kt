@@ -2,8 +2,12 @@ package com.example.kotlinaccount.vm
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.kotlinaccount.database.DailyReportRepository
 import com.example.kotlinaccount.database.ItemRecordRepository
+import com.example.kotlinaccount.database.entity.ItemRecord
+import kotlinx.coroutines.launch
+import kotlin.coroutines.suspendCoroutine
 
 /**
  * Created on 2021/7/19.
@@ -12,6 +16,14 @@ class TrendViewModel(
     private val recordRepository: ItemRecordRepository,
     private val dailyReportRepository: DailyReportRepository
 ) : ViewModel() {
+     suspend fun getPositiveItem():List<ItemRecord> {
+         return suspendCoroutine { continuation ->
+             viewModelScope.launch {
+                 var result = recordRepository.getPositiveItems()
+                 continuation.resumeWith(Result.success(result))
+             }
+         }
+     }
 }
 
 class TrendViewModelFactory(

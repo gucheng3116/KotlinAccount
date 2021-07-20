@@ -7,13 +7,8 @@ import com.example.kotlinaccount.database.entity.DailyReport
 import com.example.kotlinaccount.database.entity.ItemRecord
 import com.example.kotlinaccount.database.entity.ItemType
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.toCollection
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import org.json.JSONObject
-import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.coroutines.suspendCoroutine
 
 class RecordViewModel(
