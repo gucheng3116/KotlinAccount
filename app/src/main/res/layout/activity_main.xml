@@ -16,17 +16,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_add_24" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/record_item"/>
+            tools:listitem="@layout/record_item" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,26 +51,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="变化趋势"/>
+                android:text="变化趋势" />
 
             <TextView
                 android:id="@+id/property_share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="资产分布"/>
+                android:text="资产分布" />
 
 
         </LinearLayout>
 
-        <com.github.mikephil.charting.charts.LineChart
-            android:layout_marginTop="20dp"
-            android:id="@+id/chart1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/seekBar1" />
     </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

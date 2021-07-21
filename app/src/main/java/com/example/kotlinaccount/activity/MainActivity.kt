@@ -45,8 +45,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
     private lateinit var amountTotal: TextView
-    private lateinit var chart: LineChart
-    private lateinit var legend: Legend
     private lateinit var changeTrend: TextView
 
     private val viewModel: RecordViewModel by viewModels {
@@ -62,7 +60,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTitle(getString(R.string.property_statistc))
-        initCharts()
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
@@ -205,78 +202,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             })
         var dialog = builder.create()
         dialog.show()
-
-    }
-
-    fun initCharts() {
-        Log.d(
-            "gucheng",
-            "initCharts thread id is " + Thread.currentThread().id
-                    + ",name is " + Thread.currentThread().name
-        )
-        chart = findViewById(R.id.chart1)
-        chart.description.isEnabled = false
-        legend = chart.legend
-        legend.form = Legend.LegendForm.LINE
-        legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-        legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-
-        var values: ArrayList<Entry> = ArrayList<Entry>()
-        val scope = CoroutineScope(Job())
-        var reports: List<DailyReport>
-        scope.launch {
-            reports = viewModel.getAll()
-            Log.d("gucheng", "reports size is " + reports.size)
-            if (reports != null && reports.isNotEmpty()) {
-                var count: Float = 0f;
-                for (item in reports) {
-
-                    values.add(
-                        Entry(
-                            count++,
-                            item.total?.toFloat() ?: 0f,
-                            getResources().getDrawable(R.drawable.star)
-                        )
-                    )
-                }
-            }
-            var set1: LineDataSet
-            var xAxis: XAxis
-
-            xAxis = chart.xAxis
-            xAxis.enableGridDashedLine(10f, 10f, 0f)
-            xAxis.setLabelCount(4, false);
-
-            object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String {
-                    return reports.get(value.toInt()).date?.substring(5, 10) ?: ""
-                }
-            }.also { xAxis.valueFormatter = it }
-
-
-            if (chart.data != null &&
-                chart.data.dataSetCount > 0
-            ) {
-                set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-                set1.values = values
-                set1.notifyDataSetChanged()
-                chart.data.notifyDataChanged()
-                chart.notifyDataSetChanged()
-            } else {
-                set1 = LineDataSet(values, "总资产")
-                set1.setDrawIcons(false)
-            }
-
-
-            val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add the data sets
-
-            val data = LineData(dataSets)
-
-            chart.data = data
-            chart.notifyDataSetChanged()
-        }
-
 
     }
 
