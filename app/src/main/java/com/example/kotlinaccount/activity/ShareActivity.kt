@@ -6,8 +6,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinaccount.AccountApplication
 import com.example.kotlinaccount.R
-import com.example.kotlinaccount.vm.TrendViewModel
-import com.example.kotlinaccount.vm.TrendViewModelFactory
+import com.example.kotlinaccount.vm.ShareViewModel
+import com.example.kotlinaccount.vm.ShareViewModelFactory
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -22,8 +22,8 @@ import java.util.*
 
 class ShareActivity : AppCompatActivity() {
     private val colors = ArrayList<Int>()
-    private val viewModel: TrendViewModel by viewModels {
-        TrendViewModelFactory(
+    private val viewModel: ShareViewModel by viewModels {
+        ShareViewModelFactory(
             (application as AccountApplication).itemRepository,
             (application as AccountApplication).dailyReportRepository
         )

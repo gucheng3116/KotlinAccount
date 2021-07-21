@@ -12,7 +12,7 @@ import kotlin.coroutines.suspendCoroutine
 /**
  * Created on 2021/7/19.
  */
-class TrendViewModel(
+class ShareViewModel(
     private val recordRepository: ItemRecordRepository,
     private val dailyReportRepository: DailyReportRepository
 ) : ViewModel() {
@@ -38,13 +38,13 @@ class TrendViewModel(
     }
 }
 
-class TrendViewModelFactory(
+class ShareViewModelFactory(
     private val recordRepository: ItemRecordRepository,
     private val dailyReportRepository: DailyReportRepository
 ):ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TrendViewModel::class.java)) {
-            return TrendViewModel(recordRepository,dailyReportRepository) as T
+        if (modelClass.isAssignableFrom(ShareViewModel::class.java)) {
+            return ShareViewModel(recordRepository,dailyReportRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
