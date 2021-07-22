@@ -14,4 +14,5 @@
     <string name="confirm">确认</string>
     <string name="confirm_delete">确认删除这条记录么？</string>
     <string name="property_statistc">资产统计</string>
+    <string name="share_details">分布详情</string>
 </resources>
