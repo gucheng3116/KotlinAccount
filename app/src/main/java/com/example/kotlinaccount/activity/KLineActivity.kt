@@ -79,15 +79,15 @@ class KLineActivity : AppCompatActivity() {
 
             xAxis = chart.xAxis
             xAxis.enableGridDashedLine(10f, 10f, 0f)
-            xAxis.setLabelCount(reports.size , false)
+            xAxis.setLabelCount(Math.min(reports.size, 5), false)
 
             object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
-                    Log.d("gucheng","reports size is " + reports.size + ",value is " + value)
-                    if (value < 0 ) {
+                    Log.d("gucheng", "reports size is " + reports.size + ",value is " + value)
+                    if (value < 0) {
                         return ""
                     }
-                    if (value.toInt() > reports.size -1) {
+                    if (value.toInt() > reports.size - 1) {
                         return ""
                     }
                     return reports.get(value.toInt()).date?.substring(5, 10) ?: ""
