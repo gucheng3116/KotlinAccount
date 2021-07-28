@@ -1,9 +1,9 @@
 package com.example.kotlinaccount.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinaccount.AccountApplication
 import com.example.kotlinaccount.R
 import com.example.kotlinaccount.database.RecordViewModel
@@ -20,7 +20,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.util.ArrayList
+import java.util.*
 
 class KLineActivity : AppCompatActivity() {
     private lateinit var chart: LineChart
@@ -50,6 +50,12 @@ class KLineActivity : AppCompatActivity() {
         )
         chart = findViewById(R.id.chart1)
         chart.description.isEnabled = false
+        chart.setTouchEnabled(true)
+
+        // enable scaling and dragging
+        chart.isDragEnabled = true
+        chart.isScaleXEnabled = true
+        chart.isScaleYEnabled = false
         legend = chart.legend
         legend.form = Legend.LegendForm.LINE
         legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
