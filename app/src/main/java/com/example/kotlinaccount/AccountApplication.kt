@@ -10,6 +10,7 @@ import com.example.kotlinaccount.database.DailyReportRepository
 import com.example.kotlinaccount.database.ItemRecordRepository
 import com.example.kotlinaccount.database.ItemTypeRepository
 import com.example.kotlinaccount.database.taskDaily.DailyWork
+import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import java.util.concurrent.TimeUnit
@@ -25,6 +26,7 @@ class AccountApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        CrashReport.initCrashReport(getApplicationContext(), "0d3fd3563c", true);
         init()
     }
 

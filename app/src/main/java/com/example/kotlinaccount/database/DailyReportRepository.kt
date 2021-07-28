@@ -5,6 +5,7 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import com.example.kotlinaccount.database.dao.DailyReportDao
 import com.example.kotlinaccount.database.entity.DailyReport
+import com.example.kotlinaccount.database.entity.ItemRecord
 import kotlinx.coroutines.*
 
 /**
@@ -24,7 +25,16 @@ class DailyReportRepository(private val dailyReportDao: DailyReportDao) {
         return dailyReportDao.queryAll()
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun queryLast10():List<DailyReport> {
+        return dailyReportDao.queryLast10()
+    }
+
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getMonthlyRecords() : List<DailyReport> {
         return dailyReportDao.queryLast10()
     }
 
