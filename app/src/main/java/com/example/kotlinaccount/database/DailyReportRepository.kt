@@ -34,8 +34,14 @@ class DailyReportRepository(private val dailyReportDao: DailyReportDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun getMonthlyRecords() : List<DailyReport> {
-        return dailyReportDao.queryLast10()
+    suspend fun queryMonthlyReport() : List<DailyReport> {
+        return dailyReportDao.queryMonthlyReport()
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun queryWeeklyReport() : List<DailyReport> {
+        return dailyReportDao.queryWeeklyReport()
     }
 
 }

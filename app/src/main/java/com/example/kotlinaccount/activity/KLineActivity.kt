@@ -9,6 +9,8 @@ import com.example.kotlinaccount.R
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
 import com.example.kotlinaccount.database.entity.DailyReport
+import com.example.kotlinaccount.vm.KLineViewModel
+import com.example.kotlinaccount.vm.KLineViewModelFactory
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -30,6 +32,17 @@ class KLineActivity : AppCompatActivity() {
         RecordViewModelFactory(
             (application as AccountApplication).itemRepository,
             (application as AccountApplication).typeRepository,
+            (application as AccountApplication).dailyReportRepository
+        )
+    }
+
+    private val DAILY = 1
+    private val WEEKLY = 2
+    private val MONTHLY = 3
+
+    private val kLineViewModel:KLineViewModel by viewModels {
+        KLineViewModelFactory(
+            (application as AccountApplication).itemRepository,
             (application as AccountApplication).dailyReportRepository
         )
     }
@@ -65,7 +78,7 @@ class KLineActivity : AppCompatActivity() {
         val scope = CoroutineScope(Job())
         var reports: List<DailyReport>
         scope.launch {
-            reports = viewModel.getAll()
+            reports = kLineViewModel.queryDailyReport()
             Log.d("gucheng", "reports size is " + reports.size)
             if (reports != null && reports.isNotEmpty()) {
                 var count: Float = 0f;
@@ -124,6 +137,79 @@ class KLineActivity : AppCompatActivity() {
             chart.notifyDataSetChanged()
         }
 
+
+    }
+
+    private fun setData(type:Int) {
+
+        var values: ArrayList<Entry> = ArrayList<Entry>()
+        val scope = CoroutineScope(Job())
+        var reports: List<DailyReport>
+        scope.launch {
+            when(type) {
+                DAILY->  reports = kLineViewModel.queryDailyReport()
+                WEEKLY-> reports = kLineViewModel.queryWeeklyReport()
+                MONTHLY -> reports = kLineViewModel.queryMonthlyReport()
+                else -> reports = kLineViewModel.queryDailyReport()
+            }
+
+            Log.d("gucheng", "reports size is " + reports.size)
+            if (reports != null && reports.isNotEmpty()) {
+                var count: Float = 0f;
+                for (item in reports) {
+
+                    values.add(
+                        Entry(
+                            count++,
+                            item.total?.toFloat() ?: 0f,
+                            getResources().getDrawable(R.drawable.star)
+                        )
+                    )
+                }
+            }
+            var set1: LineDataSet
+            var xAxis: XAxis
+
+            xAxis = chart.xAxis
+            xAxis.enableGridDashedLine(10f, 10f, 0f)
+            xAxis.setLabelCount(Math.min(reports.size, 5), false)
+
+            object : ValueFormatter() {
+                override fun getFormattedValue(value: Float): String {
+                    Log.d("gucheng", "reports size is " + reports.size + ",value is " + value)
+                    if (value < 0) {
+                        return ""
+                    }
+                    if (value.toInt() > reports.size - 1) {
+                        return ""
+                    }
+                    return reports.get(value.toInt()).date?.substring(5, 10) ?: ""
+                }
+            }.also { xAxis.valueFormatter = it }
+
+
+            if (chart.data != null &&
+                chart.data.dataSetCount > 0
+            ) {
+                set1 = chart.data.getDataSetByIndex(0) as LineDataSet
+                set1.values = values
+                set1.notifyDataSetChanged()
+                chart.data.notifyDataChanged()
+                chart.notifyDataSetChanged()
+            } else {
+                set1 = LineDataSet(values, "总资产")
+                set1.setDrawIcons(false)
+            }
+
+
+            val dataSets = ArrayList<ILineDataSet>()
+            dataSets.add(set1) // add the data sets
+
+            val data = LineData(dataSets)
+
+            chart.data = data
+            chart.notifyDataSetChanged()
+        }
 
     }
 }

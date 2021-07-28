@@ -22,7 +22,7 @@ class KLineViewModel(
     private val recordRepository: ItemRecordRepository,
     private val dailyReportRepository: DailyReportRepository
 ) : ViewModel() {
-    suspend fun getAllDaily(): List<DailyReport> {
+    suspend fun queryDailyReport(): List<DailyReport> {
 
         return suspendCoroutine { continuation ->
             var result: ArrayList<DailyReport> = ArrayList<DailyReport>()
@@ -51,12 +51,12 @@ class KLineViewModel(
         }
     }
 
-    suspend fun getAllWeekly(): List<DailyReport> {
+    suspend fun queryWeeklyReport(): List<DailyReport> {
 
         return suspendCoroutine { continuation ->
             var result: ArrayList<DailyReport> = ArrayList<DailyReport>()
             viewModelScope.launch(Dispatchers.IO) {
-                result.addAll(dailyReportRepository.queryLast10())
+                result.addAll(dailyReportRepository.queryWeeklyReport())
                 var records: List<ItemRecord> = recordRepository.getAllRecordByTime()
                 val dailyRecord = DailyReport()
                 if (records.isNotEmpty()) {
@@ -80,12 +80,15 @@ class KLineViewModel(
         }
     }
 
-    suspend fun getAllMonthly(): List<DailyReport> {
+    suspend fun queryMonthlyReport(): List<DailyReport> {
 
         return suspendCoroutine { continuation ->
             var result: ArrayList<DailyReport> = ArrayList<DailyReport>()
             viewModelScope.launch(Dispatchers.IO) {
-                result.addAll(dailyReportRepository.queryLast10())
+                result.addAll(dailyReportRepository.queryMonthlyReport())
+                if (result.size > 0) {
+                    result.removeAt(result.size - 1)
+                }
                 var records: List<ItemRecord> = recordRepository.getAllRecordByTime()
                 val dailyRecord = DailyReport()
                 if (records.isNotEmpty()) {
