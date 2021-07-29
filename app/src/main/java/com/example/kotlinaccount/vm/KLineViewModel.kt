@@ -57,6 +57,9 @@ class KLineViewModel(
             var result: ArrayList<DailyReport> = ArrayList<DailyReport>()
             viewModelScope.launch(Dispatchers.IO) {
                 result.addAll(dailyReportRepository.queryWeeklyReport())
+                if (result.size > 0) {
+                    result.removeAt(result.size - 1)
+                }
                 var records: List<ItemRecord> = recordRepository.getAllRecordByTime()
                 val dailyRecord = DailyReport()
                 if (records.isNotEmpty()) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">爱统计</string>
+    <string name="app_name">统计助手</string>
     <string name="button_save">save</string>
     <string name="amount">金额</string>
     <string name="type">类型</string>

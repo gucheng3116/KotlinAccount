@@ -2,6 +2,7 @@ package com.example.kotlinaccount.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlinaccount.AccountApplication
@@ -74,74 +75,23 @@ class KLineActivity : AppCompatActivity() {
         legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
 
-        var values: ArrayList<Entry> = ArrayList<Entry>()
-        val scope = CoroutineScope(Job())
-        var reports: List<DailyReport>
-        scope.launch {
-            reports = kLineViewModel.queryDailyReport()
-            Log.d("gucheng", "reports size is " + reports.size)
-            if (reports != null && reports.isNotEmpty()) {
-                var count: Float = 0f;
-                for (item in reports) {
-
-                    values.add(
-                        Entry(
-                            count++,
-                            item.total?.toFloat() ?: 0f,
-                            getResources().getDrawable(R.drawable.star)
-                        )
-                    )
-                }
-            }
-            var set1: LineDataSet
-            var xAxis: XAxis
-
-            xAxis = chart.xAxis
-            xAxis.enableGridDashedLine(10f, 10f, 0f)
-            xAxis.setLabelCount(Math.min(reports.size, 5), false)
-
-            object : ValueFormatter() {
-                override fun getFormattedValue(value: Float): String {
-                    Log.d("gucheng", "reports size is " + reports.size + ",value is " + value)
-                    if (value < 0) {
-                        return ""
-                    }
-                    if (value.toInt() > reports.size - 1) {
-                        return ""
-                    }
-                    return reports.get(value.toInt()).date?.substring(5, 10) ?: ""
-                }
-            }.also { xAxis.valueFormatter = it }
-
-
-            if (chart.data != null &&
-                chart.data.dataSetCount > 0
-            ) {
-                set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-                set1.values = values
-                set1.notifyDataSetChanged()
-                chart.data.notifyDataChanged()
-                chart.notifyDataSetChanged()
-            } else {
-                set1 = LineDataSet(values, "总资产")
-                set1.setDrawIcons(false)
-            }
-
-
-            val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1) // add the data sets
-
-            val data = LineData(dataSets)
-
-            chart.data = data
-            chart.notifyDataSetChanged()
+        setData(DAILY)
+        var dailyText = findViewById<TextView>(R.id.day)
+        var weeklyText = findViewById<TextView>(R.id.week)
+        var monthText = findViewById<TextView>(R.id.month)
+        dailyText.setOnClickListener {
+            setData(DAILY)
         }
-
+        weeklyText.setOnClickListener {
+            setData(WEEKLY)
+        }
+        monthText.setOnClickListener {
+            setData(MONTHLY)
+        }
 
     }
 
     private fun setData(type:Int) {
-
         var values: ArrayList<Entry> = ArrayList<Entry>()
         val scope = CoroutineScope(Job())
         var reports: List<DailyReport>
@@ -209,7 +159,9 @@ class KLineActivity : AppCompatActivity() {
 
             chart.data = data
             chart.notifyDataSetChanged()
+            chart.invalidate()
         }
 
     }
+
 }
