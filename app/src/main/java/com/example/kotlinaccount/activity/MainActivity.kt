@@ -1,6 +1,8 @@
 package com.example.kotlinaccount.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private val REQUEST_CODE_NEW_ITEM = 1
     private lateinit var amountTotal: TextView
     private lateinit var changeTrend: TextView
+    private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -55,7 +58,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTitle(getString(R.string.property_statistc))
-        showUserProtocol()
+        if (!isAgreeUserProtocol()) {
+            showUserProtocol()
+        }
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
@@ -220,7 +225,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         var serviceEnd = serviceStart + serviceString.length
         var sp = SpannableString(getString(R.string.user_hint))
         userPromptTxt.movementMethod = LinkMovementMethod.getInstance()
-
         sp.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 val intent = Intent(this@MainActivity, NewItemActivity::class.java)
@@ -241,6 +245,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         userPromptTxt.setText(sp)
         val agreeBtn = view.findViewById<Button>(R.id.agree)
         agreeBtn.setOnClickListener{
+            var editor = Utils.getAppPref(this).edit()
+            editor.putBoolean(KEY_AGREE_USER_PROTOCOL, true)
+            editor.apply()
             dialog.dismiss()
         }
         val cancelBtn = view.findViewById<Button>(R.id.cancel)
@@ -249,6 +256,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             finish()
         }
         dialog.show()
+    }
+
+    private fun isAgreeUserProtocol():Boolean{
+        var prefs:SharedPreferences = Utils.getAppPref(this)
+        return prefs.getBoolean(KEY_AGREE_USER_PROTOCOL, false)
     }
 
 
