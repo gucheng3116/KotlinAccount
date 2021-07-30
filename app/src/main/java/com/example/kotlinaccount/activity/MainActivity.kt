@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -60,6 +61,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTitle(getString(R.string.property_statistc))
+        showUserProtocol()
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
@@ -203,6 +205,27 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         var dialog = builder.create()
         dialog.show()
 
+    }
+
+    private fun showUserProtocol() {
+        var builder = AlertDialog.Builder(this)
+//        builder.setMessage(R.string.confirm_delete)
+//            .setPositiveButton(R.string.confirm, { dialog, id ->
+//                viewModel.deleteTypeRecord(record)
+//            }).setNegativeButton(R.string.cancel, null)
+        var view = LayoutInflater.from(this).inflate(R.layout.user_protocol,null);
+        builder.setView(view).setCancelable(false)
+        var dialog = builder.create()
+        val agreeBtn = view.findViewById<Button>(R.id.agree)
+        agreeBtn.setOnClickListener{
+            dialog.dismiss()
+        }
+        val cancelBtn = view.findViewById<Button>(R.id.cancel)
+        cancelBtn.setOnClickListener {
+            dialog.dismiss()
+            finish()
+        }
+        dialog.show()
     }
 
 
