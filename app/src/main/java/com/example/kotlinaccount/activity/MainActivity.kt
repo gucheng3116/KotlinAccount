@@ -227,7 +227,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         userPromptTxt.movementMethod = LinkMovementMethod.getInstance()
         sp.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
-                val intent = Intent(this@MainActivity, NewItemActivity::class.java)
+                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
+                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PRIVACY)
                 startActivity(intent)
             }
         },privacyStart,privacyEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
@@ -235,7 +236,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
         sp.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
-                val intent = Intent(this@MainActivity, NewItemActivity::class.java)
+                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
+                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PROTOCOL)
                 startActivity(intent)
             }
         },serviceStart,serviceEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)

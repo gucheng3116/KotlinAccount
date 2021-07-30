@@ -23,4 +23,8 @@
     </string>
     <string name="service_protocol">《统计助手服务协议》</string>
     <string name="privacy_policy">《隐私政策》</string>
+    <string name="service_protocal_title">用户服务协议</string>
+    <string name="service_protocal_content">服务协议内容</string>
+    <string name="privacy_policy_title">隐私政策</string>
+    <string name="privacy_policy_content">隐私政策内容</string>
 </resources>
