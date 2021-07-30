@@ -1,11 +1,17 @@
 package com.example.kotlinaccount.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -24,20 +30,8 @@ import com.example.kotlinaccount.RecordAdapter
 import com.example.kotlinaccount.Utils
 import com.example.kotlinaccount.database.RecordViewModel
 import com.example.kotlinaccount.database.RecordViewModelFactory
-import com.example.kotlinaccount.database.entity.DailyReport
 import com.example.kotlinaccount.database.entity.ItemRecord
-import com.github.mikephil.charting.charts.LineChart
-import com.github.mikephil.charting.components.Legend
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.ValueFormatter
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -216,6 +210,35 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         var view = LayoutInflater.from(this).inflate(R.layout.user_protocol,null);
         builder.setView(view).setCancelable(false)
         var dialog = builder.create()
+        var userPromptTxt = view.findViewById<TextView>(R.id.user_hint)
+        var userHint = getString(R.string.user_hint)
+        var privacyString = getString(R.string.privacy_policy)
+        var serviceString = getString(R.string.service_protocol)
+        var privacyStart = userHint.indexOf(privacyString)
+        var privacyEnd = privacyStart + privacyString.length
+        var serviceStart = userHint.indexOf(serviceString)
+        var serviceEnd = serviceStart + serviceString.length
+        var sp = SpannableString(getString(R.string.user_hint))
+        userPromptTxt.movementMethod = LinkMovementMethod.getInstance()
+
+        sp.setSpan(object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(this@MainActivity, NewItemActivity::class.java)
+                startActivity(intent)
+            }
+        },privacyStart,privacyEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        sp.setSpan(Color.BLUE, privacyStart,privacyEnd,Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+
+        sp.setSpan(object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val intent = Intent(this@MainActivity, NewItemActivity::class.java)
+                startActivity(intent)
+            }
+        },serviceStart,serviceEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        sp.setSpan(Color.BLUE, serviceStart,serviceEnd,Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+
+
+        userPromptTxt.setText(sp)
         val agreeBtn = view.findViewById<Button>(R.id.agree)
         agreeBtn.setOnClickListener{
             dialog.dismiss()
