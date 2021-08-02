@@ -21,9 +21,11 @@ class ProtocolActivity : AppCompatActivity() {
         val mode = intent.getIntExtra(PROTOCOL_TYPE, MODE_PROTOCOL)
         if (mode == MODE_PROTOCOL) {
             titleTxt.setText(R.string.service_protocal_title)
+            setTitle(R.string.service_protocal_title)
             contentTxt.setText(R.string.service_protocal_content)
         } else {
             titleTxt.setText(R.string.privacy_policy_title)
+            setTitle(R.string.privacy_policy_title)
             contentTxt.setText(R.string.privacy_policy_content)
         }
     }

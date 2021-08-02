@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         if (!isAgreeUserProtocol()) {
             showUserProtocol()
         }
+        showUserProtocol()
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
