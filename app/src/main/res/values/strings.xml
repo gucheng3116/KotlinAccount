@@ -66,4 +66,6 @@
         七、协议更新\n
         本协议可能发生变动，开发者保留变更协议的权利，权利变更会用通知或弹窗等显著的方式通知用户。\n
     </string>
+    <string name="disagree">不同意</string>
+    <string name="agree_and_continue">同意并继续</string>
 </resources>

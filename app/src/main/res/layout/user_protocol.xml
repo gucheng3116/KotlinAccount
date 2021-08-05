@@ -40,7 +40,7 @@
                 android:id="@+id/agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="同意并继续"
+                android:text="@string/agree_and_continue"
               />
         </LinearLayout>
 
@@ -54,7 +54,7 @@
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="取消并推出"
+                android:text="@string/disagree"
                 />
         </LinearLayout>
     </LinearLayout>
