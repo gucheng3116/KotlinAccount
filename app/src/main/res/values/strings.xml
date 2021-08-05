@@ -70,4 +70,5 @@
     <string name="agree_and_continue">同意并继续</string>
     <string name="change_trend">变化趋势</string>
     <string name="new_property">新增资产</string>
+    <string name="empty_hint">空空如也，赶紧点击加号来添加资产吧!</string>
 </resources>

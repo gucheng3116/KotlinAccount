@@ -85,6 +85,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
         amountTotal = findViewById(R.id.total_amount)
 
+        var emptyView = findViewById<View>(R.id.empty_view)
+        var recordLayout = findViewById<View>(R.id.record_layout)
+
         viewModel.allRecords.observe(owner = this) { records ->
             records.let { records ->
                 adapter.submitList(records)
@@ -100,6 +103,13 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 }
                 sum.toString()
             })
+            if (records == null || records.isEmpty()) {
+                emptyView.visibility = View.VISIBLE
+                recordLayout.visibility = View.GONE
+            } else {
+                emptyView.visibility = View.GONE
+                recordLayout.visibility = View.VISIBLE
+            }
         }
     }
 
