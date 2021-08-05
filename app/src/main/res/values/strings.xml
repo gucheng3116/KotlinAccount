@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">统计助手</string>
-    <string name="button_save">save</string>
+    <string name="button_save">保存</string>
     <string name="amount">金额</string>
     <string name="type">类型</string>
     <string name="please_input">请输入</string>
@@ -68,4 +68,6 @@
     </string>
     <string name="disagree">不同意</string>
     <string name="agree_and_continue">同意并继续</string>
+    <string name="change_trend">变化趋势</string>
+    <string name="new_property">新增资产</string>
 </resources>

@@ -14,13 +14,14 @@
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/positive_chart"
-            android:layout_width="400dp"
-            android:layout_height="400dp" />
+            android:layout_width="380dp"
+            android:layout_height="380dp"
+            />
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/negetive_chart"
-            android:layout_width="400dp"
-            android:layout_height="400dp" />
+            android:layout_width="380dp"
+            android:layout_height="380dp" />
 
     </LinearLayout>
 

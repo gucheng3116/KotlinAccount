@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.kotlinaccount">
+    package="com.gucheng.statistichelper">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,20 +11,20 @@
         tools:ignore="ProtectedPermissions" />
 
     <application
-        android:name=".AccountApplication"
+        android:name="com.gucheng.statistichelper.AccountApplication"
         android:allowBackup="true"
         android:icon="@mipmap/statistic"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/statistic"
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinAccount">
-        <activity android:name=".activity.ProtocolActivity"></activity>
-        <activity android:name=".activity.KLineActivity" />
-        <activity android:name=".activity.ShareActivity" />
-        <activity android:name=".activity.EditTypeActivity" />
-        <activity android:name=".activity.NewTypeActivity" />
-        <activity android:name=".activity.NewItemActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="com.gucheng.statistichelper.activity.ProtocolActivity"></activity>
+        <activity android:name="com.gucheng.statistichelper.activity.KLineActivity" />
+        <activity android:name="com.gucheng.statistichelper.activity.ShareActivity" />
+        <activity android:name="com.gucheng.statistichelper.activity.EditTypeActivity" />
+        <activity android:name="com.gucheng.statistichelper.activity.NewTypeActivity" />
+        <activity android:name="com.gucheng.statistichelper.activity.NewItemActivity" />
+        <activity android:name="com.gucheng.statistichelper.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

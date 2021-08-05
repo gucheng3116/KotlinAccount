@@ -7,13 +7,22 @@
     tools:context=".activity.NewItemActivity"
     android:orientation="vertical">
 
-    <EditText
-        android:id ="@+id/amount"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="@string/amount"
-        android:inputType="numberSigned|numberDecimal"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"/>
+        <EditText
+            android:id ="@+id/amount"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/please_input"
+            android:inputType="numberSigned|numberDecimal"/>
+    </LinearLayout>
 
 
     <LinearLayout
@@ -28,7 +37,7 @@
             android:id ="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/please_input"
+            android:hint="@string/please_select"
             android:focusable="false"/>
     </LinearLayout>
 

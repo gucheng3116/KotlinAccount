@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="变化趋势" />
+                android:text="@string/change_trend" />
 
             <TextView
                 android:id="@+id/property_share"
