@@ -8,6 +8,7 @@
     <string name="new_type">新增类型</string>
     <string name="delete">删除</string>
     <string name="edit">编辑</string>
+    <string name="manage_type">管理资产类型</string>
     <string name="edit_type">编辑类型</string>
     <string name="edit_record">编辑记录</string>
     <string name="cancel">取消</string>

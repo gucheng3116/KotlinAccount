@@ -1,4 +1,4 @@
-package com.gucheng.statistichelper.database
+package com.gucheng.statistichelper.database.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread
@@ -25,8 +25,8 @@ class ItemRecordRepository(private val itemRecordDao: ItemRecordDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun deleteTypeRecord(itemRecord: ItemRecord) {
-        itemRecordDao.deleteTypeRecord(itemRecord.typeId!!)
+    suspend fun deleteTypeRecord(typeId:Int) {
+        itemRecordDao.deleteTypeRecord(typeId)
     }
 
     @Suppress("RedundantSuspendModifier")

@@ -1,4 +1,4 @@
-package com.gucheng.statistichelper.database
+package com.gucheng.statistichelper.database.repository
 
 import android.text.TextUtils
 import androidx.annotation.WorkerThread
@@ -16,5 +16,23 @@ class ItemTypeRepository(private val itemTypeDao: ItemTypeDao) {
             return
         }
         itemTypeDao.insertItemType(itemType)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+     fun queryAll() : Flow<List<ItemType>> {
+        return itemTypeDao.getAllItem()
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateType(itemType:ItemType) {
+        return itemTypeDao.updateType(itemType)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun delete(itemType:ItemType) {
+        return itemTypeDao.delete(itemType)
     }
 }

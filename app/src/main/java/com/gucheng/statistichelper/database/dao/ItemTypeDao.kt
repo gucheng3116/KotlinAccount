@@ -1,9 +1,6 @@
 package com.gucheng.statistichelper.database.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.gucheng.statistichelper.database.entity.ItemType
 import kotlinx.coroutines.flow.Flow
 
@@ -14,4 +11,10 @@ interface ItemTypeDao {
 
     @Query("select * from item_type")
     fun getAllItem(): Flow<List<ItemType>>
+
+    @Update
+    suspend fun updateType(itemType: ItemType)
+
+    @Delete
+    suspend fun delete(itemType: ItemType)
 }

@@ -27,7 +27,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.R
-import com.gucheng.statistichelper.RecordAdapter
+import com.gucheng.statistichelper.adapter.RecordAdapter
 import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.database.RecordViewModel
 import com.gucheng.statistichelper.database.RecordViewModelFactory

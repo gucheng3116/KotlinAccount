@@ -1,4 +1,4 @@
-package com.gucheng.statistichelper
+package com.gucheng.statistichelper.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +8,13 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import java.text.DecimalFormat
 
-class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, RecordAdapter.RecordViewHolder>(RECORD_COMPARATOR) {
+class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, RecordAdapter.RecordViewHolder>(
+    RECORD_COMPARATOR
+) {
     init {
         listener = itemListener
     }

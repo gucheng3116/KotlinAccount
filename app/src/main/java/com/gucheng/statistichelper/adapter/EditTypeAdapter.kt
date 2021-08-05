@@ -12,7 +12,7 @@ import com.gucheng.statistichelper.database.entity.ItemType
 /**
  * Created on 2021/7/11.
  */
-class EditTypeAdapter(typeList:List<ItemType>) : RecyclerView.Adapter<EditTypeAdapter.EditTypeViewHolder>() {
+class EditTypeAdapter(typeList:List<ItemType>,val listener:TypeListener) : RecyclerView.Adapter<EditTypeAdapter.EditTypeViewHolder>() {
 
     private var mTypeList: List<ItemType> = typeList
 
@@ -29,6 +29,9 @@ class EditTypeAdapter(typeList:List<ItemType>) : RecyclerView.Adapter<EditTypeAd
 
     override fun onBindViewHolder(holder: EditTypeViewHolder, position: Int) {
         holder.typeName.text = mTypeList.get(position).typeName
+        holder.editBtn.setOnClickListener {
+            listener.edit(mTypeList.get(position))
+        }
 
     }
 
@@ -38,6 +41,10 @@ class EditTypeAdapter(typeList:List<ItemType>) : RecyclerView.Adapter<EditTypeAd
         } else {
             return mTypeList.size
         }
+    }
+
+    interface TypeListener {
+        fun edit(type:ItemType)
     }
 
 }

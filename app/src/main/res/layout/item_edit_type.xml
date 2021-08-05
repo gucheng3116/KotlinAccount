@@ -3,17 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginEnd="20dp"
-    android:layout_marginStart="20dp">
+    android:layout_marginStart="20dp"
+    android:gravity="center_vertical">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/type_name"/>
+        android:id="@+id/type_name"
+        android:layout_centerVertical="true"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@id/type_name"
+        android:layout_marginStart="20dp"
         android:id="@+id/edit_btn"
-        android:text="@string/edit"/>
+        android:text="@string/edit"
+        android:layout_centerVertical="true"/>
 
 </RelativeLayout>

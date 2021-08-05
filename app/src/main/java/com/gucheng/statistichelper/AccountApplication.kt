@@ -5,9 +5,9 @@ import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.gucheng.statistichelper.database.AccountDatabase
-import com.gucheng.statistichelper.database.DailyReportRepository
-import com.gucheng.statistichelper.database.ItemRecordRepository
-import com.gucheng.statistichelper.database.ItemTypeRepository
+import com.gucheng.statistichelper.database.repository.DailyReportRepository
+import com.gucheng.statistichelper.database.repository.ItemRecordRepository
+import com.gucheng.statistichelper.database.repository.ItemTypeRepository
 import com.gucheng.statistichelper.database.taskDaily.DailyWork
 import com.tencent.bugly.crashreport.CrashReport
 import kotlinx.coroutines.CoroutineScope

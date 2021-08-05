@@ -6,6 +6,9 @@ import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.database.entity.DailyReport
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.gucheng.statistichelper.database.entity.ItemType
+import com.gucheng.statistichelper.database.repository.DailyReportRepository
+import com.gucheng.statistichelper.database.repository.ItemRecordRepository
+import com.gucheng.statistichelper.database.repository.ItemTypeRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
@@ -25,7 +28,10 @@ class RecordViewModel(
     }
 
     fun deleteTypeRecord(itemRecord: ItemRecord) = viewModelScope.launch {
-        recordRepository.deleteTypeRecord(itemRecord)
+        if (itemRecord.typeId != null) {
+            recordRepository.deleteTypeRecord(itemRecord.typeId!!)
+        }
+
     }
 
     fun insertType(itemType: ItemType) = viewModelScope.launch {

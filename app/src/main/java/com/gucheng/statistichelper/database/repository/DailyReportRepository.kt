@@ -1,4 +1,4 @@
-package com.gucheng.statistichelper.database
+package com.gucheng.statistichelper.database.repository
 
 import android.util.Log
 import androidx.annotation.WorkerThread

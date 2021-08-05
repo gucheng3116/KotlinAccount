@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.gucheng.statistichelper.Utils
-import com.gucheng.statistichelper.database.DailyReportRepository
-import com.gucheng.statistichelper.database.ItemRecordRepository
+import com.gucheng.statistichelper.database.repository.DailyReportRepository
+import com.gucheng.statistichelper.database.repository.ItemRecordRepository
 import com.gucheng.statistichelper.database.entity.DailyReport
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import kotlinx.coroutines.Dispatchers
