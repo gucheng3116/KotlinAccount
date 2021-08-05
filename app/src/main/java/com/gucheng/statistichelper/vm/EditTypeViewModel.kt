@@ -31,6 +31,12 @@ class EditTypeViewModel(private val itemTypeRepository: ItemTypeRepository,
             itemRecordRepository.deleteTypeRecord(itemType.id!!)
         }
     }
+
+    fun insert(itemType:ItemType) {
+        viewModelScope.launch {
+            itemTypeRepository.insert(itemType)
+        }
+    }
 }
 
 class EditTypeViewModelFactory(private val itemTypeRepository: ItemTypeRepository,

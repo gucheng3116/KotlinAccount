@@ -1,23 +1,23 @@
 package com.gucheng.statistichelper.activity
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
+import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.adapter.EditTypeAdapter
-import com.gucheng.statistichelper.database.AccountDatabase
 import com.gucheng.statistichelper.database.entity.ItemType
 import com.gucheng.statistichelper.vm.EditTypeViewModel
 import com.gucheng.statistichelper.vm.EditTypeViewModelFactory
-import kotlinx.coroutines.GlobalScope
 
 class EditTypeActivity : AppCompatActivity(), EditTypeAdapter.TypeListener {
     private lateinit var mAdapter: EditTypeAdapter
@@ -28,9 +28,13 @@ class EditTypeActivity : AppCompatActivity(), EditTypeAdapter.TypeListener {
         )
     }
     private var list = ArrayList<ItemType>()
+    private lateinit var addBtn : Button
+    private lateinit var typeEdt : EditText
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_type)
+        addBtn = findViewById(R.id.add_type)
+        typeEdt = findViewById(R.id.type_name)
         setTitle(R.string.manage_type)
         val recyclerView = findViewById<RecyclerView>(R.id.type_recyclerview)
         mAdapter = EditTypeAdapter(list, this)
@@ -40,6 +44,15 @@ class EditTypeActivity : AppCompatActivity(), EditTypeAdapter.TypeListener {
             list.clear()
             list.addAll(types)
             mAdapter.notifyDataSetChanged()
+        }
+        addBtn.setOnClickListener {
+            var type = typeEdt.text.toString()
+            if (TextUtils.isEmpty(type)) {
+                Toast.makeText(this@EditTypeActivity,R.string.type_name_not_null,Toast.LENGTH_SHORT).show()
+            }
+            var itemType = ItemType(typeName = type)
+            viewModel.insert(itemType)
+            typeEdt.setText("")
         }
 
     }
@@ -71,5 +84,6 @@ class EditTypeActivity : AppCompatActivity(), EditTypeAdapter.TypeListener {
             .setMessage("确认删除类型 %s 么?删除后该类型下的记录也会被删除".format(type.typeName))
         builder.create().show()
     }
+
 
 }
