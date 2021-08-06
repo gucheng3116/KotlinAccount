@@ -45,7 +45,7 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
         }
         fragment = ItemFragment(viewModel)
         typeEdt.setOnClickListener {
-            fragment.show(supportFragmentManager, "test")
+            fragment.show(supportFragmentManager, "select")
         }
 
     }
