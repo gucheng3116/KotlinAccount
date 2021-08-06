@@ -21,20 +21,23 @@
             android:id="@+id/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="日K" />
+            android:textColor="@color/text_select_color"
+            android:text="@string/day_k" />
 
         <TextView
             android:id="@+id/week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="周K"
+            android:text="@string/week_k"
+            android:textColor="@color/text_select_color"
             android:layout_marginStart="20dp"/>
 
         <TextView
             android:id="@+id/month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="月K"
+            android:text="@string/monty_k"
+            android:textColor="@color/text_select_color"
             android:layout_marginStart="20dp"/>
 
 

@@ -48,11 +48,6 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
             fragment.show(supportFragmentManager, "test")
         }
 
-        val newBtn = findViewById<Button>(R.id.new_type)
-        newBtn.setOnClickListener {
-            var intent: Intent = Intent(this, NewTypeActivity::class.java)
-            startActivity(intent)
-        }
     }
 
 

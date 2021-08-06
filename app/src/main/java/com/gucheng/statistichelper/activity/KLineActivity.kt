@@ -41,6 +41,11 @@ class KLineActivity : AppCompatActivity() {
     private val WEEKLY = 2
     private val MONTHLY = 3
 
+    private lateinit var dailyText:TextView
+    private lateinit var weeklyText:TextView
+    private lateinit var monthlyText:TextView
+    private var textGroup = ArrayList<TextView>(3);
+
     private val kLineViewModel:KLineViewModel by viewModels {
         KLineViewModelFactory(
             (application as AccountApplication).itemRepository,
@@ -76,23 +81,38 @@ class KLineActivity : AppCompatActivity() {
         legend.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
         legend.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
 
+        dailyText = findViewById<TextView>(R.id.day)
+        weeklyText = findViewById<TextView>(R.id.week)
+        monthlyText = findViewById<TextView>(R.id.month)
+        textGroup.add(dailyText)
+        textGroup.add(weeklyText)
+        textGroup.add(monthlyText)
         setData(DAILY)
-        var dailyText = findViewById<TextView>(R.id.day)
-        var weeklyText = findViewById<TextView>(R.id.week)
-        var monthText = findViewById<TextView>(R.id.month)
         dailyText.setOnClickListener {
             setData(DAILY)
         }
         weeklyText.setOnClickListener {
             setData(WEEKLY)
         }
-        monthText.setOnClickListener {
+        monthlyText.setOnClickListener {
             setData(MONTHLY)
         }
 
     }
 
+    fun setSelected(type:Int) {
+        var selected = type -1
+        for (i in 0 until textGroup.size) {
+            if (i == selected) {
+                textGroup.get(i).isSelected = true
+            } else {
+                textGroup.get(i).isSelected = false
+            }
+        }
+    }
+
     private fun setData(type:Int) {
+        setSelected(type)
         var values: ArrayList<Entry> = ArrayList<Entry>()
         val scope = CoroutineScope(Job())
         var reports: List<DailyReport>

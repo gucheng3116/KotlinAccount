@@ -73,4 +73,7 @@
     <string name="new_property">新增资产</string>
     <string name="empty_hint">空空如也，赶紧点击加号来添加资产吧!</string>
     <string name="type_name_not_null">类型名称不能为空</string>
+    <string name="monty_k">月K</string>
+    <string name="week_k">周K</string>
+    <string name="day_k">日K</string>
 </resources>
