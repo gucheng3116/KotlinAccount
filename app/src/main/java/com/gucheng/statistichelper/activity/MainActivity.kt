@@ -33,6 +33,7 @@ import com.gucheng.statistichelper.database.RecordViewModel
 import com.gucheng.statistichelper.database.RecordViewModelFactory
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.umeng.commonsdk.UMConfigure
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -59,6 +60,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         setTitle(getString(R.string.property_statistc))
         if (!isAgreeUserProtocol()) {
             showUserProtocol()
+        } else {
+            UMConfigure.init(
+                this,
+                Utils.UMEN_KEY,
+                Utils.APP_CHANNEL,
+                UMConfigure.DEVICE_TYPE_PHONE,
+                null
+            )
         }
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
@@ -72,7 +81,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         recyclerView.adapter = adapter
 
         changeTrend = findViewById(R.id.change_trend)
-        changeTrend.setOnClickListener({v ->
+        changeTrend.setOnClickListener({ v ->
             val intent = Intent(this@MainActivity, KLineActivity::class.java)
             startActivity(intent)
         })
@@ -209,7 +218,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                     "edit thread id is " + Thread.currentThread().id
                             + ",name is " + Thread.currentThread().name
                 )
-            }).setNeutralButton(R.string.delete,{id,dialog ->
+            }).setNeutralButton(R.string.delete, { id, dialog ->
                 delete(record)
             })
         var dialog = builder.create()
@@ -223,7 +232,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 //            .setPositiveButton(R.string.confirm, { dialog, id ->
 //                viewModel.deleteTypeRecord(record)
 //            }).setNegativeButton(R.string.cancel, null)
-        var view = LayoutInflater.from(this).inflate(R.layout.user_protocol,null);
+        var view = LayoutInflater.from(this).inflate(R.layout.user_protocol, null);
         builder.setView(view).setCancelable(false)
         var dialog = builder.create()
         var userPromptTxt = view.findViewById<TextView>(R.id.user_hint)
@@ -242,8 +251,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PRIVACY)
                 startActivity(intent)
             }
-        },privacyStart,privacyEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-        sp.setSpan(Color.BLUE, privacyStart,privacyEnd,Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        }, privacyStart, privacyEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        sp.setSpan(Color.BLUE, privacyStart, privacyEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 
         sp.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -251,17 +260,24 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PROTOCOL)
                 startActivity(intent)
             }
-        },serviceStart,serviceEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-        sp.setSpan(Color.BLUE, serviceStart,serviceEnd,Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        }, serviceStart, serviceEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        sp.setSpan(Color.BLUE, serviceStart, serviceEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 
 
         userPromptTxt.setText(sp)
         val agreeBtn = view.findViewById<Button>(R.id.agree)
-        agreeBtn.setOnClickListener{
+        agreeBtn.setOnClickListener {
             var editor = Utils.getAppPref(this).edit()
             editor.putBoolean(KEY_AGREE_USER_PROTOCOL, true)
             editor.apply()
             dialog.dismiss()
+            UMConfigure.init(
+                this,
+                Utils.UMEN_KEY,
+                Utils.APP_CHANNEL,
+                UMConfigure.DEVICE_TYPE_PHONE,
+                null
+            )
         }
         val cancelBtn = view.findViewById<Button>(R.id.cancel)
         cancelBtn.setOnClickListener {
@@ -271,8 +287,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         dialog.show()
     }
 
-    private fun isAgreeUserProtocol():Boolean{
-        var prefs:SharedPreferences = Utils.getAppPref(this)
+    private fun isAgreeUserProtocol(): Boolean {
+        var prefs: SharedPreferences = Utils.getAppPref(this)
         return prefs.getBoolean(KEY_AGREE_USER_PROTOCOL, false)
     }
 

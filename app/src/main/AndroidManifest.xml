@@ -10,6 +10,11 @@
         android:name="android.permission.READ_LOGS"
         tools:ignore="ProtectedPermissions" />
 
+
+    <meta-data
+        android:name="BUGLY_APP_CHANNEL"
+        android:value="tencent" />
+
     <application
         android:name="com.gucheng.statistichelper.AccountApplication"
         android:allowBackup="true"
