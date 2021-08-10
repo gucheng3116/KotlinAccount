@@ -11,7 +11,7 @@ class Utils {
     companion object{
         private val APP_PREF_NAME = "statistic_helper"
 
-        val APP_CHANNEL = "tencent"
+        val APP_CHANNEL = ""
         const val UMEN_KEY = "610e49de3451547e683fecae"
 
         val TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"

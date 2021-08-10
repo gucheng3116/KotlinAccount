@@ -13,4 +13,5 @@
     <color name="buttonLabel">@color/white</color>
 
     <color name="gray">#d9d9d9</color>
+    <color name="green">#49DC17</color>
 </resources>

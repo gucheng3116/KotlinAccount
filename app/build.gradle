@@ -36,6 +36,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    productFlavors {
+        tencent {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"tencent"]
+        }
+        xiaomi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"xiaomi"]
+        }
+    }
 }
 
 dependencies {
