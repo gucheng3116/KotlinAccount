@@ -15,6 +15,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        flavorDimensions "versionCode"
+
         ndk {
             // 设置支持的SO库架构
             abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
@@ -45,6 +47,7 @@ android {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE:"xiaomi"]
         }
     }
+
 }
 
 dependencies {
