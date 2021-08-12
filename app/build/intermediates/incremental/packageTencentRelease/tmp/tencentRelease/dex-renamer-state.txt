@@ -1,0 +1,4 @@
+#Wed Aug 11 17:06:34 CST 2021
+base.0=/Users/liuwei/Code/KotlinAccount/app/build/intermediates/dex/tencentRelease/minifyTencentReleaseWithR8/classes.dex
+renamed.0=classes.dex
+path.0=classes.dex

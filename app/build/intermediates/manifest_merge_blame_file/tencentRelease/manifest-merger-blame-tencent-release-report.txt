@@ -1,0 +1,313 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.gucheng.statistic.helper"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:6:5-67
+11-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:6:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:7:5-79
+12-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:7:22-76
+13    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+13-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:8:5-76
+13-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:8:22-73
+14    <uses-permission android:name="android.permission.READ_LOGS" />
+14-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:9:5-11:47
+14-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:10:9-52
+15
+16    <meta-data
+17        android:name="BUGLY_APP_CHANNEL"
+17-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:15:9-41
+18        android:value="tencent" />
+18-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:16:9-47
+19    <meta-data
+20        android:name="UMENG_CHANNEL"
+20-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:18:9-37
+21        android:value="tencent" />
+21-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:19:9-47
+22
+23    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+23-->[androidx.biometric:biometric:1.0.0-beta01] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/22b0515498a2e3570b29f5983d20ce26/biometric-1.0.0-beta01/AndroidManifest.xml:24:5-72
+23-->[androidx.biometric:biometric:1.0.0-beta01] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/22b0515498a2e3570b29f5983d20ce26/biometric-1.0.0-beta01/AndroidManifest.xml:24:22-69
+24    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+24-->[androidx.biometric:biometric:1.0.0-beta01] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/22b0515498a2e3570b29f5983d20ce26/biometric-1.0.0-beta01/AndroidManifest.xml:25:5-74
+24-->[androidx.biometric:biometric:1.0.0-beta01] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/22b0515498a2e3570b29f5983d20ce26/biometric-1.0.0-beta01/AndroidManifest.xml:25:22-71
+25    <uses-permission android:name="android.permission.WAKE_LOCK" />
+25-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:25:5-68
+25-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:25:22-65
+26    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+26-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:27:5-81
+26-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:27:22-78
+27    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+27-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:28:5-77
+27-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:28:22-74
+28
+29    <application
+29-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:21:5-42:19
+30        android:name="com.gucheng.statistichelper.AccountApplication"
+30-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:22:9-70
+31        android:allowBackup="true"
+31-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:23:9-35
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/318a42ca6bf8b56a2423b5935c6f7e0c/core-1.5.0/AndroidManifest.xml:24:18-86
+33        android:icon="@mipmap/statistic"
+33-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:24:9-41
+34        android:label="@string/app_name"
+34-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:25:9-41
+35        android:roundIcon="@mipmap/statistic"
+35-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:26:9-46
+36        android:supportsRtl="true"
+36-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:27:9-35
+37        android:theme="@style/Theme.KotlinAccount" >
+37-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:28:9-51
+38        <activity android:name="com.gucheng.statistichelper.activity.ProtocolActivity" />
+38-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:29:9-99
+38-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:29:19-87
+39        <activity android:name="com.gucheng.statistichelper.activity.KLineActivity" />
+39-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:30:9-87
+39-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:30:19-84
+40        <activity android:name="com.gucheng.statistichelper.activity.ShareActivity" />
+40-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:31:9-87
+40-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:31:19-84
+41        <activity android:name="com.gucheng.statistichelper.activity.EditTypeActivity" />
+41-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:32:9-90
+41-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:32:19-87
+42        <activity android:name="com.gucheng.statistichelper.activity.NewTypeActivity" />
+42-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:33:9-89
+42-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:33:19-86
+43        <activity android:name="com.gucheng.statistichelper.activity.NewItemActivity" />
+43-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:34:9-89
+43-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:34:19-86
+44        <activity android:name="com.gucheng.statistichelper.activity.MainActivity" >
+44-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:35:9-41:20
+44-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:35:19-83
+45            <intent-filter>
+45-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:36:13-40:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:37:17-69
+46-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:37:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:39:17-77
+48-->/Users/liuwei/Code/KotlinAccount/app/src/main/AndroidManifest.xml:39:27-74
+49            </intent-filter>
+50        </activity>
+51        <activity
+51-->[androidx.biometric:biometric:1.0.0-beta01] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/22b0515498a2e3570b29f5983d20ce26/biometric-1.0.0-beta01/AndroidManifest.xml:28:9-30:67
+52            android:name="androidx.biometric.DeviceCredentialHandlerActivity"
+52-->[androidx.biometric:biometric:1.0.0-beta01] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/22b0515498a2e3570b29f5983d20ce26/biometric-1.0.0-beta01/AndroidManifest.xml:29:13-78
+53            android:theme="@style/DeviceCredentialHandlerTheme" />
+53-->[androidx.biometric:biometric:1.0.0-beta01] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/22b0515498a2e3570b29f5983d20ce26/biometric-1.0.0-beta01/AndroidManifest.xml:30:13-64
+54
+55        <provider
+55-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:31:9-37:35
+56            android:name="androidx.work.impl.WorkManagerInitializer"
+56-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:32:13-69
+57            android:authorities="com.gucheng.statistic.helper.workmanager-init"
+57-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:33:13-68
+58            android:directBootAware="false"
+58-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:34:13-44
+59            android:exported="false"
+59-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:35:13-37
+60            android:multiprocess="true" />
+60-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:36:13-40
+61
+62        <service
+62-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:39:9-44:35
+63            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+63-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:40:13-88
+64            android:directBootAware="false"
+64-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:41:13-44
+65            android:enabled="@bool/enable_system_alarm_service_default"
+65-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:42:13-72
+66            android:exported="false" />
+66-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:43:13-37
+67        <service
+67-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:45:9-51:35
+68            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+68-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:46:13-84
+69            android:directBootAware="false"
+69-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:47:13-44
+70            android:enabled="@bool/enable_system_job_service_default"
+70-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:48:13-70
+71            android:exported="true"
+71-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:49:13-36
+72            android:permission="android.permission.BIND_JOB_SERVICE" />
+72-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:50:13-69
+73        <service
+73-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:52:9-57:35
+74            android:name="androidx.work.impl.foreground.SystemForegroundService"
+74-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:53:13-81
+75            android:directBootAware="false"
+75-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:54:13-44
+76            android:enabled="@bool/enable_system_foreground_service_default"
+76-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:55:13-77
+77            android:exported="false" />
+77-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:56:13-37
+78
+79        <receiver
+79-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:59:9-64:35
+80            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+80-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:60:13-88
+81            android:directBootAware="false"
+81-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:61:13-44
+82            android:enabled="true"
+82-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:62:13-35
+83            android:exported="false" />
+83-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:63:13-37
+84        <receiver
+84-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:65:9-75:20
+85            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+85-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:66:13-106
+86            android:directBootAware="false"
+86-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:67:13-44
+87            android:enabled="false"
+87-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:68:13-36
+88            android:exported="false" >
+88-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:69:13-37
+89            <intent-filter>
+89-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:71:13-74:29
+90                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+90-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:72:17-87
+90-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:72:25-84
+91                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+91-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:73:17-90
+91-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:73:25-87
+92            </intent-filter>
+93        </receiver>
+94        <receiver
+94-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:76:9-86:20
+95            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+95-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:77:13-104
+96            android:directBootAware="false"
+96-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:78:13-44
+97            android:enabled="false"
+97-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:79:13-36
+98            android:exported="false" >
+98-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:80:13-37
+99            <intent-filter>
+99-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:82:13-85:29
+100                <action android:name="android.intent.action.BATTERY_OKAY" />
+100-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:83:17-77
+100-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:83:25-74
+101                <action android:name="android.intent.action.BATTERY_LOW" />
+101-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:84:17-76
+101-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:84:25-73
+102            </intent-filter>
+103        </receiver>
+104        <receiver
+104-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:87:9-97:20
+105            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+105-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:88:13-104
+106            android:directBootAware="false"
+106-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:89:13-44
+107            android:enabled="false"
+107-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:90:13-36
+108            android:exported="false" >
+108-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:91:13-37
+109            <intent-filter>
+109-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:93:13-96:29
+110                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+110-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:94:17-83
+110-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:94:25-80
+111                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+111-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:95:17-82
+111-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:95:25-79
+112            </intent-filter>
+113        </receiver>
+114        <receiver
+114-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:98:9-107:20
+115            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+115-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:99:13-103
+116            android:directBootAware="false"
+116-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:100:13-44
+117            android:enabled="false"
+117-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:101:13-36
+118            android:exported="false" >
+118-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:102:13-37
+119            <intent-filter>
+119-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:104:13-106:29
+120                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+120-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:105:17-79
+120-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:105:25-76
+121            </intent-filter>
+122        </receiver>
+123        <receiver
+123-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:108:9-119:20
+124            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+124-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:109:13-88
+125            android:directBootAware="false"
+125-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:110:13-44
+126            android:enabled="false"
+126-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:111:13-36
+127            android:exported="false" >
+127-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:112:13-37
+128            <intent-filter>
+128-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:114:13-118:29
+129                <action android:name="android.intent.action.BOOT_COMPLETED" />
+129-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:115:17-79
+129-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:115:25-76
+130                <action android:name="android.intent.action.TIME_SET" />
+130-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:116:17-73
+130-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:116:25-70
+131                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+131-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:117:17-81
+131-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:117:25-78
+132            </intent-filter>
+133        </receiver>
+134        <receiver
+134-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:120:9-129:20
+135            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+135-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:121:13-99
+136            android:directBootAware="false"
+136-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:122:13-44
+137            android:enabled="@bool/enable_system_alarm_service_default"
+137-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:123:13-72
+138            android:exported="false" >
+138-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:124:13-37
+139            <intent-filter>
+139-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:126:13-128:29
+140                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+140-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:127:17-98
+140-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:127:25-95
+141            </intent-filter>
+142        </receiver>
+143        <receiver
+143-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:130:9-140:20
+144            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+144-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:131:13-78
+145            android:directBootAware="false"
+145-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:132:13-44
+146            android:enabled="true"
+146-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:133:13-35
+147            android:exported="true"
+147-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:134:13-36
+148            android:permission="android.permission.DUMP" >
+148-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:135:13-57
+149            <intent-filter>
+149-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:137:13-139:29
+150                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+150-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:138:17-88
+150-->[androidx.work:work-runtime:2.5.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/09989bd00abdb20b411b378b1b4a0626/work-runtime-2.5.0/AndroidManifest.xml:138:25-85
+151            </intent-filter>
+152        </receiver>
+153
+154        <service
+154-->[androidx.room:room-runtime:2.3.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/254ba59045b711fecef9cdfc246b751b/room-runtime-2.3.0/AndroidManifest.xml:25:9-28:40
+155            android:name="androidx.room.MultiInstanceInvalidationService"
+155-->[androidx.room:room-runtime:2.3.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/254ba59045b711fecef9cdfc246b751b/room-runtime-2.3.0/AndroidManifest.xml:26:13-74
+156            android:directBootAware="true"
+156-->[androidx.room:room-runtime:2.3.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/254ba59045b711fecef9cdfc246b751b/room-runtime-2.3.0/AndroidManifest.xml:27:13-43
+157            android:exported="false" />
+157-->[androidx.room:room-runtime:2.3.0] /Users/liuwei/.gradle/caches/transforms-2/files-2.1/254ba59045b711fecef9cdfc246b751b/room-runtime-2.3.0/AndroidManifest.xml:28:13-37
+158    </application>
+159
+160</manifest>
