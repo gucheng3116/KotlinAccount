@@ -30,7 +30,6 @@
         <activity android:name="com.gucheng.statistichelper.activity.KLineActivity" />
         <activity android:name="com.gucheng.statistichelper.activity.ShareActivity" />
         <activity android:name="com.gucheng.statistichelper.activity.EditTypeActivity" />
-        <activity android:name="com.gucheng.statistichelper.activity.NewTypeActivity" />
         <activity android:name="com.gucheng.statistichelper.activity.NewItemActivity" />
         <activity android:name="com.gucheng.statistichelper.activity.MainActivity">
             <intent-filter>
