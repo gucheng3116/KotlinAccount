@@ -5,7 +5,7 @@ plugins {
 }
 
 static def releaseTime() {
-    return new Date().format("yyyy_MM_dd_HH:mm", TimeZone.getTimeZone("GMT+8"))
+    return new Date().format("yyyyMMdd_HHmm", TimeZone.getTimeZone("GMT+8"))
 }
 
 android {
