@@ -4,6 +4,10 @@ plugins {
     id 'kotlin-kapt'
 }
 
+static def releaseTime() {
+    return new Date().format("yyyy_MM_dd_HH:mm", TimeZone.getTimeZone("GMT+8"))
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
@@ -27,14 +31,14 @@ android {
 
     signingConfigs {
         release {
-            def propsFile = rootProject.file('keystore.properties')
+            def propsFile = file('keystore.properties')
             if (propsFile.exists()) {
                 def props = new Properties()
                 props.load(new FileInputStream(propsFile))
-                storeFile = file(props['storeFile'])
-                storePassword = props['storePassword']
-                keyAlias = props['keyAlias']
-                keyPassword = props['keyPassword']
+                storeFile file(props['storeFile'])
+                storePassword props['storePassword']
+                keyAlias props['keyAlias']
+                keyPassword props['keyPassword']
             }
         }
     }
@@ -64,6 +68,13 @@ android {
         xiaomi {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE:"xiaomi"]
         }
+    }
+
+    applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                outputFileName ="statishelper_${variant.productFlavors[0].name}_v${defaultConfig.versionName}_${releaseTime()}.apk"
+            }
     }
 
 }
