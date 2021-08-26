@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.database.entity.ItemRecord
+import java.lang.ref.WeakReference
 import java.text.DecimalFormat
 
 class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, RecordAdapter.RecordViewHolder>(
@@ -29,10 +30,10 @@ class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, Re
             val format = DecimalFormat("0.00")
             itemType.text = format.format(itemRecord.amount)
             editBtn.setOnClickListener {
-                listener.edit(itemRecord)
+                listener?.edit(itemRecord)
             }
             itemLayout.setOnLongClickListener{
-                listener.edit(itemRecord)
+                listener?.edit(itemRecord)
                 true
             }
         }
@@ -63,7 +64,7 @@ class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, Re
     }
 
     companion object {
-        private lateinit var listener : ItemListener
+        var listener : ItemListener? = null
         private val RECORD_COMPARATOR = object : DiffUtil.ItemCallback<ItemRecord>() {
             override fun areItemsTheSame(oldItem: ItemRecord, newItem: ItemRecord): Boolean {
                 return oldItem == newItem
@@ -74,5 +75,9 @@ class RecordAdapter(val itemListener: ItemListener) : ListAdapter<ItemRecord, Re
             }
 
         }
+    }
+
+    fun unRegisterListener() {
+        listener = null
     }
 }

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.database.entity.ItemType
 
-class TypeAdapter(selectListener: ItemFragment.TypeSelectListener) :
+class TypeAdapter(selectListener: ItemFragment.TypeSelectListener?) :
     ListAdapter<ItemType, TypeAdapter.TypeViewHolder>(ITEM_COMPARATOR) {
 
     init {
@@ -30,14 +30,14 @@ class TypeAdapter(selectListener: ItemFragment.TypeSelectListener) :
         fun bind(itemType: ItemType) {
             typeName.text = itemType.typeName
             typeName.setOnClickListener {
-                listener.typeSelect(itemType)
+                listener?.typeSelect(itemType)
             }
         }
 
     }
 
     companion object {
-        lateinit var listener: ItemFragment.TypeSelectListener
+        var listener: ItemFragment.TypeSelectListener? = null
         private val ITEM_COMPARATOR = object : DiffUtil.ItemCallback<ItemType>() {
             override fun areItemsTheSame(oldItem: ItemType, newItem: ItemType): Boolean {
                 return oldItem == newItem
@@ -59,5 +59,8 @@ class TypeAdapter(selectListener: ItemFragment.TypeSelectListener) :
         holder.bind(current)
     }
 
+    fun unRegisterListener() {
+        listener = null
+    }
 
 }

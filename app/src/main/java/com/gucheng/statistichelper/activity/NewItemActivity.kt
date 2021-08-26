@@ -70,4 +70,9 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
         startActivity(intent)
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
 }

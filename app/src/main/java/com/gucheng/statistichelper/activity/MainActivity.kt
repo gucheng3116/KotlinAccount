@@ -34,6 +34,7 @@ import com.gucheng.statistichelper.database.RecordViewModelFactory
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.umeng.commonsdk.UMConfigure
+import java.lang.ref.WeakReference
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private lateinit var amountTotal: TextView
     private lateinit var changeTrend: TextView
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
+    private lateinit var adapter:RecordAdapter
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -77,7 +79,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        val adapter = RecordAdapter(this)
+        adapter = RecordAdapter(this)
         recyclerView.adapter = adapter
 
         changeTrend = findViewById(R.id.change_trend)
@@ -290,6 +292,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private fun isAgreeUserProtocol(): Boolean {
         var prefs: SharedPreferences = Utils.getAppPref(this)
         return prefs.getBoolean(KEY_AGREE_USER_PROTOCOL, false)
+    }
+
+    override fun onDestroy() {
+        adapter.unRegisterListener()
+        super.onDestroy()
     }
 
 

@@ -14,7 +14,8 @@ import com.gucheng.statistichelper.database.RecordViewModel
 
 class ItemFragment(viewModel: RecordViewModel) : DialogFragment() {
     private var viewModel: RecordViewModel
-    private lateinit var listener: TypeSelectListener
+    private  var listener: TypeSelectListener? = null
+    private var typeAdapter: TypeAdapter? = null
 
     override fun onStart() {
         super.onStart()
@@ -33,6 +34,12 @@ class ItemFragment(viewModel: RecordViewModel) : DialogFragment() {
         listener = context as TypeSelectListener
     }
 
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+        typeAdapter?.unRegisterListener()
+    }
+
 
     interface TypeSelectListener {
         fun typeSelect(itemType: ItemType)
@@ -45,11 +52,11 @@ class ItemFragment(viewModel: RecordViewModel) : DialogFragment() {
     ): View? {
         var view = inflater.inflate(R.layout.item_fragment, container, false)
         var recyclerView = view.findViewById<RecyclerView>(R.id.item_recyclerview)
-        var typeAdapter = TypeAdapter(listener)
+        typeAdapter = TypeAdapter(listener)
         recyclerView.adapter = typeAdapter
         recyclerView.layoutManager = LinearLayoutManager(container?.context)
         viewModel.allTypes.observe(owner = this) { types ->
-            types.let { typeAdapter.submitList(it) }
+            types.let { typeAdapter?.submitList(it) }
         }
         return view
     }
