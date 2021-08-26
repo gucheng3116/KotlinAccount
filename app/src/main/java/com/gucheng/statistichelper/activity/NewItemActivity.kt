@@ -25,6 +25,8 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
     }
 
     private lateinit var fragment: ItemFragment
+    private lateinit var amountEdt: EditText
+    private lateinit var typeEdt: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,8 +55,7 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
 
     companion object {
         val EXTRA_NEW_ITEM = "new_item"
-        lateinit var amountEdt: EditText
-        lateinit var typeEdt: EditText
+
         var type: Int = 0
 
     }
