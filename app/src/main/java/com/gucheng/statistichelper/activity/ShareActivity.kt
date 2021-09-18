@@ -12,6 +12,7 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.DefaultValueFormatter
 import com.github.mikephil.charting.formatter.PercentFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
@@ -71,7 +72,7 @@ class ShareActivity : AppCompatActivity() {
                     )
                 )
             }
-            setData(positiveChart,entries,"资产分布")
+            setData(positiveChart,entries,"资产分布 (%)")
 
         }
     }
@@ -86,7 +87,7 @@ class ShareActivity : AppCompatActivity() {
                 sum += item.amount ?: 0.0
             }
             for (item in items) {
-                var value: Float = (item.amount ?: 0.0 / sum).toFloat()
+                var value: Float = (item.amount ?: 0.0 / sum ).toFloat()
                 entries.add(
                     PieEntry(
                         value,
@@ -95,7 +96,7 @@ class ShareActivity : AppCompatActivity() {
                     )
                 )
             }
-            setData(negativeChart,entries,"负债分布")
+            setData(negativeChart,entries,"负债分布 (%)")
 
         }
     }
@@ -124,7 +125,7 @@ class ShareActivity : AppCompatActivity() {
 
         dataSet.colors = colors
         var data = PieData(dataSet)
-        data.setValueFormatter(PercentFormatter())
+        data.setValueFormatter(DefaultValueFormatter(2))
         data.setValueTextSize(11f)
         data.setValueTextColor(Color.WHITE)
 
