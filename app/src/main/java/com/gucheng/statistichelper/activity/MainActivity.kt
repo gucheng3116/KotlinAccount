@@ -6,22 +6,19 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.text.SpannableString
-import android.text.Spanned
+import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -46,6 +43,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private lateinit var changeTrend: TextView
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter:RecordAdapter
+
+
 
     private val viewModel: RecordViewModel by viewModels {
         RecordViewModelFactory(
@@ -205,7 +204,31 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     override fun edit(record: ItemRecord) {
         val view = LayoutInflater.from(this).inflate(R.layout.record_edit_item, null)
         var amountEdt = view.findViewById<EditText>(R.id.amount)
+        var layout = view.findViewById<LinearLayout>(R.id.change_layout)
+        var changeAmountText =  view.findViewById<TextView>(R.id.change_amount)
         amountEdt.setText(record.amount.toString())
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                //do nothing
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                layout.visibility = View.VISIBLE
+                var tempAmount = 0.0
+                if (TextUtils.isEmpty(amountEdt.text)) {
+                    tempAmount = 0.0
+                } else {
+                    tempAmount = amountEdt.text.toString().toDouble()
+                }
+                changeAmountText.setText("变动了 " + (tempAmount - record.amount!!))
+            }
+
+        }
+        amountEdt.addTextChangedListener(textWatcher)
         var typeText = view.findViewById<TextView>(R.id.type)
         typeText.setText(record.typeName)
         var builder = AlertDialog.Builder(this)
