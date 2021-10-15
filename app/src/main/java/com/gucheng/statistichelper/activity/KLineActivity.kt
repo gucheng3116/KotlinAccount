@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.R
-import com.gucheng.statistichelper.database.RecordViewModel
-import com.gucheng.statistichelper.database.RecordViewModelFactory
+import com.gucheng.statistichelper.database.MainActivityViewModel
+import com.gucheng.statistichelper.database.MainActivityViewModelFactory
 import com.gucheng.statistichelper.database.entity.DailyReport
 import com.gucheng.statistichelper.vm.KLineViewModel
 import com.gucheng.statistichelper.vm.KLineViewModelFactory
@@ -29,11 +29,12 @@ class KLineActivity : AppCompatActivity() {
     private lateinit var chart: LineChart
     private lateinit var legend: Legend
 
-    private val viewModel: RecordViewModel by viewModels {
-        RecordViewModelFactory(
+    private val viewModel: MainActivityViewModel by viewModels {
+        MainActivityViewModelFactory(
             (application as AccountApplication).itemRepository,
             (application as AccountApplication).typeRepository,
-            (application as AccountApplication).dailyReportRepository
+            (application as AccountApplication).dailyReportRepository,
+            (application as AccountApplication).changeRecordRepository
         )
     }
 

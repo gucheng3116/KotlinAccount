@@ -10,10 +10,10 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.database.entity.ItemType
-import com.gucheng.statistichelper.database.RecordViewModel
+import com.gucheng.statistichelper.database.MainActivityViewModel
 
-class ItemFragment(viewModel: RecordViewModel) : DialogFragment() {
-    private var viewModel: RecordViewModel
+class ItemFragment(viewModel: MainActivityViewModel) : DialogFragment() {
+    private var viewModel: MainActivityViewModel
     private  var listener: TypeSelectListener? = null
     private var typeAdapter: TypeAdapter? = null
 

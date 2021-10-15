@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.gucheng.statistichelper.database.dao.ChangeRecordDao
 import com.gucheng.statistichelper.database.dao.DailyReportDao
 import com.gucheng.statistichelper.database.dao.ItemRecordDao
 import com.gucheng.statistichelper.database.dao.ItemTypeDao
@@ -26,6 +27,7 @@ abstract class AccountDatabase : RoomDatabase() {
     abstract fun itemRecordDao(): ItemRecordDao
     abstract fun itemTypeDao(): ItemTypeDao
     abstract fun dailyReportDao(): DailyReportDao
+    abstract fun changeRecordDao(): ChangeRecordDao
 
     companion object {
         @Volatile

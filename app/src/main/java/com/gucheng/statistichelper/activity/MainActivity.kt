@@ -18,20 +18,18 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.R
-import com.gucheng.statistichelper.adapter.RecordAdapter
 import com.gucheng.statistichelper.Utils
-import com.gucheng.statistichelper.database.RecordViewModel
-import com.gucheng.statistichelper.database.RecordViewModelFactory
+import com.gucheng.statistichelper.adapter.RecordAdapter
+import com.gucheng.statistichelper.database.MainActivityViewModel
+import com.gucheng.statistichelper.database.MainActivityViewModelFactory
 import com.gucheng.statistichelper.database.entity.ItemRecord
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.umeng.commonsdk.UMConfigure
-import java.lang.ref.WeakReference
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -46,11 +44,12 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
 
 
-    private val viewModel: RecordViewModel by viewModels {
-        RecordViewModelFactory(
+    private val viewModel: MainActivityViewModel by viewModels {
+        MainActivityViewModelFactory(
             (application as AccountApplication).itemRepository,
             (application as AccountApplication).typeRepository,
-            (application as AccountApplication).dailyReportRepository
+            (application as AccountApplication).dailyReportRepository,
+            (application as AccountApplication).changeRecordRepository
         )
     }
 

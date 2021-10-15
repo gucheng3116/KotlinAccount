@@ -3,21 +3,21 @@ package com.gucheng.statistichelper.database
 import android.util.Log
 import androidx.lifecycle.*
 import com.gucheng.statistichelper.Utils
+import com.gucheng.statistichelper.database.dao.ChangeRecordDao
 import com.gucheng.statistichelper.database.entity.DailyReport
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.gucheng.statistichelper.database.entity.ItemType
-import com.gucheng.statistichelper.database.repository.DailyReportRepository
-import com.gucheng.statistichelper.database.repository.ItemRecordRepository
-import com.gucheng.statistichelper.database.repository.ItemTypeRepository
+import com.gucheng.statistichelper.database.repository.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import kotlin.coroutines.suspendCoroutine
 
-class RecordViewModel(
+class MainActivityViewModel(
     private val recordRepository: ItemRecordRepository,
     private val typeRepository: ItemTypeRepository,
-    private val dailyReportRepository: DailyReportRepository
+    private val dailyReportRepository: DailyReportRepository,
+    private val changeRecordReposity: ChangeRecordRepository
 ) : ViewModel() {
     val allRecords: LiveData<List<ItemRecord>> = recordRepository.allRecords.asLiveData()
     val allTypes: LiveData<List<ItemType>> = typeRepository.allTypes.asLiveData()
@@ -70,14 +70,15 @@ class RecordViewModel(
 
 }
 
-class RecordViewModelFactory(
+class MainActivityViewModelFactory(
     private val recordRepository: ItemRecordRepository,
     private val typeRepository: ItemTypeRepository,
-    private val dailyReportRepository: DailyReportRepository
+    private val dailyReportRepository: DailyReportRepository,
+    private val changeRecordReposity: ChangeRecordRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(RecordViewModel::class.java)) {
-            return RecordViewModel(recordRepository, typeRepository, dailyReportRepository) as T
+        if (modelClass.isAssignableFrom(MainActivityViewModel::class.java)) {
+            return MainActivityViewModel(recordRepository, typeRepository, dailyReportRepository, changeRecordReposity) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
