@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.database.dao.ChangeRecordDao
+import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.DailyReport
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.gucheng.statistichelper.database.entity.ItemType
@@ -66,6 +67,10 @@ class MainActivityViewModel(
                 continuation.resumeWith(Result.success(result))
             }
         }
+    }
+
+    fun insertChangeRecord(changeRecord : ChangeRecord) = viewModelScope.launch {
+        changeRecordReposity.insertRecord(changeRecord)
     }
 
 }

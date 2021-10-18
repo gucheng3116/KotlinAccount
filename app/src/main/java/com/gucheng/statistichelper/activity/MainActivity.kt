@@ -28,6 +28,7 @@ import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.adapter.RecordAdapter
 import com.gucheng.statistichelper.database.MainActivityViewModel
 import com.gucheng.statistichelper.database.MainActivityViewModelFactory
+import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.umeng.commonsdk.UMConfigure
 import java.util.*
@@ -234,9 +235,17 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         builder.setView(view).setTitle(R.string.edit_record)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.confirm, { id, dialog ->
+                var changeRecord = ChangeRecord(typeId = record.typeId?:0,typeName = record.typeName?:"",id = null,remark = "")
+                changeRecord.changeAmount = amountEdt.text.toString().toDouble() - (record.amount?:0.0)
+                if (changeRecord.changeAmount == 0.0) {
+                    return@setPositiveButton
+                }
                 record.amount = amountEdt.text.toString().toDouble()
+                changeRecord.remark = view.findViewById<EditText>(R.id.remark).text.toString()
+                viewModel.insertChangeRecord(changeRecord)
                 record.createTime = Utils.timestampToDate(System.currentTimeMillis())
                 viewModel.insertRecord(record)
+
                 Log.d(
                     "gucheng",
                     "edit thread id is " + Thread.currentThread().id

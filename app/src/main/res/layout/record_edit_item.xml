@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:text="变动了"/>
         <EditText
+            android:id="@+id/remark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="变动描述"/>
