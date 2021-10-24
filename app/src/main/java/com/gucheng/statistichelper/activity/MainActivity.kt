@@ -247,7 +247,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 if (TextUtils.isEmpty(amountEdt.text)) {
                     tempAmount = 0.0
                 } else {
-                    tempAmount = amountEdt.text.toString().toDouble()
+                    tempAmount = amountEdt.text.toString().toDoubleOrNull()?:0.0
                 }
                 changeAmountText.setText("变动了 " + (tempAmount - record.amount!!))
             }
@@ -267,11 +267,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                     remark = ""
                 )
                 changeRecord.changeAmount =
-                    amountEdt.text.toString().toDouble() - (record.amount ?: 0.0)
+                    amountEdt.text.toString().toDoubleOrNull()?:0.0 - (record.amount ?: 0.0)
                 if (changeRecord.changeAmount == 0.0) {
                     return@setPositiveButton
                 }
-                record.amount = amountEdt.text.toString().toDouble()
+                record.amount = amountEdt.text.toString().toDoubleOrNull()?:0.0
                 changeRecord.remark = view.findViewById<EditText>(R.id.remark).text.toString()
                 viewModel.insertChangeRecord(changeRecord)
                 record.createTime = Utils.timestampToDate(System.currentTimeMillis())
