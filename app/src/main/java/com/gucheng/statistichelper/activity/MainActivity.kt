@@ -11,6 +11,8 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.activity.viewModels
@@ -41,8 +43,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private lateinit var amountTotal: TextView
     private lateinit var changeTrend: TextView
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
-    private lateinit var adapter:RecordAdapter
-
+    private lateinit var adapter: RecordAdapter
 
 
     private val viewModel: MainActivityViewModel by viewModels {
@@ -121,6 +122,30 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 recordLayout.visibility = View.VISIBLE
             }
         }
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.options_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.privacy_protocal -> {
+                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
+                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PRIVACY)
+                startActivity(intent)
+            }
+            R.id.user_protocal -> {
+                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
+                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PROTOCOL)
+                startActivity(intent)
+            }
+        }
+        return true
     }
 
     private val executor = Executor { command -> handler.post(command) }
@@ -205,7 +230,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         val view = LayoutInflater.from(this).inflate(R.layout.record_edit_item, null)
         var amountEdt = view.findViewById<EditText>(R.id.amount)
         var layout = view.findViewById<LinearLayout>(R.id.change_layout)
-        var changeAmountText =  view.findViewById<TextView>(R.id.change_amount)
+        var changeAmountText = view.findViewById<TextView>(R.id.change_amount)
         amountEdt.setText(record.amount.toString())
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -235,8 +260,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         builder.setView(view).setTitle(R.string.edit_record)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.confirm, { id, dialog ->
-                var changeRecord = ChangeRecord(typeId = record.typeId?:0,typeName = record.typeName?:"",id = null,remark = "")
-                changeRecord.changeAmount = amountEdt.text.toString().toDouble() - (record.amount?:0.0)
+                var changeRecord = ChangeRecord(
+                    typeId = record.typeId ?: 0,
+                    typeName = record.typeName ?: "",
+                    id = null,
+                    remark = ""
+                )
+                changeRecord.changeAmount =
+                    amountEdt.text.toString().toDouble() - (record.amount ?: 0.0)
                 if (changeRecord.changeAmount == 0.0) {
                     return@setPositiveButton
                 }
