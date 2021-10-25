@@ -39,7 +39,6 @@ class AccountApplication : Application() {
             "dailywork",
             ExistingPeriodicWorkPolicy.KEEP, dailyRequest
         )
-        CrashReport.initCrashReport(getApplicationContext(), "0d3fd3563c", false)
 
 //        UMConfigure.setLogEnabled(false)
         UMConfigure.preInit(this@AccountApplication, "610e49de3451547e683fecae", "")
