@@ -36,6 +36,7 @@ import com.tencent.bugly.crashreport.CrashReport
 import com.umeng.commonsdk.UMConfigure
 import java.util.*
 import java.util.concurrent.Executor
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val TAG = "MainActivity";
@@ -45,7 +46,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private lateinit var changeTrend: TextView
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter: RecordAdapter
-
+    lateinit var recyclerView: RecyclerView
+    lateinit var totalLayout: View
+    val mDatas : ArrayList<ItemRecord> = ArrayList()
 
     private val viewModel: MainActivityViewModel by viewModels {
         MainActivityViewModelFactory(
@@ -77,50 +80,63 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_NEW_ITEM)
         }
-
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+//        totalLayout = findViewById(R.id.total_layout)
+        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = RecordAdapter(this)
+        adapter = RecordAdapter(this, mDatas)
+        var footer:View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);
+        adapter.setFooterView(footer)
         recyclerView.adapter = adapter
 
-        changeTrend = findViewById(R.id.change_trend)
-        changeTrend.setOnClickListener({ v ->
-            val intent = Intent(this@MainActivity, KLineActivity::class.java)
-            startActivity(intent)
-        })
+//        changeTrend = findViewById(R.id.change_trend)
+//        changeTrend.setOnClickListener({ v ->
+//            val intent = Intent(this@MainActivity, KLineActivity::class.java)
+//            startActivity(intent)
+//        })
 
-        val shareTxt = findViewById<TextView>(R.id.property_share)
-        shareTxt.setOnClickListener { v ->
-            val intent = Intent(this@MainActivity, ShareActivity::class.java)
-            startActivity(intent)
-        }
+//        val shareTxt = findViewById<TextView>(R.id.property_share)
+//        shareTxt.setOnClickListener { v ->
+//            val intent = Intent(this@MainActivity, ShareActivity::class.java)
+//            startActivity(intent)
+//        }
 
-        amountTotal = findViewById(R.id.total_amount)
+//        amountTotal = findViewById(R.id.total_amount)
 
         var emptyView = findViewById<View>(R.id.empty_view)
-        var recordLayout = findViewById<View>(R.id.record_layout)
 
         viewModel.allRecords.observe(owner = this) { records ->
             records.let { records ->
-                adapter.submitList(records)
+                mDatas.clear()
+                mDatas.addAll(records)
                 adapter.notifyDataSetChanged()
             }
             var sum: Double = 0.0
-            amountTotal.setText(records.let {
+//            amountTotal.setText(records.let {
+//                var item: ItemRecord? = null
+//                for (item in it) {
+//                    if (item.amount != null) {
+//                        sum += item.amount!!
+//                    }
+//                }
+//                sum.toString()
+//            })
+            adapter.setTotalAmount(records.let {
                 var item: ItemRecord? = null
                 for (item in it) {
                     if (item.amount != null) {
                         sum += item.amount!!
                     }
                 }
-                sum.toString()
+                sum
             })
             if (records == null || records.isEmpty()) {
                 emptyView.visibility = View.VISIBLE
-                recordLayout.visibility = View.GONE
+//                totalLayout.visibility = View.GONE
+                recyclerView.visibility = View.GONE
             } else {
                 emptyView.visibility = View.GONE
-                recordLayout.visibility = View.VISIBLE
+//                totalLayout.visibility = View.VISIBLE
+                recyclerView.visibility = View.VISIBLE
             }
         }
     }
@@ -248,7 +264,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 if (TextUtils.isEmpty(amountEdt.text)) {
                     tempAmount = 0.0
                 } else {
-                    tempAmount = amountEdt.text.toString().toDoubleOrNull()?:0.0
+                    tempAmount = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 }
                 changeAmountText.setText("变动了 " + (tempAmount - record.amount!!))
             }
@@ -268,11 +284,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                     remark = ""
                 )
                 changeRecord.changeAmount =
-                    amountEdt.text.toString().toDoubleOrNull()?:0.0 - (record.amount ?: 0.0)
+                    amountEdt.text.toString().toDoubleOrNull() ?: 0.0 - (record.amount ?: 0.0)
                 if (changeRecord.changeAmount == 0.0) {
                     return@setPositiveButton
                 }
-                record.amount = amountEdt.text.toString().toDoubleOrNull()?:0.0
+                record.amount = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 changeRecord.remark = view.findViewById<EditText>(R.id.remark).text.toString()
                 viewModel.insertChangeRecord(changeRecord)
                 record.createTime = Utils.timestampToDate(System.currentTimeMillis())
