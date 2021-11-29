@@ -284,7 +284,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                     remark = ""
                 )
                 changeRecord.changeAmount =
-                    amountEdt.text.toString().toDoubleOrNull() ?: 0.0 - (record.amount ?: 0.0)
+                    (amountEdt.text.toString().toDoubleOrNull() ?: 0.0) - (record.amount ?: 0.0)
+                Log.d("liuwei", "amount.text is " + amountEdt.text + ",record.amount is " + record.amount)
                 if (changeRecord.changeAmount == 0.0) {
                     return@setPositiveButton
                 }
