@@ -15,6 +15,12 @@ class ChangeRecordRepository(private val changeRecordDao: ChangeRecordDao) {
         return changeRecordDao.queryRecords()
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun queryTypeRecords(type:Int): List<ChangeRecord> {
+        return changeRecordDao.queryTypeRecords(type)
+    }
+
     suspend fun insertRecord(record: ChangeRecord) {
         return changeRecordDao.insert(record)
     }

@@ -1,16 +1,15 @@
 package com.gucheng.statistichelper.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.R
+import com.gucheng.statistichelper.activity.ChangeDetailsActivity
 import com.gucheng.statistichelper.activity.KLineActivity
 import com.gucheng.statistichelper.activity.ShareActivity
 import com.gucheng.statistichelper.adapter.RecordAdapter.RecordViewHolder.Companion.amount
@@ -40,6 +39,13 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
             itemName.text = itemRecord.typeName
             val format = DecimalFormat("0.00")
             itemType.text = format.format(itemRecord.amount)
+            itemType.setOnClickListener {
+                var intent = Intent(itemView.context,ChangeDetailsActivity::class.java)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE,itemRecord.typeId)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME,itemRecord.typeName)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE,itemRecord.amount.toString())
+                itemView.context.startActivity(intent)
+            }
             editBtn.setOnClickListener {
                 listener?.edit(itemRecord)
             }
@@ -67,6 +73,13 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
         override fun bind(position: Int) {
             val totalAmounnt: TextView = itemView.findViewById(R.id.total_amount)
             totalAmounnt.setText(amount.toString())
+            totalAmounnt.setOnClickListener {
+                var intent = Intent(itemView.context,ChangeDetailsActivity::class.java)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE,-1)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME,"总资产")
+                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE, amount.toString())
+                itemView.context.startActivity(intent)
+            }
             val changeTrend: TextView = itemView.findViewById(R.id.change_trend)
             changeTrend.setOnClickListener { v ->
                 var intent = Intent(v.context, KLineActivity::class.java)
@@ -97,8 +110,8 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
 
     }
 
-    fun setFooterView(tail: View) {
-        footerView = tail
+    fun setFooterView(footer: View?) {
+        footerView = footer
     }
 
     interface ItemListener {

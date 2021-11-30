@@ -20,4 +20,7 @@ interface ChangeRecordDao {
 
     @Query("select * from change_record")
     suspend fun queryRecords() : List<ChangeRecord>
+
+    @Query("select * from change_record where typeId = :type")
+    suspend fun queryTypeRecords(type:Int) : List<ChangeRecord>
 }

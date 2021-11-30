@@ -1,0 +1,71 @@
+package com.gucheng.statistichelper.activity
+
+import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.gucheng.statistichelper.AccountApplication
+import com.gucheng.statistichelper.R
+import com.gucheng.statistichelper.adapter.ChangeDetailsAdapter
+import com.gucheng.statistichelper.database.entity.ChangeRecord
+import com.gucheng.statistichelper.vm.ChangeDetailViewModel
+import com.gucheng.statistichelper.vm.ChangeDetailViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+
+class ChangeDetailsActivity : AppCompatActivity() {
+    private var mType = -1
+    private var mTypeName: String? = ""
+    private lateinit var mRecyclerView: RecyclerView
+    private lateinit var mAdapter: ChangeDetailsAdapter
+    private val mDatas = ArrayList<ChangeRecord>()
+
+    private val viewModel : ChangeDetailViewModel by viewModels {
+        ChangeDetailViewModelFactory(
+            (application as AccountApplication).changeRecordRepository
+        )
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_change_details)
+        mRecyclerView = findViewById(R.id.recyclerView)
+        title = "收支明细"
+        mType = intent.getIntExtra(EXTRA_TYPE, -1)
+        mTypeName = intent.getStringExtra(EXTRA_TYPE_NAME)
+        val nameTxt = findViewById<TextView>(R.id.type_name)
+        val balanceTxt = findViewById<TextView>(R.id.balance)
+        balanceTxt.text = intent.getStringExtra(EXTRA_BALANCE)
+        nameTxt.text = mTypeName
+        mAdapter = ChangeDetailsAdapter(mDatas)
+        mRecyclerView.adapter = mAdapter
+        val scope = CoroutineScope(Job())
+        scope.launch {
+            var changeRecords : List<ChangeRecord>? = null
+            if (mType == -1) {
+                changeRecords = viewModel.queryAllRecords2()
+            } else {
+                changeRecords = viewModel.queryTypeRecords2(mType)
+            }
+            if (changeRecords != null) {
+                Log.d("change_detail","changeRecords size is " + changeRecords.size)
+                mDatas.addAll(changeRecords)
+            } else {
+                Log.d("change_detail","changeRecords is null")
+            }
+            mRecyclerView.post {
+                mAdapter.notifyDataSetChanged()
+            }
+        }
+
+    }
+
+    companion object {
+        const val EXTRA_TYPE = "extra_type"
+        const val EXTRA_TYPE_NAME = "extra_type_name"
+        const val EXTRA_BALANCE = "extra_balance"
+    }
+}

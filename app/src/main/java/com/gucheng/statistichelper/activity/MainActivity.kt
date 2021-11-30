@@ -80,27 +80,12 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_NEW_ITEM)
         }
-//        totalLayout = findViewById(R.id.total_layout)
         recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = RecordAdapter(this, mDatas)
         var footer:View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);
         adapter.setFooterView(footer)
         recyclerView.adapter = adapter
-
-//        changeTrend = findViewById(R.id.change_trend)
-//        changeTrend.setOnClickListener({ v ->
-//            val intent = Intent(this@MainActivity, KLineActivity::class.java)
-//            startActivity(intent)
-//        })
-
-//        val shareTxt = findViewById<TextView>(R.id.property_share)
-//        shareTxt.setOnClickListener { v ->
-//            val intent = Intent(this@MainActivity, ShareActivity::class.java)
-//            startActivity(intent)
-//        }
-
-//        amountTotal = findViewById(R.id.total_amount)
 
         var emptyView = findViewById<View>(R.id.empty_view)
 
@@ -111,15 +96,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 adapter.notifyDataSetChanged()
             }
             var sum: Double = 0.0
-//            amountTotal.setText(records.let {
-//                var item: ItemRecord? = null
-//                for (item in it) {
-//                    if (item.amount != null) {
-//                        sum += item.amount!!
-//                    }
-//                }
-//                sum.toString()
-//            })
             adapter.setTotalAmount(records.let {
                 var item: ItemRecord? = null
                 for (item in it) {
@@ -131,11 +107,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             })
             if (records == null || records.isEmpty()) {
                 emptyView.visibility = View.VISIBLE
-//                totalLayout.visibility = View.GONE
                 recyclerView.visibility = View.GONE
             } else {
                 emptyView.visibility = View.GONE
-//                totalLayout.visibility = View.VISIBLE
                 recyclerView.visibility = View.VISIBLE
             }
         }
@@ -377,6 +351,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
     override fun onDestroy() {
         adapter.unRegisterListener()
+        adapter.setFooterView(null)
         super.onDestroy()
     }
 
