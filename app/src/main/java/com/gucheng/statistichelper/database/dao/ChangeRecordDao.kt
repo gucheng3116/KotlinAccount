@@ -18,9 +18,9 @@ interface ChangeRecordDao {
     @Update
     suspend fun update(record: ChangeRecord)
 
-    @Query("select * from change_record")
+    @Query("select * from change_record order by createTime desc")
     suspend fun queryRecords() : List<ChangeRecord>
 
-    @Query("select * from change_record where typeId = :type")
+    @Query("select * from change_record where typeId = :type order by createTime desc")
     suspend fun queryTypeRecords(type:Int) : List<ChangeRecord>
 }

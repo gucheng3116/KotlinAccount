@@ -37,7 +37,12 @@ public class ChangeDetailsAdapter extends RecyclerView.Adapter<ChangeDetailsAdap
     public void onBindViewHolder(@NonNull @NotNull ChangeViewHolder holder, int position) {
         ChangeRecord record = mDatas.get(position);
         holder.dateTxt.setText(record.getCreateTime());
-        holder.amountTxt.setText(record.getChangeAmount().toString());
+        if (record.getChangeAmount() > 0) {
+            holder.amountTxt.setText("+" + record.getChangeAmount());
+        } else {
+            holder.amountTxt.setText(record.getChangeAmount().toString());
+        }
+        holder.remarkTxt.setText(record.getRemark());
 
     }
 
@@ -49,10 +54,12 @@ public class ChangeDetailsAdapter extends RecyclerView.Adapter<ChangeDetailsAdap
     class ChangeViewHolder extends RecyclerView.ViewHolder {
         TextView dateTxt;
         TextView amountTxt;
+        TextView remarkTxt;
         public ChangeViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             dateTxt = itemView.findViewById(R.id.date);
             amountTxt = itemView.findViewById(R.id.change_amount);
+            remarkTxt = itemView.findViewById(R.id.remark);
         }
     }
 }

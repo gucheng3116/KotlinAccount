@@ -38,7 +38,7 @@ class ChangeDetailsActivity : AppCompatActivity() {
         mTypeName = intent.getStringExtra(EXTRA_TYPE_NAME)
         val nameTxt = findViewById<TextView>(R.id.type_name)
         val balanceTxt = findViewById<TextView>(R.id.balance)
-        balanceTxt.text = intent.getStringExtra(EXTRA_BALANCE)
+        balanceTxt.text = "当前金额: " + intent.getStringExtra(EXTRA_BALANCE)
         nameTxt.text = mTypeName
         mAdapter = ChangeDetailsAdapter(mDatas)
         mRecyclerView.adapter = mAdapter
