@@ -91,7 +91,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
 
     //tencent bugly
-    implementation 'com.tencent.bugly:crashreport:latest.release'
+    implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     implementation 'com.tencent.bugly:nativecrashreport:latest.release'
 
     implementation 'androidx.core:core-ktx:1.2.0'

@@ -32,6 +32,7 @@ import com.gucheng.statistichelper.database.MainActivityViewModel
 import com.gucheng.statistichelper.database.MainActivityViewModelFactory
 import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.ItemRecord
+import com.tencent.bugly.Bugly
 import com.tencent.bugly.crashreport.CrashReport
 import com.umeng.commonsdk.UMConfigure
 import java.util.*
@@ -74,6 +75,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 UMConfigure.DEVICE_TYPE_PHONE,
                 null
             )
+            Bugly.init(getApplicationContext(), "0d3fd3563c", false)
         }
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
@@ -334,7 +336,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 UMConfigure.DEVICE_TYPE_PHONE,
                 null
             )
-            CrashReport.initCrashReport(getApplicationContext(), "0d3fd3563c", false)
+            Bugly.init(getApplicationContext(), "0d3fd3563c", false)
         }
         val cancelBtn = view.findViewById<Button>(R.id.cancel)
         cancelBtn.setOnClickListener {

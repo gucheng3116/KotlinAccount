@@ -10,7 +10,6 @@ import com.gucheng.statistichelper.database.repository.DailyReportRepository
 import com.gucheng.statistichelper.database.repository.ItemRecordRepository
 import com.gucheng.statistichelper.database.repository.ItemTypeRepository
 import com.gucheng.statistichelper.database.taskDaily.DailyWork
-import com.tencent.bugly.crashreport.CrashReport
 import com.umeng.analytics.MobclickAgent
 import com.umeng.commonsdk.UMConfigure
 import kotlinx.coroutines.CoroutineScope
