@@ -2,9 +2,9 @@ name: android master CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ xiaomi ]
   pull_request:
-    branches: [ master ]
+    branches: [ xiaomi ]
 
 jobs:
   build:
@@ -28,5 +28,4 @@ jobs:
         with:
           name: upload-apk
           path: |
-            ${{github.workspace}}/app/build/outputs/apk/tencent/release/*.apk
             ${{github.workspace}}/app/build/outputs/apk/xiaomi/release/*.apk
