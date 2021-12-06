@@ -13,7 +13,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.gucheng.statistic.helper"
+        applicationId "com.gucheng.statistichelper"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 5
