@@ -29,4 +29,4 @@ jobs:
           name: upload-apk
           path: |
             ${{github.workspace}}/app/build/outputs/apk/tencent/release/*.apk
-            ${{github.workspace}}/app/build/outputs/apk/vivo/release/*.apk
+            ${{github.workspace}}/app/build/outputs/apk/huawei/release/*.apk

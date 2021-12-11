@@ -65,8 +65,8 @@ android {
         tencent {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE:"tencent"]
         }
-        vivo {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"vivo"]
+        huawei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE:"huawei"]
         }
     }
 
