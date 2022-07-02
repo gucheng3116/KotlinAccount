@@ -12,6 +12,7 @@ import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.activity.ChangeDetailsActivity
 import com.gucheng.statistichelper.activity.KLineActivity
 import com.gucheng.statistichelper.activity.ShareActivity
+import com.gucheng.statistichelper.activity.Utils
 import com.gucheng.statistichelper.adapter.RecordAdapter.RecordViewHolder.Companion.amount
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import java.text.DecimalFormat
@@ -72,7 +73,7 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
     class FooterViewHolder(itemView: View) : BaseViewHolder(itemView) {
         override fun bind(position: Int) {
             val totalAmounnt: TextView = itemView.findViewById(R.id.total_amount)
-            totalAmounnt.setText(amount.toString())
+            totalAmounnt.setText(Utils.formatAmount(amount))
             totalAmounnt.setOnClickListener {
                 var intent = Intent(itemView.context,ChangeDetailsActivity::class.java)
                 intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE,-1)

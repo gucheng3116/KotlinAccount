@@ -56,6 +56,7 @@ class ChangeDetailsActivity : AppCompatActivity() {
             } else {
                 Log.d("change_detail","changeRecords is null")
             }
+            var balance = intent.getStringExtra(EXTRA_BALANCE)?.toDoubleOrNull()
             mRecyclerView.post {
                 mAdapter.notifyDataSetChanged()
             }

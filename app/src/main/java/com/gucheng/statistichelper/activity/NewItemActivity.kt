@@ -73,6 +73,17 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
 
     }
 
+    fun onSignClick(v: View) {
+        val amount = amountEdt.text.toString()
+        if (amount.length > 0 && amount.startsWith("-")) {
+            amountEdt.setText(amount.substring(1))
+        } else {
+            amountEdt.setText("-" + amount)
+            amountEdt.setSelection(amountEdt.length())
+        }
+    }
+
+
     override fun onDestroy() {
         super.onDestroy()
 

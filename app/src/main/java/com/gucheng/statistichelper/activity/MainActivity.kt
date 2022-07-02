@@ -33,7 +33,6 @@ import com.gucheng.statistichelper.database.MainActivityViewModelFactory
 import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.tencent.bugly.Bugly
-import com.tencent.bugly.crashreport.CrashReport
 import com.umeng.commonsdk.UMConfigure
 import java.util.*
 import java.util.concurrent.Executor
@@ -267,6 +266,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 }
                 record.amount = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 changeRecord.remark = view.findViewById<EditText>(R.id.remark).text.toString()
+//                changeRecord.balance = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 viewModel.insertChangeRecord(changeRecord)
                 record.createTime = Utils.timestampToDate(System.currentTimeMillis())
                 viewModel.insertRecord(record)
