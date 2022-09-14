@@ -74,7 +74,9 @@
         六、使用到的第三方sdk:\n
         1.sdk名称:bugly sdk.\n
           用途:用于检测应用运行异常情况，用于优化，减少应用崩溃，提高系统兼容性。\n
-          收集个人信息类型：软件运行崩溃及异常日志。\n
+          收集个人信息类型：软件运行崩溃及异常日志,手机型号,手机品牌，设备信息（IMEI/Mac/android ID/IDFA/OPENUDID/GUID/SIM卡IMSI/地理位置信息)。\n
+          收集的信息用于提高APP运行稳定性。\n
+
         2.sdk名称：友盟+SDK\n
           用途：用于统计使用的用户量，应用程序用户增长信息。\n
           收集个人信息类型：设备信息（IMEI/Mac/android ID/IDFA/OPENUDID/GUID/SIM卡IMSI/地理位置信息)\n
