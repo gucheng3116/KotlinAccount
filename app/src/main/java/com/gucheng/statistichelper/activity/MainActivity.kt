@@ -223,6 +223,10 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         var amountEdt = view.findViewById<EditText>(R.id.amount)
         var layout = view.findViewById<LinearLayout>(R.id.change_layout)
         var changeAmountText = view.findViewById<TextView>(R.id.change_amount)
+        val signEdt = view.findViewById<View>(R.id.sign)
+        signEdt.setOnClickListener {
+            onClickSign(amountEdt)
+        }
         amountEdt.setText(record.amount.toString())
         val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -282,6 +286,16 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         var dialog = builder.create()
         dialog.show()
 
+    }
+
+    fun onClickSign(amountEdt : EditText) {
+        val amount = amountEdt.text.toString()
+        if (amount.length > 0 && amount.startsWith("-")) {
+            amountEdt.setText(amount.substring(1))
+        } else {
+            amountEdt.setText("-" + amount)
+            amountEdt.setSelection(amountEdt.length())
+        }
     }
 
     private fun showUserProtocol() {
