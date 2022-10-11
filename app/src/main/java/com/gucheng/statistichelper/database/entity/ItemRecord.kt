@@ -14,7 +14,8 @@ data class ItemRecord(
     var amount: Double?,
     var typeName: String?,
     var createTime: String?,
-    var isDel:Int? = 0
+    var isDel:Int? = 0,
+    var typeOrder:Int? = 0
 ) : Parcelable {
 
 
@@ -24,6 +25,7 @@ data class ItemRecord(
         parcel.readValue(Double::class.java.classLoader) as? Double,
         parcel.readString(),
         parcel.readString(),
+        parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readValue(Int::class.java.classLoader) as? Int
     ) {
     }
@@ -37,6 +39,7 @@ data class ItemRecord(
         parcel.writeString(typeName)
         parcel.writeString(createTime)
         parcel.writeValue(isDel)
+        parcel.writeValue(typeOrder)
     }
 
     override fun describeContents(): Int {

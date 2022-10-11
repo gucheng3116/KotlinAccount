@@ -42,12 +42,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val TAG = "MainActivity";
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
-    private lateinit var amountTotal: TextView
-    private lateinit var changeTrend: TextView
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter: RecordAdapter
     lateinit var recyclerView: RecyclerView
-    lateinit var totalLayout: View
     val mDatas : ArrayList<ItemRecord> = ArrayList()
 
     private val viewModel: MainActivityViewModel by viewModels {
@@ -81,7 +78,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             val intent = Intent(this@MainActivity, NewItemActivity::class.java)
             startActivityForResult(intent, REQUEST_CODE_NEW_ITEM)
         }
-        recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = RecordAdapter(this, mDatas)
         var footer:View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);

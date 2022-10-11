@@ -13,7 +13,7 @@ interface ItemRecordDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertItemRecord(record: ItemRecord)
 
-    @Query("select * from item_record where id in (select max(id) from item_record where isDel = 0 group by typeId) order by typeName")
+    @Query("select * from item_record where id in (select max(id) from item_record where isDel = 0 group by typeId) order by typeOrder,typeId")
     fun getAllRecord(): Flow<List<ItemRecord>>
 
     @Query("select * from item_record where id in (select max(id) from item_record group by typeId) and isDel = 0 and createTime <= :time")
