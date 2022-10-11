@@ -1,14 +1,17 @@
 package com.gucheng.statistichelper
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.gucheng.statistichelper.activity.EditTypeActivity
 import com.gucheng.statistichelper.database.entity.ItemType
 import com.gucheng.statistichelper.database.MainActivityViewModel
 
@@ -52,6 +55,11 @@ class ItemFragment(viewModel: MainActivityViewModel) : DialogFragment() {
     ): View? {
         var view = inflater.inflate(R.layout.item_fragment, container, false)
         var recyclerView = view.findViewById<RecyclerView>(R.id.item_recyclerview)
+        val newTypeBtn = view.findViewById<Button>(R.id.new_type)
+        newTypeBtn.setOnClickListener {
+            val intent = Intent(it.context, EditTypeActivity::class.java)
+            startActivity(intent)
+        }
         typeAdapter = TypeAdapter(listener)
         recyclerView.adapter = typeAdapter
         recyclerView.layoutManager = LinearLayoutManager(container?.context)
