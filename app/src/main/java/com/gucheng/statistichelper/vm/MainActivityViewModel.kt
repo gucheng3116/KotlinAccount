@@ -40,6 +40,10 @@ class MainActivityViewModel(
         typeRepository.insert(itemType)
     }
 
+    fun updateRecordOrder(itemRecord: ItemRecord, order:Int) = viewModelScope.launch {
+        recordRepository.updateRecordOrder(order, itemRecord.id ?: -1)
+    }
+
     suspend fun getAll():List<DailyReport> {
 
         return suspendCoroutine { continuation ->

@@ -18,7 +18,7 @@ import com.gucheng.statistichelper.database.entity.ItemRecord
 import java.text.DecimalFormat
 
 class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
-    RecyclerView.Adapter<RecordAdapter.BaseViewHolder> (
+    RecyclerView.Adapter<RecordAdapter.BaseViewHolder>(
     ) {
     init {
         listener = itemListener
@@ -41,23 +41,19 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
             val format = DecimalFormat("0.00")
             itemType.text = format.format(itemRecord.amount)
             itemType.setOnClickListener {
-                var intent = Intent(itemView.context,ChangeDetailsActivity::class.java)
-                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE,itemRecord.typeId)
-                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME,itemRecord.typeName)
-                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE,itemRecord.amount.toString())
+                var intent = Intent(itemView.context, ChangeDetailsActivity::class.java)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE, itemRecord.typeId)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME, itemRecord.typeName)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE, itemRecord.amount.toString())
                 itemView.context.startActivity(intent)
             }
             editBtn.setOnClickListener {
                 listener?.edit(itemRecord)
             }
-            itemLayout.setOnLongClickListener {
-                listener?.edit(itemRecord)
-                true
-            }
         }
 
         companion object {
-            var amount:Double = 0.0
+            var amount: Double = 0.0
             fun create(parent: ViewGroup, viewType: Int): RecordViewHolder {
                 if (viewType == VIEW_TYPE.TYPE_FOOTER.ordinal) {
                     return RecordViewHolder(footerView!!)
@@ -75,9 +71,9 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
             val totalAmounnt: TextView = itemView.findViewById(R.id.total_amount)
             totalAmounnt.setText(Utils.formatAmount(amount))
             totalAmounnt.setOnClickListener {
-                var intent = Intent(itemView.context,ChangeDetailsActivity::class.java)
-                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE,-1)
-                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME,"总资产")
+                var intent = Intent(itemView.context, ChangeDetailsActivity::class.java)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE, -1)
+                intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME, "总资产")
                 intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE, amount.toString())
                 itemView.context.startActivity(intent)
             }
@@ -85,17 +81,18 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
             changeTrend.setOnClickListener { v ->
                 var intent = Intent(v.context, KLineActivity::class.java)
                 v.context.startActivity(intent)
-             }
+            }
             val propertyShare: TextView = itemView.findViewById(R.id.property_share)
             propertyShare.setOnClickListener { v ->
                 var intent = Intent(v.context, ShareActivity::class.java)
                 v.context.startActivity(intent)
             }
         }
+
         companion object {
-            fun create(parent: ViewGroup) : FooterViewHolder {
+            fun create(parent: ViewGroup): FooterViewHolder {
                 val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.record_footer,parent,false)
+                    .inflate(R.layout.record_footer, parent, false)
                 return FooterViewHolder(view)
             }
         }
@@ -162,7 +159,7 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
         listener = null
     }
 
-    fun setTotalAmount(num:Double) {
+    fun setTotalAmount(num: Double) {
         amount = num
     }
 

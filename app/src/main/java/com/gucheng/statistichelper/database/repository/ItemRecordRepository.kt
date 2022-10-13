@@ -31,6 +31,12 @@ class ItemRecordRepository(private val itemRecordDao: ItemRecordDao) {
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
+    suspend fun updateRecordOrder(typeOrder:Int,id:Int) {
+        itemRecordDao.updateRecordOrder(typeOrder,id)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun getAllRecordByTime(time: String = Utils.timestampToDate(System.currentTimeMillis())): List<ItemRecord> {
         return itemRecordDao.getAllRecordByTime(time)
     }

@@ -21,6 +21,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,7 +38,7 @@ import com.tencent.bugly.Bugly
 import com.umeng.commonsdk.UMConfigure
 import java.util.*
 import java.util.concurrent.Executor
-import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val TAG = "MainActivity";
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter: RecordAdapter
     lateinit var recyclerView: RecyclerView
-    val mDatas : ArrayList<ItemRecord> = ArrayList()
+    val mDatas: ArrayList<ItemRecord> = ArrayList()
 
     private val viewModel: MainActivityViewModel by viewModels {
         MainActivityViewModelFactory(
@@ -81,9 +83,10 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = RecordAdapter(this, mDatas)
-        var footer:View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);
+        var footer: View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);
         adapter.setFooterView(footer)
         recyclerView.adapter = adapter
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         var emptyView = findViewById<View>(R.id.empty_view)
 
@@ -261,13 +264,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 )
                 changeRecord.changeAmount =
                     (amountEdt.text.toString().toDoubleOrNull() ?: 0.0) - (record.amount ?: 0.0)
-                Log.d("liuwei", "amount.text is " + amountEdt.text + ",record.amount is " + record.amount)
                 if (changeRecord.changeAmount == 0.0) {
                     return@setPositiveButton
                 }
                 record.amount = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 changeRecord.remark = view.findViewById<EditText>(R.id.remark).text.toString()
-//                changeRecord.balance = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 viewModel.insertChangeRecord(changeRecord)
                 record.createTime = Utils.timestampToDate(System.currentTimeMillis())
                 viewModel.insertRecord(record)
@@ -285,7 +286,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
     }
 
-    fun onClickSign(amountEdt : EditText) {
+    fun onClickSign(amountEdt: EditText) {
         val amount = amountEdt.text.toString()
         if (amount.length > 0 && amount.startsWith("-")) {
             amountEdt.setText(amount.substring(1))
@@ -367,6 +368,53 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         adapter.setFooterView(null)
         super.onDestroy()
     }
+
+
+    val itemTouchHelperCallback = object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            val dragFlags: Int
+            val swipeFlags: Int
+            if (recyclerView.layoutManager is GridLayoutManager) {
+                dragFlags =
+                    ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+                swipeFlags = 0
+            } else {
+                dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+                swipeFlags = 0
+            }
+            return makeMovementFlags(dragFlags, swipeFlags)
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            val fromPosition = viewHolder.adapterPosition //得到拖动ViewHolder的position
+            val toPosition = target.adapterPosition //得到目标ViewHolder的position
+            if (fromPosition < toPosition) {
+                for (i in fromPosition until toPosition) {
+                    Collections.swap(mDatas, i, i + 1)
+                }
+            } else {
+                for (i in fromPosition downTo toPosition + 1) {
+                    Collections.swap(mDatas, i, i - 1)
+                }
+            }
+            Log.d("Donald", "fromPosition is $fromPosition, toPosition is $toPosition")
+            for (i in 0 until mDatas.size) {
+                viewModel.updateRecordOrder(mDatas[i], i)
+            }
+            adapter.notifyItemMoved(fromPosition, toPosition)
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {}
+    }
+    val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
 
 
 }

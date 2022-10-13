@@ -22,6 +22,9 @@ interface ItemRecordDao {
     @Query("update item_record set isDel=1 where typeId = :typeId")
     suspend fun deleteTypeRecord(typeId: Int)
 
+    @Query("update item_record set typeOrder=:typeOrder where id=:id")
+    suspend fun updateRecordOrder(typeOrder:Int,id:Int)
+
     @Query("select * from item_record order by id asc limit 1")
     suspend fun getEarlistRecord():ItemRecord
 
