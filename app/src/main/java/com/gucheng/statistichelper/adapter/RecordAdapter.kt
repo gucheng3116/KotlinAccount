@@ -5,14 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.R
+import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.activity.ChangeDetailsActivity
 import com.gucheng.statistichelper.activity.KLineActivity
 import com.gucheng.statistichelper.activity.ShareActivity
-import com.gucheng.statistichelper.activity.Utils
 import com.gucheng.statistichelper.adapter.RecordAdapter.RecordViewHolder.Companion.amount
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import java.text.DecimalFormat
@@ -32,8 +33,7 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
     class RecordViewHolder(itemView: View) : BaseViewHolder(itemView) {
         private val itemName: TextView = itemView.findViewById(R.id.item_name)
         private val itemType: TextView = itemView.findViewById(R.id.item_amount)
-        private val editBtn: Button = itemView.findViewById(R.id.edit)
-        private val itemLayout: View = itemView.findViewById(R.id.item_layout)
+        private val editBtn: View = itemView.findViewById(R.id.edit)
 
         override fun bind(position: Int) {
             var itemRecord: ItemRecord = datas?.get(position)!!

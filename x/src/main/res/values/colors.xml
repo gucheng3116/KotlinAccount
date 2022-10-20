@@ -22,6 +22,10 @@
     <color name="x_recycler_color_loading_color2">#B1777777</color>
     <color name="x_recycler_color_loading_color3">#FF777777</color>
     <color name="x_recycler_color_red">#D21D1D</color>
+    <color name="x_recycler_colorPrimary">@color/x_recycler_purple_500</color>
+    <color name="x_recycler_purple_500">#FF6200EE</color>
+
+
 
 
 </resources>

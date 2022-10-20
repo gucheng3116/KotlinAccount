@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                     }
                 }
                 amount = sum
-                amountView?.setText(com.gucheng.statistichelper.activity.Utils.formatAmount(amount))
+                amountView?.setText(Utils.formatAmount(amount))
                 sum
             })
             if (records == null || records.isEmpty()) {
@@ -428,9 +428,10 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             // 1. MATCH_PARENT 自适应高度，保持和Item一样高;
             val height = resources.getDimensionPixelSize(R.dimen.dp_70)
             val deleteItem: SwipeMenuItem = SwipeMenuItem(this@MainActivity)
-                .setText("删除")
-                .setWidth(width)
+                .setImage(R.drawable.ic_delete)
+                .setWidth(width).setText("删除")
                 .setHeight(height)
+                .setTextColorResource(R.color.colorPrimary)
             rightMenu?.addMenuItem(deleteItem)
         }
     }
@@ -447,7 +448,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private fun buildFooterView(): View {
         var footerView: View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);
         amountView = footerView.findViewById(R.id.total_amount)
-        amountView?.setText(com.gucheng.statistichelper.activity.Utils.formatAmount(amount))
+        amountView?.setText(Utils.formatAmount(amount))
         amountView?.setOnClickListener {
             var intent = Intent(footerView.context, ChangeDetailsActivity::class.java)
             intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE, -1)

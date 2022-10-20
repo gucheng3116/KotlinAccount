@@ -3,6 +3,7 @@ package com.gucheng.statistichelper
 import android.content.Context
 import android.content.SharedPreferences
 import android.text.TextUtils
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,6 +32,16 @@ class Utils {
 
         fun getAppPref(context:Context) : SharedPreferences {
             return context.getSharedPreferences(APP_PREF_NAME,Context.MODE_PRIVATE)
+        }
+
+        fun formatAmount(amount: Double): String {
+            val decimalFormat = DecimalFormat("0.00")
+            return decimalFormat.format(amount)
+        }
+
+        fun dp2px(context:Context, dp : Float) : Int {
+            val scale = context.resources.displayMetrics.density
+            return (dp*scale + 0.5f).toInt()
         }
     }
 

@@ -23,12 +23,9 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.yanzhenjie.recyclerview.x.R;
 
 import java.util.List;
 
@@ -108,19 +105,17 @@ public class SwipeMenuView extends LinearLayout implements View.OnClickListener 
     }
 
     private TextView createTitle(SwipeMenuItem item) {
-        Button button = new Button(getContext());
-        LayoutParams params = new LayoutParams(item.getWidth(), item.getHeight());
-        button.setLayoutParams(params);
-        button.setText(item.getText());
-        button.setGravity(Gravity.CENTER);
+        TextView textView = new TextView(getContext());
+        textView.setText(item.getText());
+        textView.setGravity(Gravity.CENTER);
         int textSize = item.getTextSize();
-        if (textSize > 0) button.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+        if (textSize > 0) textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
         ColorStateList textColor = item.getTitleColor();
-        if (textColor != null) button.setTextColor(textColor);
+        if (textColor != null) textView.setTextColor(textColor);
         int textAppearance = item.getTextAppearance();
-        if (textAppearance != 0) TextViewCompat.setTextAppearance(button, textAppearance);
+        if (textAppearance != 0) TextViewCompat.setTextAppearance(textView, textAppearance);
         Typeface typeface = item.getTextTypeface();
-        if (typeface != null) button.setTypeface(typeface);
-        return button;
+        if (typeface != null) textView.setTypeface(typeface);
+        return textView;
     }
 }
