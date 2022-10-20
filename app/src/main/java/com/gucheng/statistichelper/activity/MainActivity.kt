@@ -10,10 +10,7 @@ import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import android.widget.*
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -36,6 +33,7 @@ import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.tencent.bugly.Bugly
 import com.umeng.commonsdk.UMConfigure
+import com.yanzhenjie.recyclerview.*
 import java.util.*
 import java.util.concurrent.Executor
 
@@ -46,8 +44,10 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private val REQUEST_CODE_NEW_ITEM = 1
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter: RecordAdapter
-    lateinit var recyclerView: RecyclerView
+    lateinit var recyclerView: SwipeRecyclerView
     val mDatas: ArrayList<ItemRecord> = ArrayList()
+    var amount = 0.0
+    var amountView: TextView? = null
 
     private val viewModel: MainActivityViewModel by viewModels {
         MainActivityViewModelFactory(
@@ -82,10 +82,13 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         }
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.setSwipeMenuCreator(swipeMenuCreator)
+        recyclerView.setOnItemMenuClickListener(mItemMenuClickListener)
         adapter = RecordAdapter(this, mDatas)
-        var footer: View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);
-        adapter.setFooterView(footer)
+        var footer: View = buildFooterView()
+        recyclerView.addFooterView(footer)
         recyclerView.adapter = adapter
+
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         var emptyView = findViewById<View>(R.id.empty_view)
@@ -97,6 +100,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 adapter.notifyDataSetChanged()
             }
             var sum: Double = 0.0
+
             adapter.setTotalAmount(records.let {
                 var item: ItemRecord? = null
                 for (item in it) {
@@ -104,6 +108,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                         sum += item.amount!!
                     }
                 }
+                amount = sum
+                amountView?.setText(com.gucheng.statistichelper.activity.Utils.formatAmount(amount))
                 sum
             })
             if (records == null || records.isEmpty()) {
@@ -415,6 +421,56 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {}
     }
     val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+
+    val swipeMenuCreator = object : SwipeMenuCreator {
+        override fun onCreateMenu(leftMenu: SwipeMenu?, rightMenu: SwipeMenu?, position: Int) {
+            val width = resources.getDimensionPixelSize(R.dimen.dp_70)
+            // 1. MATCH_PARENT 自适应高度，保持和Item一样高;
+            val height = resources.getDimensionPixelSize(R.dimen.dp_70)
+            val deleteItem: SwipeMenuItem = SwipeMenuItem(this@MainActivity)
+                .setText("删除")
+                .setWidth(width)
+                .setHeight(height)
+            rightMenu?.addMenuItem(deleteItem)
+        }
+    }
+
+    private val mItemMenuClickListener =
+        OnItemMenuClickListener { menuBridge, position ->
+            menuBridge.closeMenu()
+            val direction = menuBridge.direction // 左侧还是右侧菜单。
+            val menuPosition = menuBridge.position // 菜单在RecyclerView的Item中的Position。
+            delete(mDatas[position])
+        }
+
+
+    private fun buildFooterView(): View {
+        var footerView: View = LayoutInflater.from(this).inflate(R.layout.record_footer, null);
+        amountView = footerView.findViewById(R.id.total_amount)
+        amountView?.setText(com.gucheng.statistichelper.activity.Utils.formatAmount(amount))
+        amountView?.setOnClickListener {
+            var intent = Intent(footerView.context, ChangeDetailsActivity::class.java)
+            intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE, -1)
+            intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME, "总资产")
+            intent.putExtra(
+                ChangeDetailsActivity.EXTRA_BALANCE,
+                RecordAdapter.RecordViewHolder.amount.toString()
+            )
+            startActivity(intent)
+        }
+
+        val changeTrend: TextView = footerView.findViewById(R.id.change_trend)
+        changeTrend?.setOnClickListener { v ->
+            var intent = Intent(v.context, KLineActivity::class.java)
+            v.context.startActivity(intent)
+        }
+        val propertyShare: TextView = footerView.findViewById(R.id.property_share)
+        propertyShare.setOnClickListener { v ->
+            var intent = Intent(v.context, ShareActivity::class.java)
+            v.context.startActivity(intent)
+        }
+        return footerView
+    }
 
 
 }
