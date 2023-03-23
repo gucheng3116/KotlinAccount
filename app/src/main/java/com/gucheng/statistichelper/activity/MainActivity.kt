@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter: RecordAdapter
     lateinit var recyclerView: SwipeRecyclerView
-    val mDatas: ArrayList<ItemRecord> = ArrayList()
+    val mDataList: ArrayList<ItemRecord> = ArrayList()
     var amount = 0.0
     var amountView: TextView? = null
 
@@ -81,8 +81,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setSwipeMenuCreator(swipeMenuCreator)
         recyclerView.setOnItemMenuClickListener(mItemMenuClickListener)
-        adapter = RecordAdapter(this, mDatas)
-        var footer: View = buildFooterView()
+        adapter = RecordAdapter(this, mDataList)
+        val footer: View = buildFooterView()
         recyclerView.addFooterView(footer)
         recyclerView.adapter = adapter
 
@@ -92,8 +92,8 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
         viewModel.allRecords.observe(owner = this) { records ->
             records.let { records ->
-                mDatas.clear()
-                mDatas.addAll(records)
+                mDataList.clear()
+                mDataList.addAll(records)
                 adapter.notifyDataSetChanged()
             }
             var sum: Double = 0.0
@@ -400,16 +400,16 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             val toPosition = target.adapterPosition //得到目标ViewHolder的position
             if (fromPosition < toPosition) {
                 for (i in fromPosition until toPosition) {
-                    Collections.swap(mDatas, i, i + 1)
+                    Collections.swap(mDataList, i, i + 1)
                 }
             } else {
                 for (i in fromPosition downTo toPosition + 1) {
-                    Collections.swap(mDatas, i, i - 1)
+                    Collections.swap(mDataList, i, i - 1)
                 }
             }
             Log.d("Donald", "fromPosition is $fromPosition, toPosition is $toPosition")
-            for (i in 0 until mDatas.size) {
-                viewModel.updateRecordOrder(mDatas[i], i)
+            for (i in 0 until mDataList.size) {
+                viewModel.updateRecordOrder(mDataList[i], i)
             }
             adapter.notifyItemMoved(fromPosition, toPosition)
             return true
@@ -438,7 +438,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             menuBridge.closeMenu()
             val direction = menuBridge.direction // 左侧还是右侧菜单。
             val menuPosition = menuBridge.position // 菜单在RecyclerView的Item中的Position。
-            delete(mDatas[position])
+            delete(mDataList[position])
         }
 
 
