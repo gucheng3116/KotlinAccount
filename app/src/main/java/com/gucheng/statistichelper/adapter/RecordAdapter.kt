@@ -16,6 +16,7 @@ import com.gucheng.statistichelper.activity.KLineActivity
 import com.gucheng.statistichelper.activity.ShareActivity
 import com.gucheng.statistichelper.adapter.RecordAdapter.RecordViewHolder.Companion.amount
 import com.gucheng.statistichelper.database.entity.ItemRecord
+import com.gucheng.statistichelper.formatAmount
 import java.text.DecimalFormat
 
 class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
@@ -44,7 +45,7 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
                 var intent = Intent(itemView.context, ChangeDetailsActivity::class.java)
                 intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE, itemRecord.typeId)
                 intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME, itemRecord.typeName)
-                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE, itemRecord.amount.toString())
+                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE, itemRecord.amount?.run { Utils.formatAmount(this) }?.toString())
                 itemView.context.startActivity(intent)
             }
             editBtn.setOnClickListener {
@@ -74,7 +75,7 @@ class RecordAdapter(itemListener: ItemListener, list: List<ItemRecord>?) :
                 var intent = Intent(itemView.context, ChangeDetailsActivity::class.java)
                 intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE, -1)
                 intent.putExtra(ChangeDetailsActivity.EXTRA_TYPE_NAME, "总资产")
-                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE, amount.toString())
+                intent.putExtra(ChangeDetailsActivity.EXTRA_BALANCE, Utils.formatAmount(amount))
                 itemView.context.startActivity(intent)
             }
             val changeTrend: TextView = itemView.findViewById(R.id.change_trend)

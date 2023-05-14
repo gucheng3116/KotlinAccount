@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gucheng.statistichelper.R;
+import com.gucheng.statistichelper.Utils;
 import com.gucheng.statistichelper.database.entity.ChangeRecord;
 
 import org.jetbrains.annotations.NotNull;
@@ -38,14 +39,16 @@ public class ChangeDetailsAdapter extends RecyclerView.Adapter<ChangeDetailsAdap
         ChangeRecord record = mDatas.get(position);
         holder.dateTxt.setText(record.getCreateTime());
         if (record.getChangeAmount() > 0) {
-            holder.amountTxt.setText("+" + record.getChangeAmount());
+            holder.amountTxt.setText("+" + Utils.INSTANCE.formatAmount(record.getChangeAmount()));
         } else {
-            holder.amountTxt.setText(record.getChangeAmount().toString());
+            holder.amountTxt.setText(Utils.INSTANCE.formatAmount(record.getChangeAmount()));
         }
         holder.remarkTxt.setText(record.getRemark());
-//        holder.itemBalance.setText("余额: " + record.getBalance());
+//      holder.itemBalance.setText("余额: " + record.getBalance());
 
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -56,14 +59,16 @@ public class ChangeDetailsAdapter extends RecyclerView.Adapter<ChangeDetailsAdap
         TextView dateTxt;
         TextView amountTxt;
         TextView remarkTxt;
-        TextView itemBalance;
+//        TextView itemBalance;
         public ChangeViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             dateTxt = itemView.findViewById(R.id.date);
             amountTxt = itemView.findViewById(R.id.change_amount);
             remarkTxt = itemView.findViewById(R.id.remark);
-            itemBalance = itemView.findViewById(R.id.balance);
+//            itemBalance = itemView.findViewById(R.id.balance);
 
         }
     }
 }
+
+

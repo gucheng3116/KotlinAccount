@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.R
+import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.adapter.ChangeDetailsAdapter
 import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.vm.ChangeDetailViewModel
@@ -38,7 +39,9 @@ class ChangeDetailsActivity : AppCompatActivity() {
         mTypeName = intent.getStringExtra(EXTRA_TYPE_NAME)
         val nameTxt = findViewById<TextView>(R.id.type_name)
         val balanceTxt = findViewById<TextView>(R.id.balance)
-        balanceTxt.text = "当前金额: " + intent.getStringExtra(EXTRA_BALANCE)
+        val total = intent.getStringExtra(EXTRA_BALANCE)
+        total?.run { balanceTxt.text = "当前金额: " + Utils.formatAmount(total.toDouble()) }
+
         nameTxt.text = mTypeName
         mAdapter = ChangeDetailsAdapter(mDatas)
         mRecyclerView.adapter = mAdapter
@@ -56,7 +59,7 @@ class ChangeDetailsActivity : AppCompatActivity() {
             } else {
                 Log.d("change_detail","changeRecords is null")
             }
-            var balance = intent.getStringExtra(EXTRA_BALANCE)?.toDoubleOrNull()
+//            var balance = intent.getStringExtra(EXTRA_BALANCE)?.toDoubleOrNull()
             mRecyclerView.post {
                 mAdapter.notifyDataSetChanged()
             }

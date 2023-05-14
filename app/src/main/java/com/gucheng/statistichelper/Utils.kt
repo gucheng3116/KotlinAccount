@@ -7,9 +7,12 @@ import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Utils {
+fun Double.formatAmount(): String {
+    return String.format("%.2f", this)
+}
+// change following class to object
+object Utils {
 
-    companion object{
         private val APP_PREF_NAME = "statistic_helper"
 
         val APP_CHANNEL = ""
@@ -43,6 +46,5 @@ class Utils {
             val scale = context.resources.displayMetrics.density
             return (dp*scale + 0.5f).toInt()
         }
-    }
 
 }

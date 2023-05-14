@@ -81,6 +81,7 @@ abstract class AccountDatabase : RoomDatabase() {
                 INSTANCE?.let { database ->
                     scope.launch {
                         populateDatabase(database.itemRecordDao(), database.itemTypeDao())
+                        //optimize this code
                     }
                 }
             }
