@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">统计助手</string>
     <string name="add_item">新增资产</string>
-    <string name="button_save">保存</string>
+    <string name="button_save" translatable="false">保存</string>
     <string name="amount">金额</string>
     <string name="type">类型</string>
     <string name="please_input">请输入</string>
@@ -18,6 +18,10 @@
     <string name="property_statistc">资产统计</string>
     <string name="share_details">分布详情</string>
     <string name="warm_hint">温馨提示</string>
+    <string name="amount_cannot_be_null" translatable="false">金额不能为空</string>
+    <string name="type_cannot_be_null" translatable="false">类型不能为空</string>
+
+
 
     <string name="user_hint">亲爱的用户，感谢您下载统计助手。\n
         我们非常重视您的个人信息和隐私保护，为了更好地保护您的个人权益，我们根据相关的法律制定了

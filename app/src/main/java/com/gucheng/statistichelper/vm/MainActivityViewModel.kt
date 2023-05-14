@@ -22,7 +22,7 @@ class MainActivityViewModel(
 ) : ViewModel() {
     val allRecords: LiveData<List<ItemRecord>> = recordRepository.allRecords.asLiveData()
     val allTypes: LiveData<List<ItemType>> = typeRepository.allTypes.asLiveData()
-    lateinit var selectType: ItemType
+    var selectType: ItemType? = null
 
     fun insertRecord(itemRecord: ItemRecord) = viewModelScope.launch {
 

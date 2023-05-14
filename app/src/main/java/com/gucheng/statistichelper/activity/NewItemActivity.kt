@@ -3,9 +3,12 @@ package com.gucheng.statistichelper.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.ItemFragment
@@ -38,9 +41,21 @@ class NewItemActivity : AppCompatActivity(), ItemFragment.TypeSelectListener {
         val saveBtn = findViewById<Button>(R.id.button_save)
         saveBtn.setOnClickListener {
             val itemRecord = ItemRecord()
+            Log.d("Donald", "amountEdt.text is ${amountEdt.text}, size is ${amountEdt.text.length}")
+            if (TextUtils.isEmpty(amountEdt.text) || amountEdt.text.toString().equals("-")) {
+                Toast.makeText(this@NewItemActivity, R.string.amount_cannot_be_null, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (TextUtils.isEmpty(typeEdt.text)) {
+                Toast.makeText(this@NewItemActivity, R.string.type_cannot_be_null, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            if (viewModel.selectType == null) {
+                return@setOnClickListener
+            }
             itemRecord.amount = amountEdt.text.toString().toDouble()
-            itemRecord.typeName = viewModel.selectType.typeName
-            itemRecord.typeId = viewModel.selectType.id
+            itemRecord.typeName = viewModel.selectType!!.typeName
+            itemRecord.typeId = viewModel.selectType!!.id
             val intent = Intent()
             intent.putExtra(EXTRA_NEW_ITEM, itemRecord)
             setResult(RESULT_OK, intent)
