@@ -30,10 +30,10 @@ class VersionChecker {
     lateinit var context: Context
 
     @SuppressLint("CheckResult")
-    fun checkVersion(ctx: Context, manager: PackageManager, currentVersionName:String) {
+    fun checkVersion(ctx: Context, manager: PackageManager, currentVersionName:String,owner: String,repo: String) {
         packageManager = manager
         context = ctx
-        getLatestVersion().observeOn(AndroidSchedulers.mainThread()).subscribe {
+        getLatestVersion(owner, repo).observeOn(AndroidSchedulers.mainThread()).subscribe {
             Log.d(TAG, "checkVersion: $it")
             val jsonObject = JSONObject(it)
             val versionCode = jsonObject.getInt("id")
@@ -95,15 +95,8 @@ class VersionChecker {
 
     }
 
-    fun getLatestVersion(): Observable<String> {
-        //get latest version from github, owner is gucheng3116, repo is KotlinStudy
-        val owner = "gucheng3116"
-        val repo = "KotlinStudy"
-        val apiUrl = GITHUB_API_URL.replace("{owner}", owner).replace("{repo}", repo)
-
+    private fun getLatestVersion(owner: String, repo: String): Observable<String> {
         return Observable.just(1).observeOn(Schedulers.io()).map{
-            val owner = "gucheng3116"
-            val repo = "KotlinStudy"
             val apiUrl = GITHUB_API_URL.replace("{owner}", owner).replace("{repo}", repo)
             Log.i("Donald", "name is ${Thread.currentThread().name}")
             println("name is ${Thread.currentThread().name}")

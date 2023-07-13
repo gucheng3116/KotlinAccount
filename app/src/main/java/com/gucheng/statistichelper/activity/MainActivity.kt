@@ -119,7 +119,13 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 recyclerView.visibility = View.VISIBLE
             }
         }
-        VersionChecker().checkVersion(this,packageManager, BuildConfig.VERSION_NAME)
+        VersionChecker().checkVersion(
+            this,
+            packageManager,
+            BuildConfig.VERSION_NAME,
+            "gucheng3116",
+            "KotlinStudy"
+        )
     }
 
 
