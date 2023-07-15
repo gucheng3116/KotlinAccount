@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             packageManager,
             BuildConfig.VERSION_NAME,
             "gucheng3116",
-            "KotlinStudy"
+            "StatisticHelperRelease"
         )
     }
 
