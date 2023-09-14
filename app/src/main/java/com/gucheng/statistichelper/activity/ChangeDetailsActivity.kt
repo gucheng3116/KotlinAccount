@@ -55,6 +55,7 @@ class ChangeDetailsActivity : AppCompatActivity() {
             }
             if (changeRecords != null) {
                 Log.d("change_detail","changeRecords size is " + changeRecords.size)
+                updateChangeRecords(changeRecords, total?.toDoubleOrNull() ?: 0.0)
                 mDatas.addAll(changeRecords)
             } else {
                 Log.d("change_detail","changeRecords is null")
@@ -65,6 +66,19 @@ class ChangeDetailsActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    fun updateChangeRecords(changeRecords:List<ChangeRecord>, total:Double) {
+        if (changeRecords[0].amountAfterModified == 0.0) {
+            changeRecords[0].amountAfterModified = total
+        }
+        for (i in 1 until changeRecords.size) {
+            if (changeRecords[i].amountAfterModified == 0.0) {
+                if (i > 0) {
+                    changeRecords[i].amountAfterModified = changeRecords[i - 1].amountAfterModified - (changeRecords[i-1].changeAmount?:0.0)
+                }
+            }
+        }
     }
 
     companion object {

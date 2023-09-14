@@ -44,6 +44,10 @@ public class ChangeDetailsAdapter extends RecyclerView.Adapter<ChangeDetailsAdap
             holder.amountTxt.setText(Utils.INSTANCE.formatAmount(record.getChangeAmount()));
         }
         holder.remarkTxt.setText(record.getRemark());
+        holder.amountAfterModified.setText(Utils.INSTANCE.formatAmount(record.getAmountAfterModified()));
+        if (record.getAmountAfterModified() == 0.0) {
+            holder.amountAfterModified.setVisibility(View.GONE);
+        }
 //      holder.itemBalance.setText("余额: " + record.getBalance());
 
     }
@@ -59,12 +63,16 @@ public class ChangeDetailsAdapter extends RecyclerView.Adapter<ChangeDetailsAdap
         TextView dateTxt;
         TextView amountTxt;
         TextView remarkTxt;
-//        TextView itemBalance;
+        View balanceLayout;
+
+        TextView amountAfterModified;
         public ChangeViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
             dateTxt = itemView.findViewById(R.id.date);
             amountTxt = itemView.findViewById(R.id.change_amount);
             remarkTxt = itemView.findViewById(R.id.remark);
+            amountAfterModified = itemView.findViewById(R.id.amount_after_change);
+            balanceLayout = itemView.findViewById(R.id.balance_layout);
 //            itemBalance = itemView.findViewById(R.id.balance);
 
         }
