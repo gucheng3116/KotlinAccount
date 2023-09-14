@@ -15,5 +15,6 @@ data class ChangeRecord (
     var changeAmount: Double? = 0.0,
     var remark:String?,
     var typeId:Int,
-    var typeName:String
+    var typeName:String,
+    var amountAfterModified: Double = 0.0
 )

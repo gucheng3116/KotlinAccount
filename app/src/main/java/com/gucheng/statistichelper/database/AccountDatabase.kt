@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @Database(
     entities = [ItemRecord::class, ItemType::class, DailyReport::class, ChangeRecord::class],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class AccountDatabase : RoomDatabase() {
@@ -58,6 +58,12 @@ abstract class AccountDatabase : RoomDatabase() {
             }
         }
 
+        val MIGARATION_6_7 = object : Migration(6,7) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                database.execSQL("ALTER TABLE change_record ADD COLUMN amountAfterModified DOUBLE default 0.0 NOT NULL")
+            }
+        }
+
         fun getDatabase(
             context: Context,
             scope: CoroutineScope
@@ -68,7 +74,8 @@ abstract class AccountDatabase : RoomDatabase() {
                     AccountDatabase::class.java,
                     "account_database"
                 ).addCallback(AccountDatabaseCallback(scope))
-                    .addMigrations(MIGARATION_3_4, MIGARATION_4_5, MIGARATION_5_6).build()
+                    .addMigrations(MIGARATION_3_4, MIGARATION_4_5, MIGARATION_5_6, MIGARATION_6_7)
+                    .build()
                 INSTANCE = instance
                 instance
             }
