@@ -43,7 +43,7 @@ class ChangeDetailsActivity : AppCompatActivity() {
         total?.run { balanceTxt.text = "当前金额: " + Utils.formatAmount(total.toDouble()) }
 
         nameTxt.text = mTypeName
-        mAdapter = ChangeDetailsAdapter(mDatas)
+        mAdapter = ChangeDetailsAdapter(mDatas, mType)
         mRecyclerView.adapter = mAdapter
         val scope = CoroutineScope(Job())
         scope.launch {
@@ -69,11 +69,14 @@ class ChangeDetailsActivity : AppCompatActivity() {
     }
 
     fun updateChangeRecords(changeRecords:List<ChangeRecord>, total:Double) {
-        if (changeRecords[0].amountAfterModified == 0.0) {
+        if (changeRecords.isEmpty()) {
+            return
+        }
+        if (changeRecords[0].amountAfterModified == 0.0 || mType == -1) {
             changeRecords[0].amountAfterModified = total
         }
         for (i in 1 until changeRecords.size) {
-            if (changeRecords[i].amountAfterModified == 0.0) {
+            if (changeRecords[i].amountAfterModified == 0.0 || mType == -1) {
                 if (i > 0) {
                     changeRecords[i].amountAfterModified = changeRecords[i - 1].amountAfterModified - (changeRecords[i-1].changeAmount?:0.0)
                 }

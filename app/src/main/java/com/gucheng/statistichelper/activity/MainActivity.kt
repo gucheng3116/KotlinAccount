@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 mDataList.addAll(records)
                 adapter.notifyDataSetChanged()
             }
-            var sum: Double = 0.0
+            var sum = 0.0
 
             adapter.setTotalAmount(records.let {
                 var item: ItemRecord? = null
@@ -212,29 +212,44 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (REQUEST_CODE_NEW_ITEM == requestCode && RESULT_OK == resultCode) {
-            var itemRecord = data?.getParcelableExtra<ItemRecord>(NewItemActivity.EXTRA_NEW_ITEM)
+            val itemRecord = data?.getParcelableExtra<ItemRecord>(NewItemActivity.EXTRA_NEW_ITEM)
             if (itemRecord != null) {
                 viewModel.insertRecord(itemRecord)
+                val changeRecord = ChangeRecord()
+                changeRecord.changeAmount = itemRecord.amount
+                changeRecord.remark = getString(R.string.new_add)
+                changeRecord.amountAfterModified = itemRecord.amount?:0.0
+                changeRecord.typeId = itemRecord.typeId?:-1
+                changeRecord.typeName = itemRecord.typeName?:""
+                viewModel.insertChangeRecord(changeRecord)
+
             }
         }
     }
 
     override fun delete(record: ItemRecord) {
 
-        var builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
         builder.setMessage(R.string.confirm_delete)
             .setPositiveButton(R.string.confirm, { dialog, id ->
                 viewModel.deleteTypeRecord(record)
+                val changeRecord = ChangeRecord()
+                changeRecord.changeAmount = -1 * (record.amount ?: 0.0)
+                changeRecord.remark = getString(R.string.delete)
+                changeRecord.amountAfterModified = 0.0
+                changeRecord.typeId = record.typeId ?: -1
+                changeRecord.typeName = record.typeName ?: ""
+                viewModel.insertChangeRecord(changeRecord)
             }).setNegativeButton(R.string.cancel, null)
-        var dialog = builder.create()
+        val dialog = builder.create()
         dialog.show()
     }
 
     override fun edit(record: ItemRecord) {
         val view = LayoutInflater.from(this).inflate(R.layout.record_edit_item, null)
-        var amountEdt = view.findViewById<EditText>(R.id.amount)
-        var layout = view.findViewById<LinearLayout>(R.id.change_layout)
-        var changeAmountText = view.findViewById<TextView>(R.id.change_amount)
+        val amountEdt = view.findViewById<EditText>(R.id.amount)
+        val layout = view.findViewById<LinearLayout>(R.id.change_layout)
+        val changeAmountText = view.findViewById<TextView>(R.id.change_amount)
         val signEdt = view.findViewById<View>(R.id.sign)
         signEdt.setOnClickListener {
             onClickSign(amountEdt)
@@ -262,13 +277,13 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
         }
         amountEdt.addTextChangedListener(textWatcher)
-        var typeText = view.findViewById<TextView>(R.id.type)
+        val typeText = view.findViewById<TextView>(R.id.type)
         typeText.setText(record.typeName)
-        var builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
         builder.setView(view).setTitle(R.string.edit_record)
             .setNegativeButton(R.string.cancel, null)
             .setPositiveButton(R.string.confirm, { id, dialog ->
-                var changeRecord = ChangeRecord(
+                val changeRecord = ChangeRecord(
                     typeId = record.typeId ?: 0,
                     typeName = record.typeName ?: "",
                     id = null,
@@ -294,7 +309,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             }).setNeutralButton(R.string.delete, { id, dialog ->
                 delete(record)
             })
-        var dialog = builder.create()
+        val dialog = builder.create()
         dialog.show()
 
     }
@@ -310,23 +325,23 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     }
 
     private fun showUserProtocol() {
-        var builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(this)
 //        builder.setMessage(R.string.confirm_delete)
 //            .setPositiveButton(R.string.confirm, { dialog, id ->
 //                viewModel.deleteTypeRecord(record)
 //            }).setNegativeButton(R.string.cancel, null)
-        var view = LayoutInflater.from(this).inflate(R.layout.user_protocol, null);
+        val view = LayoutInflater.from(this).inflate(R.layout.user_protocol, null);
         builder.setView(view).setCancelable(false)
-        var dialog = builder.create()
-        var userPromptTxt = view.findViewById<TextView>(R.id.user_hint)
-        var userHint = getString(R.string.user_hint)
-        var privacyString = getString(R.string.privacy_policy)
-        var serviceString = getString(R.string.service_protocol)
-        var privacyStart = userHint.indexOf(privacyString)
-        var privacyEnd = privacyStart + privacyString.length
-        var serviceStart = userHint.indexOf(serviceString)
-        var serviceEnd = serviceStart + serviceString.length
-        var sp = SpannableString(getString(R.string.user_hint))
+        val dialog = builder.create()
+        val userPromptTxt = view.findViewById<TextView>(R.id.user_hint)
+        val userHint = getString(R.string.user_hint)
+        val privacyString = getString(R.string.privacy_policy)
+        val serviceString = getString(R.string.service_protocol)
+        val privacyStart = userHint.indexOf(privacyString)
+        val privacyEnd = privacyStart + privacyString.length
+        val serviceStart = userHint.indexOf(serviceString)
+        val serviceEnd = serviceStart + serviceString.length
+        val sp = SpannableString(getString(R.string.user_hint))
         userPromptTxt.movementMethod = LinkMovementMethod.getInstance()
         sp.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
@@ -468,13 +483,13 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         }
 
         val changeTrend: TextView = footerView.findViewById(R.id.change_trend)
-        changeTrend?.setOnClickListener { v ->
-            var intent = Intent(v.context, KLineActivity::class.java)
+        changeTrend.setOnClickListener { v ->
+            val intent = Intent(v.context, KLineActivity::class.java)
             v.context.startActivity(intent)
         }
         val propertyShare: TextView = footerView.findViewById(R.id.property_share)
         propertyShare.setOnClickListener { v ->
-            var intent = Intent(v.context, ShareActivity::class.java)
+            val intent = Intent(v.context, ShareActivity::class.java)
             v.context.startActivity(intent)
         }
         return footerView

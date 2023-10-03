@@ -10,11 +10,11 @@ import com.gucheng.statistichelper.Utils
  */
 @Entity(tableName = "change_record")
 data class ChangeRecord (
-    @PrimaryKey(autoGenerate = true) var id: Int?,
+    @PrimaryKey(autoGenerate = true) var id: Int? = null,
     var createTime: String? = Utils.timestampToDate(System.currentTimeMillis()),
     var changeAmount: Double? = 0.0,
-    var remark:String?,
-    var typeId:Int,
-    var typeName:String,
+    var remark:String? = "",
+    var typeId:Int = 0,
+    var typeName:String = "",
     var amountAfterModified: Double = 0.0
 )

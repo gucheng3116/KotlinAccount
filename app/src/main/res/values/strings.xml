@@ -104,5 +104,7 @@
     <string name="week_k">周K</string>
     <string name="day_k">日K</string>
     <string name="balance">余额</string>
+    <string name="new_add">新增</string>
+
 
 </resources>
