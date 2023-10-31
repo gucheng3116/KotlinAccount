@@ -20,9 +20,7 @@ import androidx.biometric.BiometricPrompt
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.gucheng.checkversion.VersionChecker
 import com.gucheng.statistichelper.AccountApplication
-import com.gucheng.statistichelper.BuildConfig
 import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.adapter.RecordAdapter
@@ -119,13 +117,13 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 recyclerView.visibility = View.VISIBLE
             }
         }
-        VersionChecker().checkVersion(
-            this,
-            packageManager,
-            BuildConfig.VERSION_NAME,
-            "gucheng3116",
-            "StatisticHelperRelease"
-        )
+//        VersionChecker().checkVersion(
+//            this,
+//            packageManager,
+//            BuildConfig.VERSION_NAME,
+//            "gucheng3116",
+//            "StatisticHelperRelease"
+//        )
     }
 
 
