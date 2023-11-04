@@ -115,8 +115,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // 友盟基础组件库（所有友盟业务SDK都依赖基础组件库）
-    implementation "com.umeng.umsdk:common:9.5.2"
-    implementation "com.umeng.umsdk:asms:1.2.3" // asms包依赖(必选)
+    implementation "com.umeng.umsdk:common:9.6.3"
+    implementation "com.umeng.umsdk:asms:1.8.0" // asms包依赖(必选)
 
     def room_version = "2.3.0"
 
