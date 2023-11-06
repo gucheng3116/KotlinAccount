@@ -21,6 +21,10 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.gucheng.statistichelper.AccountApplication
+import com.gucheng.statistichelper.ProtocolUtil
+import com.gucheng.statistichelper.ProtocolUtil.KEY_AGREE_USER_PROTOCOL
+import com.gucheng.statistichelper.ProtocolUtil.KEY_VERSION_OF_AGREE_USER_PROTOCOL
+import com.gucheng.statistichelper.ProtocolUtil.current_protocol_version
 import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.adapter.RecordAdapter
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val TAG = "MainActivity";
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
-    private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
+//    private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter: RecordAdapter
     lateinit var recyclerView: SwipeRecyclerView
     val mDataList: ArrayList<ItemRecord> = ArrayList()
@@ -60,7 +64,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setTitle(getString(R.string.property_statistc))
-        if (!isAgreeUserProtocol()) {
+        if (!ProtocolUtil.isAgreeLatestVersion(this)) {
             showUserProtocol()
         } else {
             UMConfigure.init(
@@ -365,6 +369,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         agreeBtn.setOnClickListener {
             var editor = Utils.getAppPref(this).edit()
             editor.putBoolean(KEY_AGREE_USER_PROTOCOL, true)
+            editor.putInt(KEY_VERSION_OF_AGREE_USER_PROTOCOL, current_protocol_version)
             editor.apply()
             dialog.dismiss()
             UMConfigure.init(
@@ -384,10 +389,10 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         dialog.show()
     }
 
-    private fun isAgreeUserProtocol(): Boolean {
-        var prefs: SharedPreferences = Utils.getAppPref(this)
-        return prefs.getBoolean(KEY_AGREE_USER_PROTOCOL, false)
-    }
+//    private fun isAgreeUserProtocol(): Boolean {
+//        var prefs: SharedPreferences = Utils.getAppPref(this)
+//        return prefs.getBoolean(KEY_AGREE_USER_PROTOCOL, false)
+//    }
 
     override fun onDestroy() {
         adapter.unRegisterListener()
