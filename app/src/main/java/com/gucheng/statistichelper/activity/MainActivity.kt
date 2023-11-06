@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     val TAG = "MainActivity";
     val handler = Handler();
     private val REQUEST_CODE_NEW_ITEM = 1
-//    private val KEY_AGREE_USER_PROTOCOL = "agree_user_protocol"
     private lateinit var adapter: RecordAdapter
     lateinit var recyclerView: SwipeRecyclerView
     val mDataList: ArrayList<ItemRecord> = ArrayList()
@@ -328,10 +327,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
     private fun showUserProtocol() {
         val builder = AlertDialog.Builder(this)
-//        builder.setMessage(R.string.confirm_delete)
-//            .setPositiveButton(R.string.confirm, { dialog, id ->
-//                viewModel.deleteTypeRecord(record)
-//            }).setNegativeButton(R.string.cancel, null)
         val view = LayoutInflater.from(this).inflate(R.layout.user_protocol, null);
         builder.setView(view).setCancelable(false)
         val dialog = builder.create()
@@ -353,7 +348,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             }
         }, privacyStart, privacyEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         sp.setSpan(Color.BLUE, privacyStart, privacyEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-
         sp.setSpan(object : ClickableSpan() {
             override fun onClick(widget: View) {
                 val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
@@ -388,11 +382,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         }
         dialog.show()
     }
-
-//    private fun isAgreeUserProtocol(): Boolean {
-//        var prefs: SharedPreferences = Utils.getAppPref(this)
-//        return prefs.getBoolean(KEY_AGREE_USER_PROTOCOL, false)
-//    }
 
     override fun onDestroy() {
         adapter.unRegisterListener()
