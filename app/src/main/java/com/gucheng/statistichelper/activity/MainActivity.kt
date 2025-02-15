@@ -1,7 +1,6 @@
 package com.gucheng.statistichelper.activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -12,15 +11,12 @@ import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.*
 import android.widget.*
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.ProtocolUtil
 import com.gucheng.statistichelper.ProtocolUtil.KEY_AGREE_USER_PROTOCOL
 import com.gucheng.statistichelper.ProtocolUtil.KEY_VERSION_OF_AGREE_USER_PROTOCOL
@@ -28,11 +24,8 @@ import com.gucheng.statistichelper.ProtocolUtil.current_protocol_version
 import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.adapter.RecordAdapter
-import com.gucheng.statistichelper.database.MainActivityViewModel
-import com.gucheng.statistichelper.database.MainActivityViewModelFactory
 import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.ItemRecord
-import com.tencent.bugly.Bugly
 import com.umeng.commonsdk.UMConfigure
 import com.yanzhenjie.recyclerview.*
 import java.util.*
@@ -49,31 +42,32 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     var amount = 0.0
     var amountView: TextView? = null
 
-    private val viewModel: MainActivityViewModel by viewModels {
-        MainActivityViewModelFactory(
-            (application as AccountApplication).itemRepository,
-            (application as AccountApplication).typeRepository,
-            (application as AccountApplication).dailyReportRepository,
-            (application as AccountApplication).changeRecordRepository
-        )
-    }
+//    private val viewModel: MainActivityViewModel by viewModels {
+//        MainActivityViewModelFactory(
+//            (application as AccountApplication).itemRepository,
+//            (application as AccountApplication).typeRepository,
+//            (application as AccountApplication).dailyReportRepository,
+//            (application as AccountApplication).changeRecordRepository
+//        )
+//    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i("Donald", "MainActivity onCreate ")
         setContentView(R.layout.activity_main)
         setTitle(getString(R.string.property_statistc))
         if (!ProtocolUtil.isAgreeLatestVersion(this)) {
             showUserProtocol()
         } else {
-            UMConfigure.init(
-                this,
-                Utils.UMEN_KEY,
-                Utils.APP_CHANNEL,
-                UMConfigure.DEVICE_TYPE_PHONE,
-                null
-            )
-            Bugly.init(getApplicationContext(), "0d3fd3563c", false)
+//            UMConfigure.init(
+//                this,
+//                Utils.UMEN_KEY,
+//                Utils.APP_CHANNEL,
+//                UMConfigure.DEVICE_TYPE_PHONE,
+//                null
+//            )
+//            Bugly.init(getApplicationContext(), "0d3fd3563c", false)
         }
         val fab = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         fab.setOnClickListener {
@@ -93,7 +87,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
 
         var emptyView = findViewById<View>(R.id.empty_view)
 
-        viewModel.allRecords.observe(owner = this) { records ->
+    /*    viewModel.allRecords.observe(owner = this) { records ->
             records.let { records ->
                 mDataList.clear()
                 mDataList.addAll(records)
@@ -119,7 +113,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 emptyView.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
             }
-        }
+        }*/
 //        VersionChecker().checkVersion(
 //            this,
 //            packageManager,
@@ -136,22 +130,22 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        super.onOptionsItemSelected(item)
-        when (item.itemId) {
-            R.id.privacy_protocal -> {
-                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
-                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PRIVACY)
-                startActivity(intent)
-            }
-            R.id.user_protocal -> {
-                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
-                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PROTOCOL)
-                startActivity(intent)
-            }
-        }
-        return true
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        super.onOptionsItemSelected(item)
+//        when (item.itemId) {
+//            R.id.privacy_protocal -> {
+//                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
+//                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PRIVACY)
+//                startActivity(intent)
+//            }
+//            R.id.user_protocal -> {
+//                val intent = Intent(this@MainActivity, ProtocolActivity::class.java)
+//                intent.putExtra(ProtocolActivity.PROTOCOL_TYPE, ProtocolActivity.MODE_PROTOCOL)
+//                startActivity(intent)
+//            }
+//        }
+//        return true
+//    }
 
     private val executor = Executor { command -> handler.post(command) }
 
@@ -215,14 +209,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         if (REQUEST_CODE_NEW_ITEM == requestCode && RESULT_OK == resultCode) {
             val itemRecord = data?.getParcelableExtra<ItemRecord>(NewItemActivity.EXTRA_NEW_ITEM)
             if (itemRecord != null) {
-                viewModel.insertRecord(itemRecord)
+//                viewModel.insertRecord(itemRecord)
                 val changeRecord = ChangeRecord()
                 changeRecord.changeAmount = itemRecord.amount
                 changeRecord.remark = getString(R.string.new_add)
                 changeRecord.amountAfterModified = itemRecord.amount?:0.0
                 changeRecord.typeId = itemRecord.typeId?:-1
                 changeRecord.typeName = itemRecord.typeName?:""
-                viewModel.insertChangeRecord(changeRecord)
+//                viewModel.insertChangeRecord(changeRecord)
 
             }
         }
@@ -233,14 +227,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(R.string.confirm_delete)
             .setPositiveButton(R.string.confirm, { dialog, id ->
-                viewModel.deleteTypeRecord(record)
+//                viewModel.deleteTypeRecord(record)
                 val changeRecord = ChangeRecord()
                 changeRecord.changeAmount = -1 * (record.amount ?: 0.0)
                 changeRecord.remark = getString(R.string.delete)
                 changeRecord.amountAfterModified = 0.0
                 changeRecord.typeId = record.typeId ?: -1
                 changeRecord.typeName = record.typeName ?: ""
-                viewModel.insertChangeRecord(changeRecord)
+//                viewModel.insertChangeRecord(changeRecord)
             }).setNegativeButton(R.string.cancel, null)
         val dialog = builder.create()
         dialog.show()
@@ -298,9 +292,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 }
                 record.amount = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 changeRecord.remark = view.findViewById<EditText>(R.id.remark).text.toString()
-                viewModel.insertChangeRecord(changeRecord)
+//                viewModel.insertChangeRecord(changeRecord)
                 record.createTime = Utils.timestampToDate(System.currentTimeMillis())
-                viewModel.insertRecord(record)
+//                viewModel.insertRecord(record)
 
                 Log.d(
                     "gucheng",
@@ -373,7 +367,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 UMConfigure.DEVICE_TYPE_PHONE,
                 null
             )
-            Bugly.init(getApplicationContext(), "0d3fd3563c", false)
+//            Bugly.init(getApplicationContext(), "0d3fd3563c", false)
         }
         val cancelBtn = view.findViewById<Button>(R.id.cancel)
         cancelBtn.setOnClickListener {
@@ -425,9 +419,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 }
             }
             Log.d("Donald", "fromPosition is $fromPosition, toPosition is $toPosition")
-            for (i in 0 until mDataList.size) {
-                viewModel.updateRecordOrder(mDataList[i], i)
-            }
+//            for (i in 0 until mDataList.size) {
+//                viewModel.updateRecordOrder(mDataList[i], i)
+//            }
             adapter.notifyItemMoved(fromPosition, toPosition)
             return true
         }
