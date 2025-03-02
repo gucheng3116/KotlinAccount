@@ -9,12 +9,12 @@ static def releaseTime() {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.gucheng.statistic.helper"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 8
         versionName "1.3.6"
 
