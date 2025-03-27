@@ -26,8 +26,8 @@ class AccountApplication : Application() {
         init()
         val name = packageManager.getPackageInfo(packageName, 0).versionName
         Log.d("Donald", "version name is $name")
-        val versionCode = BuildConfig.VERSION_CODE
-        Log.d("Donald", "version code is $versionCode")
+//        val versionCode = packageManager.getPackageInfo(packageName, 0).versionCode
+//        Log.d("Donald", "version code is $versionCode")
 //        VersionChecker().checkVersion(this)
     }
 
