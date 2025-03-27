@@ -11,12 +11,14 @@ import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.recyclerview.widget.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.gucheng.statistichelper.AccountApplication
 import com.gucheng.statistichelper.ProtocolUtil
 import com.gucheng.statistichelper.ProtocolUtil.KEY_AGREE_USER_PROTOCOL
 import com.gucheng.statistichelper.ProtocolUtil.KEY_VERSION_OF_AGREE_USER_PROTOCOL
@@ -24,6 +26,8 @@ import com.gucheng.statistichelper.ProtocolUtil.current_protocol_version
 import com.gucheng.statistichelper.R
 import com.gucheng.statistichelper.Utils
 import com.gucheng.statistichelper.adapter.RecordAdapter
+import com.gucheng.statistichelper.database.MainActivityViewModel
+import com.gucheng.statistichelper.database.MainActivityViewModelFactory
 import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.ItemRecord
 import com.umeng.commonsdk.UMConfigure
@@ -42,14 +46,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
     var amount = 0.0
     var amountView: TextView? = null
 
-//    private val viewModel: MainActivityViewModel by viewModels {
-//        MainActivityViewModelFactory(
-//            (application as AccountApplication).itemRepository,
-//            (application as AccountApplication).typeRepository,
-//            (application as AccountApplication).dailyReportRepository,
-//            (application as AccountApplication).changeRecordRepository
-//        )
-//    }
+    private val viewModel: MainActivityViewModel by viewModels {
+        MainActivityViewModelFactory(
+            (application as AccountApplication).itemRepository,
+            (application as AccountApplication).typeRepository,
+            (application as AccountApplication).dailyReportRepository,
+            (application as AccountApplication).changeRecordRepository
+        )
+    }
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
