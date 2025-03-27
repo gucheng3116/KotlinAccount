@@ -90,8 +90,11 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
         var emptyView = findViewById<View>(R.id.empty_view)
+//        viewModel.allRecords.observe(this){
 
-    /*    viewModel.allRecords.observe(owner = this) { records ->
+//        }
+
+        viewModel.allRecords.observe(this) { records ->
             records.let { records ->
                 mDataList.clear()
                 mDataList.addAll(records)
@@ -117,7 +120,7 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 emptyView.visibility = View.GONE
                 recyclerView.visibility = View.VISIBLE
             }
-        }*/
+        }
 //        VersionChecker().checkVersion(
 //            this,
 //            packageManager,
@@ -213,14 +216,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         if (REQUEST_CODE_NEW_ITEM == requestCode && RESULT_OK == resultCode) {
             val itemRecord = data?.getParcelableExtra<ItemRecord>(NewItemActivity.EXTRA_NEW_ITEM)
             if (itemRecord != null) {
-//                viewModel.insertRecord(itemRecord)
+                viewModel.insertRecord(itemRecord)
                 val changeRecord = ChangeRecord()
                 changeRecord.changeAmount = itemRecord.amount
                 changeRecord.remark = getString(R.string.new_add)
                 changeRecord.amountAfterModified = itemRecord.amount?:0.0
                 changeRecord.typeId = itemRecord.typeId?:-1
                 changeRecord.typeName = itemRecord.typeName?:""
-//                viewModel.insertChangeRecord(changeRecord)
+                viewModel.insertChangeRecord(changeRecord)
 
             }
         }
