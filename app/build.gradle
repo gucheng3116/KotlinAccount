@@ -10,7 +10,7 @@ static def releaseTime() {
 }
 
 android {
-    compileSdkVersion 34
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.gucheng.statistic.helper"
