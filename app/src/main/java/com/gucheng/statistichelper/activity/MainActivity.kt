@@ -234,14 +234,14 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(R.string.confirm_delete)
             .setPositiveButton(R.string.confirm, { dialog, id ->
-//                viewModel.deleteTypeRecord(record)
+                viewModel.deleteTypeRecord(record)
                 val changeRecord = ChangeRecord()
                 changeRecord.changeAmount = -1 * (record.amount ?: 0.0)
                 changeRecord.remark = getString(R.string.delete)
                 changeRecord.amountAfterModified = 0.0
                 changeRecord.typeId = record.typeId ?: -1
                 changeRecord.typeName = record.typeName ?: ""
-//                viewModel.insertChangeRecord(changeRecord)
+                viewModel.insertChangeRecord(changeRecord)
             }).setNegativeButton(R.string.cancel, null)
         val dialog = builder.create()
         dialog.show()
@@ -299,9 +299,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 }
                 record.amount = amountEdt.text.toString().toDoubleOrNull() ?: 0.0
                 changeRecord.remark = view.findViewById<EditText>(R.id.remark).text.toString()
-//                viewModel.insertChangeRecord(changeRecord)
+                viewModel.insertChangeRecord(changeRecord)
                 record.createTime = Utils.timestampToDate(System.currentTimeMillis())
-//                viewModel.insertRecord(record)
+                viewModel.insertRecord(record)
 
                 Log.d(
                     "gucheng",
@@ -426,9 +426,9 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
                 }
             }
             Log.d("Donald", "fromPosition is $fromPosition, toPosition is $toPosition")
-//            for (i in 0 until mDataList.size) {
-//                viewModel.updateRecordOrder(mDataList[i], i)
-//            }
+            for (i in 0 until mDataList.size) {
+                viewModel.updateRecordOrder(mDataList[i], i)
+            }
             adapter.notifyItemMoved(fromPosition, toPosition)
             return true
         }
