@@ -6,6 +6,7 @@ import android.text.TextUtils
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 fun Double.formatAmount(): String {
     return String.format("%.2f", this)
@@ -22,18 +23,18 @@ object Utils {
     val APP_CHANNEL = ""
     const val UMEN_KEY = "610e49de3451547e683fecae"
 
-    val TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
-    fun timestampToDate(milli: Long): String {
-        var format: SimpleDateFormat = SimpleDateFormat(TIME_FORMAT)
-        return format.format(Date(milli))
+    const val TIME_FORMAT = "yyyy-MM-dd HH:mm:ss"
+    fun timestampToDate(milli: Long, format: String = TIME_FORMAT): String {
+        var dateFormat: SimpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
+        return dateFormat.format(Date(milli))
     }
 
-    fun dateToTimestamp(date: String?): Long {
+    fun dateToTimestamp(date: String?, format: String = TIME_FORMAT): Long {
         if (TextUtils.isEmpty(date)) {
             return 0;
         }
-        var format = SimpleDateFormat(TIME_FORMAT)
-        var date2 = format.parse(date)
+        var dateFormat = SimpleDateFormat(format, Locale.getDefault())
+        var date2 = dateFormat.parse(date)
         return date2.time
     }
 

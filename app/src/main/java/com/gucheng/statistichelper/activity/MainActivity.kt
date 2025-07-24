@@ -103,7 +103,6 @@ class MainActivity : AppCompatActivity(), RecordAdapter.ItemListener {
             var sum = 0.0
 
             adapter.setTotalAmount(records.let {
-                var item: ItemRecord? = null
                 for (item in it) {
                     if (item.amount != null) {
                         sum += item.amount!!

@@ -2,8 +2,6 @@ package com.gucheng.statistichelper.database
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.gucheng.statistichelper.Utils
-import com.gucheng.statistichelper.database.dao.ChangeRecordDao
 import com.gucheng.statistichelper.database.entity.ChangeRecord
 import com.gucheng.statistichelper.database.entity.DailyReport
 import com.gucheng.statistichelper.database.entity.ItemRecord
@@ -13,6 +11,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import kotlin.coroutines.suspendCoroutine
+import com.gucheng.statistichelper.Utils
+import kotlinx.coroutines.withContext
+import org.json.JSONArray
+
 
 class MainActivityViewModel(
     private val recordRepository: ItemRecordRepository,
@@ -75,6 +77,49 @@ class MainActivityViewModel(
 
     fun insertChangeRecord(changeRecord : ChangeRecord) = viewModelScope.launch {
         changeRecordReposity.insertRecord(changeRecord)
+        withContext(Dispatchers.IO) {
+            // 在IO线程中执行数据库操作
+            Log.d("gucheng", "insertChangeRecord thread id is " + Thread.currentThread().id
+                    + ",name is " + Thread.currentThread().name)
+            var records:List<ItemRecord> = recordRepository.getAllRecordByTime()
+            if (records.isEmpty()) {
+                // 如果没有记录，则插入一条默认的日报
+                return@withContext
+            }
+            val jsonArray = JSONArray()
+            for (item in records) {
+                val obj = JSONObject()
+                obj.put("typeId", item.typeId)
+                obj.put("amount", item.amount)
+                obj.put("typeName", item.typeName)
+                jsonArray.put(obj)
+            }
+            val itemsJson = jsonArray.toString()
+            val dailyReport = DailyReport(
+                items = itemsJson,
+                total = records.sumOf { it.amount ?: 0.0 },
+                date = Utils.timestampToDate(System.currentTimeMillis(), "yyyy-MM-dd"),
+                createTime = Utils.timestampToDate(System.currentTimeMillis())
+            )
+
+            // 获取今天的日期字符串
+            val today = Utils.timestampToDate(System.currentTimeMillis(), "yyyy-MM-dd")
+
+            // 查询今天的日报
+            val todayReports = dailyReportRepository.queryDateReport(today)
+            if (todayReports.isNotEmpty()) {
+                // 更新已有日报
+                val reportToUpdate = todayReports[0].copy(
+                    items = itemsJson,
+                    total = dailyReport.total,
+                )
+                dailyReportRepository.update(reportToUpdate)
+            } else {
+                // 插入新日报
+                dailyReportRepository.insertDailyReport(dailyReport)
+            }
+        }
+
     }
 
 }

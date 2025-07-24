@@ -41,4 +41,16 @@ class DailyReportRepository(private val dailyReportDao: DailyReportDao) {
         return dailyReportDao.queryWeeklyReport()
     }
 
+    suspend fun insertDailyReport(dailyReport: DailyReport) {
+        dailyReportDao.insert(dailyReport)
+    }
+
+    suspend fun update(dailyReport: DailyReport) {
+        dailyReportDao.update(dailyReport)
+    }
+
+    suspend fun queryDateReport(date: String): List<DailyReport> {
+        return dailyReportDao.queryDateReport(date)
+    }
+
 }
